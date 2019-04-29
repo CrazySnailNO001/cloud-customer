@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author XZHH
- * @Description:
+ * @Description:    feign实现服务调用
  * @create 2019/4/28 0028 14:51
  * @modify By:
  **/

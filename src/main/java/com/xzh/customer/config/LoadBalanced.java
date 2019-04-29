@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author XZHH
- * @Description:
+ * @Description:    负载均衡
  * @create 2019/4/28 0028 17:01
  * @modify By:
  **/

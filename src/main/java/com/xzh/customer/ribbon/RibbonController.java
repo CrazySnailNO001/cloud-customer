@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @author XZHH
- * @Description:
+ * @Description:    ribbon实现服务调用
  * @create 2019/4/28 0028 15:05
  * @modify By:
  **/
