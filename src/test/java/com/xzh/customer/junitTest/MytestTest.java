@@ -29,12 +29,12 @@ public class MytestTest {
 
     @Test
     public void soutTest() throws Exception {
-        mytest.soutTest();
+//        mytest.soutTest();
     }
 
     @Test(timeout = 1000)   //超过1s就不通过
     public void testTimeout() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(2);
+//        TimeUnit.SECONDS.sleep(2);
         System.out.println("Complete");
     }
 

@@ -17,7 +17,6 @@ spring:
     timeout: 5000
     password: springboot  # Redis服务器连接密码（默认为空）
 
-
 eurekaServer:
   host: localhost  #注册中心的地址
   port: 8761       #注册中心服务端的端口号
@@ -29,4 +28,13 @@ eureka:
     register-with-eureka: true  #将此项目注册到Eureka服务
     service-url:
 #          defaultZone: http://${eurekaServer.user}:${eurekaServer.password}@${eurekaServer.host}:${eurekaServer.port}/eureka
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/    #注册地址
+
+#rocketMQ
+apache:
+  rocketmq:
+    namesrvAddr: 127.0.0.1:9876   # NameServer地址
+    producer:
+      producerGroup: Producer   # 生产者的组名
+    consumer:
+      pushConsumer: PushConsumer  # 消费者的组名
