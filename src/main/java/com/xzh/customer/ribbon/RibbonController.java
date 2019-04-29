@@ -24,7 +24,6 @@ public class RibbonController {
     @PostMapping("/hello")
     @ResponseBody
     public String hello(String name) {
-        //eeeeee
         String url = "http://provider-service/hello";
         User user = new User();
         user.setName(name);
