@@ -40,20 +40,15 @@ public class RocketMQConsumer {
         //指定NameServer地址，多个地址以 ; 隔开
         consumer.setNamesrvAddr(namesrvAddr);
         try {
-            consumer.subscribe(TOPIC_TEST, TAG_TEST);
             //设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费;如果非第一次启动，那么按照上次消费的位置继续消费
             consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+            consumer.subscribe(TOPIC_TEST, TAG_TEST);
+
             consumer.registerMessageListener((MessageListenerConcurrently) (list, context) -> {
-                //->为Java8的lambda表达式,就是匿名函数,具体可以参考该文章https://segmentfault.com/q/1010000007518474。
                 try {
-                    for (MessageExt messageExt : list) {
-
-//                        logger.info("messageExt: " + messageExt);//输出消息内容
-
-                        String messageBody = new String(messageExt.getBody());
-
-                        logger.info("消费响应：msgId : " + messageExt.getMsgId() + ",  msgBody : " + messageBody);//输出消息内容
-                    }
+                    list.stream().forEach(messageExt -> {
+//                        logger.info("messageExt: " + messageExt);   //输出消息内容
+                        logger.info("消费响应：msgId : " + messageExt.getMsgId() + ",  msgBody : " + messageExt.getBody());});
                 } catch (Exception e) {
                     e.printStackTrace();
                     logger.info("稍后再试");
