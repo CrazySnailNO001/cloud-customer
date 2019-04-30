@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-import static com.xzh.customer.utils.Global.PUSH;
+import static com.xzh.customer.utils.Global.TAG_TEST;
 import static com.xzh.customer.utils.Global.TOPIC_TEST;
 
 /**
@@ -40,7 +40,7 @@ public class RocketMQConsumer {
         //指定NameServer地址，多个地址以 ; 隔开
         consumer.setNamesrvAddr(namesrvAddr);
         try {
-            consumer.subscribe(TOPIC_TEST, PUSH);
+            consumer.subscribe(TOPIC_TEST, TAG_TEST);
             //设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费;如果非第一次启动，那么按照上次消费的位置继续消费
             consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
             consumer.registerMessageListener((MessageListenerConcurrently) (list, context) -> {

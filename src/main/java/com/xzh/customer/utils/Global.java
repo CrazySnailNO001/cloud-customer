@@ -8,5 +8,5 @@ package com.xzh.customer.utils;
  **/
 public class Global {
     public static String TOPIC_TEST = "TopicTest";
-    public static String PUSH = "push";
+    public static String TAG_TEST = "push";
 }
