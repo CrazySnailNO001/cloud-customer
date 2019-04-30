@@ -14,6 +14,9 @@ import org.springframework.util.StopWatch;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+import static com.xzh.customer.utils.Global.PUSH;
+import static com.xzh.customer.utils.Global.TOPIC_TEST;
+
 /**
  * @author XZHH
  * @Description:
@@ -43,14 +46,14 @@ public class RocketMQProvider {
             //注意：切记不可以在每次发送消息时，都调用start方法
             producer.start();
 
-            //创建一个消息实例，包含 topic、tag 和 消息体
-            //如下：topic 为 "TopicTest"，tag 为 "push"
-            Message message = new Message("TopicTest", "push", "发送消息----xzh-----".getBytes());
-
             StopWatch stop = new StopWatch();
             stop.start();
 
             for (int i = 0; i < 10; i++) {
+                //创建一个消息实例，包含 topic、tag 和 消息体
+                //如下：topic 为 "TopicTest"，tag 为 "push"
+                Message message = new Message(TOPIC_TEST, PUSH, ("发送消息----xzh-----"+i).getBytes());
+                message.setKeys(String.valueOf(i));
                 SendResult result = producer.send(message, new MessageQueueSelector() {
 
                     @Override
