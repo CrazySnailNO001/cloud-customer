@@ -34,7 +34,6 @@ public class RibbonHystrixService {
     public String helloGet(String name) {
         String url = "http://provider-service/hello?name=";
         return rest.getForObject(url + name, String.class);
-
     }
 
     public String fallback(String name){
