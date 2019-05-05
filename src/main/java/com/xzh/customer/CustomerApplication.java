@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication
-@EnableEurekaClient
-@EnableCircuitBreaker
-//@SpringCloudApplication  //相当于上面3个的注解
+//@SpringBootApplication
+//@EnableEurekaClient
+//@EnableCircuitBreaker
+@SpringCloudApplication  //相当于上面3个的注解
 @EnableFeignClients(basePackages = {"com.xzh.customer.cloud.feign"})
 @ComponentScan("com.xzh.customer")
 public class CustomerApplication {

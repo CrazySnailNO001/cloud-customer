@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author XZHH
- * @Description:    feign实现服务调用
+ * @Description:    feign实现服务调用,默认实现 轮训 的负载均衡策略
  * @create 2019/4/28 0028 14:51
  * @modify By:
  **/
