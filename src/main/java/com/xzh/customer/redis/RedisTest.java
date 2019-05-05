@@ -18,8 +18,8 @@ public class RedisTest {
     private RedisUtils redisUtils;
 
     @RequestMapping("/set")
-    public void set() {
-        redisUtils.set("diyige", "yes");
+    public boolean set() {
+        return redisUtils.set("diyige", "set");
     }
 
     @GetMapping("/get")
@@ -28,12 +28,12 @@ public class RedisTest {
     }
 
     @RequestMapping("/update")
-    public void update() {
-        redisUtils.update("diyige", "no");
+    public boolean update() {
+        return redisUtils.update("diyige", "update");
     }
 
     @RequestMapping("/delete")
-    public void delete() {
-        redisUtils.delete("diyige");
+    public boolean delete() {
+        return redisUtils.delete("diyige");
     }
 }

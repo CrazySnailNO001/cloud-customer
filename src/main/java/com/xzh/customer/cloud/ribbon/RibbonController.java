@@ -1,15 +1,16 @@
-package com.xzh.customer.ribbon;
+package com.xzh.customer.cloud.ribbon;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author XZHH
- * @Description:    ribbon实现服务调用
+ * @Description: ribbon实现服务调用
  * @create 2019/4/28 0028 15:05
  * @modify By:
  **/
@@ -17,26 +18,18 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/ribbon")
 public class RibbonController {
     @Autowired
-    private RestTemplate rest;
-    @Autowired
     private LoadBalancerClient loadBalancerClient;
+    @Autowired
+    private RibbonHystrixService ribbonHystrixService;
 
     @PostMapping("/hello")
-    @ResponseBody
-    public String hello(String name) {
-        String url = "http://provider-service/hello";
-        User user = new User();
-        user.setName(name);
-        user.setId(1);
-        String s1 = JSON.toJSONString(user);
-        return rest.postForObject(url, s1, String.class);
+    public String helloPost(String name) {
+        return ribbonHystrixService.helloPost(name);
     }
 
     @GetMapping("/hello")
     public String helloGet(String name) {
-        String url = "http://provider-service/hello?name=";
-        return rest.getForObject(url + name, String.class);
-
+        return ribbonHystrixService.helloGet(name);
     }
 
     @GetMapping("/getServiceInfo")

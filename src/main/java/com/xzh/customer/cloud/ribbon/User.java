@@ -1,4 +1,4 @@
-package com.xzh.customer.ribbon;
+package com.xzh.customer.cloud.ribbon;
 
 /**
  * @author XZHH

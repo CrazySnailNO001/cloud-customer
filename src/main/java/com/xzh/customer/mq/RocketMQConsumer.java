@@ -44,6 +44,7 @@ public class RocketMQConsumer {
             consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
             consumer.subscribe(TOPIC_TEST, TAG_TEST);
 
+            //rocketmq消费者注册监听有两种模式，有序消费MessageListenerOrderly和并发消费MessageListenerConcurrently
             consumer.registerMessageListener((MessageListenerConcurrently) (list, context) -> {
                 try {
                     list.stream().forEach(messageExt -> {
