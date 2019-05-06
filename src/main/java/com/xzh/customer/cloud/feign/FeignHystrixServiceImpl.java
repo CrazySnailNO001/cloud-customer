@@ -13,6 +13,7 @@ public class FeignHystrixServiceImpl implements FeignHystrixService {
 
     @Override
     public String testTimeOutFeign(Long time) {
+        System.out.println("testTimeOutFeign请求失败,进入fallback");
         return "testTimeOutFeign请求失败,进入fallback";
     }
 
@@ -23,6 +24,7 @@ public class FeignHystrixServiceImpl implements FeignHystrixService {
      */
     @Override
     public String hello(String name) {
+        System.out.println("hello请求失败,进入fallback");
         return "hello请求失败,进入fallback";
     }
 }
