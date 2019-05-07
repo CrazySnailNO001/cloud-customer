@@ -1,5 +1,8 @@
 package com.xzh.customer.threadPool;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
@@ -11,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @create 2019/5/5 0005 10:22
  * @modify By:
  **/
-public class ThreadPoolTest {
+public class MyThreadPool {
     /**
      * 一个阻塞队列，用来存储等待执行的任务
      */
@@ -37,7 +40,7 @@ public class ThreadPoolTest {
      */
     private volatile int maximumPoolSize;
 
-    public void initThreadPoolExecutor(int corePoolSize,
+    public void MyThreadPool(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
                               TimeUnit unit,    /*参数keepAliveTime的时间单位，有7种取值，在TimeUnit类中有7种静态属性：
