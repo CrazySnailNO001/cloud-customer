@@ -1,6 +1,7 @@
 package com.xzh.customer.cloud.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,10 @@ public class FeignController {
     @Autowired
     private FeignHystrixService feignHystrixService;
 
-    @RequestMapping("/hello/{name}")
-    public String index(@PathVariable("name") String name) {
-        return feignHystrixService.hello(name);
-    }
+//    @RequestMapping("/hello/{name}")
+//    public String index(@PathVariable("name") String name) {
+//        return feignHystrixService.hello(name);
+//    }
 
     @GetMapping("/hello")
     public String aa( String name) {
