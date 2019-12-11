@@ -9,6 +9,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 //@SpringBootApplication
@@ -18,8 +21,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableFeignClients(basePackages = {"com.xzh.customer.cloud.feign"})
 @EnableTransactionManagement //开启事务
 @ComponentScan("com.xzh.customer")
-@EnableAsync
-//@EnableAspectJAutoProxy(exposeProxy = true)
+@EnableAsync    //开启异步线程
+//@EnableAspectJAutoProxy(exposeProxy = true)       //开启动态代理
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 public class CustomerApplication {
 

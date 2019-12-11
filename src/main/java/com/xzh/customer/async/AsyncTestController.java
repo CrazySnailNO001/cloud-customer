@@ -26,30 +26,29 @@ public class AsyncTestController {
     @GetMapping("test01")
     @Transactional
     public void testAsync01() throws InterruptedException {
-        log.info("=====01主线程执行: " + Thread.currentThread().getName());
+        log.info("=====01主线程执行start: " + Thread.currentThread().getName());
 
         asyncService.doAsync01();
         asyncService.doAsync02();
 
-        log.info("=====01主线程执行: " + Thread.currentThread().getName());
+        log.info("=====01主线程执行end: " + Thread.currentThread().getName());
     }
 
     @GetMapping("test02")
     @Transactional
     public void testAsync02() throws InterruptedException {
-        log.info("=====02主线程执行: " + Thread.currentThread().getName());
+        log.info("=====02主线程执行start: " + Thread.currentThread().getName());
         AsyncTestController asyncTestController = SpringUtils.getBean(AsyncTestController.class);
 
         asyncTestController.doAsync01();
         asyncTestController.doAsync02();
 
-        log.info("=====02主线程执行: " + Thread.currentThread().getName());
+        log.info("=====02主线程执行end: " + Thread.currentThread().getName());
     }
 
     @GetMapping("test03")
-    @Transactional
     public void testAsync03() throws InterruptedException {
-        log.info("=====03主线程执行: " + Thread.currentThread().getName());
+        log.info("=====03主线程执行start: " + Thread.currentThread().getName());
         AsyncTestController asyncTestController = SpringUtils.getBean(AsyncTestController.class);
 
         AsyncTestController currentProxy = (AsyncTestController) AopContext.currentProxy();
@@ -58,16 +57,18 @@ public class AsyncTestController {
         currentProxy.doAsync01();
         currentProxy.doAsync02();
 
-        log.info("=====03主线程执行: " + Thread.currentThread().getName());
+        log.info("=====03主线程执行end: " + Thread.currentThread().getName());
     }
 
     @Async("defaultTaskExecutor")
+    @Transactional
     public void doAsync01() throws InterruptedException {
         Thread.sleep(3000);
         log.info("=====子线程001执行: " + Thread.currentThread().getName());
     }
 
     @Async("defaultTaskExecutor")
+    @Transactional
     public void doAsync02() {
         log.info("=====子线程002执行: " + Thread.currentThread().getName());
     }

@@ -43,3 +43,11 @@ apache:
       producerGroup: Producer   # 生产者的组名
     consumer:
       pushConsumer: PushConsumer # 消费者的组名
+
+#logging:
+#  config: classpath:logback-spring.xml
+#  level:
+#    org:
+#      springframework:
+#        boot:
+#          autoconfigure: ERROR
