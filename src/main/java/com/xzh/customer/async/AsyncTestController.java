@@ -1,12 +1,13 @@
 package com.xzh.customer.async;
 
-import com.xzh.customer.utils.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,10 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
+@RequestMapping("/async")
 public class AsyncTestController {
 
     @Autowired
     private AsyncService asyncService;
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
 
     @GetMapping("test01")
     @Transactional
@@ -38,7 +44,7 @@ public class AsyncTestController {
     @Transactional
     public void testAsync02() throws InterruptedException {
         log.info("=====02主线程执行start: " + Thread.currentThread().getName());
-        AsyncTestController asyncTestController = SpringUtils.getBean(AsyncTestController.class);
+        AsyncTestController asyncTestController = applicationContext.getBean(AsyncTestController.class);
 
         asyncTestController.doAsync01();
         asyncTestController.doAsync02();
@@ -47,13 +53,15 @@ public class AsyncTestController {
     }
 
     @GetMapping("test03")
+//    @Async("defaultTaskExecutor")
+//    @Transactional
     public void testAsync03() throws InterruptedException {
         log.info("=====03主线程执行start: " + Thread.currentThread().getName());
-        AsyncTestController asyncTestController = SpringUtils.getBean(AsyncTestController.class);
+//        AsyncTestController asyncTestController = applicationContext.getBean(AsyncTestController.class);
 
         AsyncTestController currentProxy = (AsyncTestController) AopContext.currentProxy();
-        if (asyncTestController == currentProxy)
-            log.info("spring容器中的对象(currentProxy)与当前代理类(asyncTestController)是同一个对象");
+//        if (asyncTestController == currentProxy)
+//            log.info("spring容器中的对象(currentProxy)与当前代理类(asyncTestController)是同一个对象");
         currentProxy.doAsync01();
         currentProxy.doAsync02();
 

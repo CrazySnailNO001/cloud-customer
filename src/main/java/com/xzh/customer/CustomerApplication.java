@@ -22,8 +22,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableTransactionManagement //开启事务
 @ComponentScan("com.xzh.customer")
 @EnableAsync    //开启异步线程
-//@EnableAspectJAutoProxy(exposeProxy = true)       //开启动态代理
-@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
+@EnableAspectJAutoProxy(exposeProxy = true)       //开启动态代理
+//@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 public class CustomerApplication {
 
 	public static void main(String[] args) {
