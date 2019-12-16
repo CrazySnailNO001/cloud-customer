@@ -104,7 +104,16 @@
 			<version>1.18.8</version>
 			<scope>provided</scope>
 		</dependency>
-    </dependencies>
+
+<!--	pdf to img start	-->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.16</version>
+		</dependency>
+<!--	pdf to img end	-->
+
+	</dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
