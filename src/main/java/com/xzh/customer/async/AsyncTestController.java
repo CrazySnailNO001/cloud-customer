@@ -30,7 +30,6 @@ public class AsyncTestController {
 
 
     @GetMapping("test01")
-    @Transactional
     public void testAsync01() throws InterruptedException {
         log.info("=====01主线程执行start: " + Thread.currentThread().getName());
 
@@ -41,7 +40,6 @@ public class AsyncTestController {
     }
 
     @GetMapping("test02")
-    @Transactional
     public void testAsync02() throws InterruptedException {
         log.info("=====02主线程执行start: " + Thread.currentThread().getName());
         AsyncTestController asyncTestController = applicationContext.getBean(AsyncTestController.class);
@@ -53,31 +51,47 @@ public class AsyncTestController {
     }
 
     @GetMapping("test03")
-//    @Async("defaultTaskExecutor")
-//    @Transactional
+    @Async("defaultTaskExecutor")
     public void testAsync03() throws InterruptedException {
         log.info("=====03主线程执行start: " + Thread.currentThread().getName());
-//        AsyncTestController asyncTestController = applicationContext.getBean(AsyncTestController.class);
+        AsyncTestController asyncTestController = applicationContext.getBean(AsyncTestController.class);
 
         AsyncTestController currentProxy = (AsyncTestController) AopContext.currentProxy();
-//        if (asyncTestController == currentProxy)
-//            log.info("spring容器中的对象(currentProxy)与当前代理类(asyncTestController)是同一个对象");
+        if (asyncTestController == currentProxy)
+            log.info("spring容器中的对象(currentProxy)与当前代理类(asyncTestController)是同一个对象");
         currentProxy.doAsync01();
-        currentProxy.doAsync02();
+        currentProxy.doAsync03();
 
         log.info("=====03主线程执行end: " + Thread.currentThread().getName());
     }
 
+    @GetMapping("test04")
     @Async("defaultTaskExecutor")
     @Transactional
+    public void testAsync04() throws InterruptedException {
+        log.info("=====04主线程执行start: " + Thread.currentThread().getName());
+
+        AsyncTestController currentProxy = (AsyncTestController) AopContext.currentProxy();
+        currentProxy.doAsync01();
+
+        log.info("=====04主线程执行end: " + Thread.currentThread().getName());
+    }
+
+    @Async("defaultTaskExecutor")
     public void doAsync01() throws InterruptedException {
         Thread.sleep(3000);
         log.info("=====子线程001执行: " + Thread.currentThread().getName());
     }
 
     @Async("defaultTaskExecutor")
-    @Transactional
     public void doAsync02() {
         log.info("=====子线程002执行: " + Thread.currentThread().getName());
+    }
+
+    @Async("defaultTaskExecutor")
+    @Transactional
+    public void doAsync03() throws InterruptedException {
+        Thread.sleep(3000);
+        log.info("=====子线程003执行: " + Thread.currentThread().getName());
     }
 }
