@@ -14,13 +14,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
-//@SpringBootApplication
+@SpringBootApplication
 //@EnableEurekaClient
 //@EnableCircuitBreaker
-@SpringCloudApplication  //相当于上面3个的注解
+//@SpringCloudApplication  //相当于上面3个的注解
 @EnableFeignClients(basePackages = {"com.xzh.customer.cloud.feign"})
-@EnableTransactionManagement //开启事务
-@ComponentScan("com.xzh.customer")
+//@EnableTransactionManagement //开启事务
+//@ComponentScan("com.xzh.customer")
 @EnableAsync    //开启异步线程
 @EnableAspectJAutoProxy(exposeProxy = true)       //开启动态代理
 //@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)

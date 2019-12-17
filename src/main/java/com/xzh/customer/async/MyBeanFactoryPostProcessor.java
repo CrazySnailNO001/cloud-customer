@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-        BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition(TaskManagementConfigUtils.ASYNC_ANNOTATION_PROCESSOR_BEAN_NAME);
-        beanDefinition.getPropertyValues().add("exposeProxy", true);
+//        BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition(TaskManagementConfigUtils.ASYNC_ANNOTATION_PROCESSOR_BEAN_NAME);
+//        beanDefinition.getPropertyValues().add("exposeProxy", true);
     }
 }

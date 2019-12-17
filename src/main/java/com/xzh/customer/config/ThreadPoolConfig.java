@@ -46,7 +46,7 @@ public class ThreadPoolConfig {
     }
 
 
-    @Bean
+    @Bean("Customer-thread")
     public ThreadPoolExecutor taskPoolExecutor() {
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("Customer-thread-%d").build();
         return new ThreadPoolExecutor(8, 32,

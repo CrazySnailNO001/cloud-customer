@@ -50,9 +50,19 @@ public class AsyncTestController {
         log.info("=====02主线程执行end: " + Thread.currentThread().getName());
     }
 
+
+    /**
+     * create by: xzh
+     * description: TransationConfig 加了事务的话, AopContext 就可以正常使用了
+     *  或者 使用 MyBeanFactoryPostProcessor 设置 exposeProxy = true
+     * create time: 2019-12-17 14:21
+     * @Param:
+     * @return void
+     */
     @GetMapping("test03")
-    @Async("defaultTaskExecutor")
+//    @Async("defaultTaskExecutor")
     public void testAsync03() throws InterruptedException {
+
         log.info("=====03主线程执行start: " + Thread.currentThread().getName());
         AsyncTestController asyncTestController = applicationContext.getBean(AsyncTestController.class);
 
@@ -66,8 +76,8 @@ public class AsyncTestController {
     }
 
     @GetMapping("test04")
-    @Async("defaultTaskExecutor")
-    @Transactional
+//    @Async("defaultTaskExecutor")
+//    @Transactional
     public void testAsync04() throws InterruptedException {
         log.info("=====04主线程执行start: " + Thread.currentThread().getName());
 
@@ -77,18 +87,20 @@ public class AsyncTestController {
         log.info("=====04主线程执行end: " + Thread.currentThread().getName());
     }
 
-    @Async("defaultTaskExecutor")
+
+
+    @Async("Customer-thread")
     public void doAsync01() throws InterruptedException {
         Thread.sleep(3000);
         log.info("=====子线程001执行: " + Thread.currentThread().getName());
     }
 
-    @Async("defaultTaskExecutor")
+    @Async("Customer-thread")
     public void doAsync02() {
         log.info("=====子线程002执行: " + Thread.currentThread().getName());
     }
 
-    @Async("defaultTaskExecutor")
+    @Async("Customer-thread")
     @Transactional
     public void doAsync03() throws InterruptedException {
         Thread.sleep(3000);
