@@ -1,4 +1,4 @@
-package com.xzh.customer.config;
+package com.xzh.customer.async;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
