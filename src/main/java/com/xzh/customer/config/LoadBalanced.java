@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class LoadBalanced {
     @Bean
     public IRule ribbonRule() {
+        // 升级:平滑权重
         /**轮训  在这个策略下 熔断会一直走fallback,猜想:熔断相当于没有请求,一直在原地踏步,故相当于轮训的时候当前服务一直没有过去  */
 //        return new RoundRobinRule();
 //         return new WeightedResponseTimeRule();    //根据响应时间分配一个weight(权重)，响应时间越长，weight越小，被选中的可能性越低
