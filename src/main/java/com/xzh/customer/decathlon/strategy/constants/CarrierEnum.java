@@ -1,4 +1,4 @@
-package com.xzh.customer.dto.constants;
+package com.xzh.customer.decathlon.strategy.constants;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;

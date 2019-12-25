@@ -1,6 +1,6 @@
 package com.xzh.customer.decathlon.strategy;
 
-import com.xzh.customer.dto.constants.CarrierEnum;
+import com.xzh.customer.decathlon.strategy.constants.CarrierEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

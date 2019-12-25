@@ -3,7 +3,10 @@ package com.xzh.customer.junitTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +18,8 @@ import static org.junit.Assert.*;
  * @create 2019/4/29 0029 14:19
  * @modify By:
  **/
+//@SpringBootTest
+//@RunWith(SpringRunner.class)
 public class MytestTest {
     //无法注入
     @Autowired
@@ -29,7 +34,7 @@ public class MytestTest {
 
     @Test
     public void soutTest() throws Exception {
-//        mytest.soutTest();
+        mytest.soutTest();
     }
 
     @Test(timeout = 1000)   //超过1s就不通过
