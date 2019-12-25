@@ -1,4 +1,4 @@
-package com.xzh.customer.strategy;
+package com.xzh.customer.decathlon.strategy;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

@@ -1,4 +1,4 @@
-package com.xzh.customer.strategy;
+package com.xzh.customer.decathlon.strategy;
 
 import com.xzh.customer.dto.constants.CarrierEnum;
 import lombok.extern.slf4j.Slf4j;

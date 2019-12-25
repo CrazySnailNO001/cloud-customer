@@ -17,7 +17,7 @@ import org.springframework.transaction.TransactionStatus;
  */
 @Component
 public class TransationConfig {
-//    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.xzh.customer.async..*.*(..))";
+//    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.xzh.customer.decathlon.async..*.*(..))";
 //
 //    @Autowired
 //    private PlatformTransactionManager platformTransactionManager;

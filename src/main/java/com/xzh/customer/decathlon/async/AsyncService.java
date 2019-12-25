@@ -1,4 +1,4 @@
-package com.xzh.customer.async;
+package com.xzh.customer.decathlon.async;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
