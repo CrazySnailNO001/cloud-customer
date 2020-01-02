@@ -51,7 +51,7 @@ public class ThreadPoolConfig {
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("Customer-thread-%d").build();
         return new ThreadPoolExecutor(8, 32,
                 THREAD_DEFAULT_TIMEOUT_MILLISECONDS, TimeUnit.MILLISECONDS,
-                new ArrayBlockingQueue(64), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+                new ArrayBlockingQueue(64), namedThreadFactory, new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
     public static final long THREAD_DEFAULT_TIMEOUT_MILLISECONDS = 8000;
