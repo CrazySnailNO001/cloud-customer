@@ -1,4 +1,4 @@
-package com.xzh.customer.config;//package com.xzh.customer.config;
+package com.xzh.customer.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -59,7 +59,6 @@ public class RedisConfig {
         stringRedisTemplate.setConnectionFactory(factory);
         return stringRedisTemplate;
     }
-//public class RedisConfig extends CachingConfigurerSupport {
 
 //    @Bean
 //    public KeyGenerator keyGenerator() {

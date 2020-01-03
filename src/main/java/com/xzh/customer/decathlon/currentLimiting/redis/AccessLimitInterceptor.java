@@ -1,8 +1,9 @@
 package com.xzh.customer.decathlon.currentLimiting.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.messaging.handler.HandlerMethod;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.ServletOutputStream;
@@ -19,9 +20,10 @@ import java.util.concurrent.TimeUnit;
  * @modified By：
  * @version:
  */
+@Slf4j
 public class AccessLimitInterceptor implements HandlerInterceptor {
     @Autowired
-    private RedisTemplate<String, Integer> redisTemplate;
+    private RedisTemplate redisTemplate;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,17 +39,20 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
             }
             int limit = accessLimit.limit();
             int sec = accessLimit.sec();
-//            String key = IPUtil.getIpAddr(request) + request.getRequestURI();
-            String key = "111";
-            Integer maxLimit = redisTemplate.opsForValue().get(key);
-            if (maxLimit == null) {
-                //set时一定要加过期时间
+            String key = request.getRequestURI();
+            try {
+                Integer maxLimit = (Integer) redisTemplate.opsForValue().get(key);
+                if (maxLimit == null) {
+                    //set时一定要加过期时间
+                    redisTemplate.opsForValue().set(key, 1, sec, TimeUnit.SECONDS);
+                } else if (maxLimit < limit) {
+                    redisTemplate.opsForValue().set(key, maxLimit + 1, sec, TimeUnit.SECONDS);
+                } else {
+                    output(response, "请求太频繁!");
+                    return false;
+                }
+            } catch (NullPointerException e) {
                 redisTemplate.opsForValue().set(key, 1, sec, TimeUnit.SECONDS);
-            } else if (maxLimit < limit) {
-                redisTemplate.opsForValue().set(key, maxLimit + 1, sec, TimeUnit.SECONDS);
-            } else {
-                output(response, "请求太频繁!");
-                return false;
             }
         }
         return true;

@@ -1,9 +1,9 @@
 package com.xzh.customer.decathlon.currentLimiting.redis;
 
-import com.xzh.customer.decathlon.currentLimiting.redis.AccessLimitInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author ：xzh
@@ -13,9 +13,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @version:
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
+
+    @Bean
+    public AccessLimitInterceptor getSessionInterceptor() {
+        return new AccessLimitInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AccessLimitInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(getSessionInterceptor()).addPathPatterns("/accessLimit/*");
     }
 }

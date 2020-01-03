@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @modify By:
  **/
 @Component
-public class HystrixServiceFeignImpl implements HystrixServiceFeign {
+public class FeignFallbackImpl implements HystrixServiceFeign {
 
     @Override
     public String testTimeOutFeign(Long time) {
