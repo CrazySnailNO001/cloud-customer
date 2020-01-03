@@ -1,5 +1,6 @@
 package com.xzh.customer.cloud.feign;
 
+import com.xzh.customer.log.loggingAspect.PerformanceLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/feign")
+@PerformanceLog("feignController")
 public class FeignController {
     @Autowired
     private HystrixServiceFeign hystrixServiceFeign;

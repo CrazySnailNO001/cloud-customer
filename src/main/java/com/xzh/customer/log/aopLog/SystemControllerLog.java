@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * @modify By:
  **/
 
-@Target({ElementType.PARAMETER, ElementType.METHOD})
+@Target({ElementType.PARAMETER, ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface SystemControllerLog {
