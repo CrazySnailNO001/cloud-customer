@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
  * @modify By:
  **/
 @Component
-public class FeignFallbackFactory implements FallbackFactory<FeignHystrixService>{
+public class FeignFallbackFactory implements FallbackFactory<HystrixServiceFeign>{
     @Override
-    public FeignHystrixService create(Throwable throwable) {
-        return new FeignHystrixService() {
+    public HystrixServiceFeign create(Throwable throwable) {
+        return new HystrixServiceFeign() {
             @Override
             public String hello(String name) {
                 return "hello请求失败,进入fallback";

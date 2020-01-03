@@ -1,4 +1,4 @@
-package com.xzh.customer.config;
+package com.xzh.customer.cloud.feign;
 
 import feign.Retryer;
 import org.springframework.context.annotation.Bean;

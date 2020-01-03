@@ -1,4 +1,4 @@
-package com.xzh.customer.decathlon.currentLimiting;
+package com.xzh.customer.decathlon.currentLimiting.redis;
 
 import java.lang.annotation.*;
 

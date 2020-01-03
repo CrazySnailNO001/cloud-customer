@@ -27,12 +27,36 @@ public class RedisTest {
         redisTemplate.opsForValue().set("123","4345");
         Long expire = redisTemplate.getExpire("123");
         System.out.println(expire);
+
         redisTemplate.expire("123",2, TimeUnit.DAYS);
         Long expire1 = redisTemplate.getExpire("123");
         System.out.println(expire1);
+
         redisTemplate.persist("123");
         Long expire2 = redisTemplate.getExpire("123");
         System.out.println(expire2);
+    }
+
+    @Test
+    public void redisTest02() throws InterruptedException {
+        //每次set都会重置过期时间
+
+        redisTemplate.opsForValue().set("aaa", "aaa",10,TimeUnit.SECONDS);
+        System.out.println("aaa time: " + redisTemplate.getExpire("aaa"));
+
+        //使键永久有效
+        redisTemplate.persist("aaa");
+        System.out.println("aaa time: " + redisTemplate.getExpire("aaa"));
+
+        //每次set都会重置过期时间 重置为 10
+        redisTemplate.opsForValue().set("aaa", "aaa",10,TimeUnit.SECONDS);
+        System.out.println("aaa time: " + redisTemplate.getExpire("aaa"));
+
+        Thread.sleep(2000);
+        //每次set都会重置过期时间 重置为 -1
+        redisTemplate.opsForValue().set("aaa", "aaa");
+        System.out.println("aaa time: " + redisTemplate.getExpire("aaa"));
+
     }
 
     @Test

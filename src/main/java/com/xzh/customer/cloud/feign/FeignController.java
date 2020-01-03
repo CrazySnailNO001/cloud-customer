@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/feign")
 public class FeignController {
     @Autowired
-    private FeignHystrixService feignHystrixService;
+    private HystrixServiceFeign hystrixServiceFeign;
 
 //    @RequestMapping("/hello/{name}")
 //    public String index(@PathVariable("name") String name) {
@@ -27,12 +27,12 @@ public class FeignController {
 
     @GetMapping("/hello")
     public String aa( String name) {
-        return feignHystrixService.hello(name);
+        return hystrixServiceFeign.hello(name);
     }
 
     @GetMapping("feign/time_out/{time}")
     public String findUserTimeOutTest(@PathVariable Long time) {
-        String user = this.feignHystrixService.testTimeOutFeign(time);
+        String user = this.hystrixServiceFeign.testTimeOutFeign(time);
         return user;
     }
 }
