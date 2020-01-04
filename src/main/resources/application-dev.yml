@@ -44,8 +44,9 @@ feign:
 
 ribbon:
   eager-load:
-    clients: ${feign.client.provide}
     enabled: true
+    clients: ${feign.client.provide}
+
 #rocketMQ
 apache:
   rocketmq:

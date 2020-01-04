@@ -4,6 +4,8 @@
 注意:
     1.RedisTemplate 每次set的时候,会重置过期时间,所以并不是在设定时间内超过访问次数就不接受请求,
     而是当符合条件的请求(两次请求间隔小于设定时间)数大于设定访问次数时,不接受请求.
+    所以要在set的时候取到key的过期时间 timeout,重新赋值的时候加个这个时间.
+    虽然会有一点误差,但是可以接受.
 
 拦截器无法注入RedisTemplate
 https://blog.csdn.net/weixin_40910372/article/details/103824720
