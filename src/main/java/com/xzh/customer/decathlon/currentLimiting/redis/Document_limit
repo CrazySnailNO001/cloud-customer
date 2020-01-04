@@ -7,3 +7,7 @@
 
 拦截器无法注入RedisTemplate
 https://blog.csdn.net/weixin_40910372/article/details/103824720
+
+Field redisTemplate in ... required a bean of type ...RedisTemplate' that could not be found.
+(带泛型的RedisTemplate 使用 @Autowired 无法注入 ,要使用 @Resource 才可以.)
+https://blog.csdn.net/weixin_40910372/article/details/103832586
