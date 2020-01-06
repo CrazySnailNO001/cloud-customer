@@ -1,17 +1,15 @@
 package com.xzh.customer.decathlon.currentLimiting.redis;
 
+import com.xzh.customer.decathlon.currentLimiting.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -50,7 +48,7 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
                 } else if (maxLimit < limit) {
                     redisTemplate.opsForValue().set(key, maxLimit + 1, Objects.requireNonNull(redisTemplate.getExpire(key)), TimeUnit.SECONDS);
                 } else {
-                    addResponse(response);
+                    ResponseUtil.addResponse(response, "请求过于频繁,请稍后再试!");
                     return false;
                 }
             } catch (NullPointerException e) {
@@ -59,20 +57,5 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
         }
         return true;
 
-    }
-
-    private void addResponse(HttpServletResponse response) throws IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        ServletOutputStream outputStream = null;
-        try {
-            outputStream = response.getOutputStream();
-            outputStream.write("请求太频繁!".getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            assert outputStream != null;
-            outputStream.flush();
-            outputStream.close();
-        }
     }
 }

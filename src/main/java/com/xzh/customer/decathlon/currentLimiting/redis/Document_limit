@@ -1,15 +1,21 @@
 
 自定义注解 + 拦截器 + Redis 实现限流
+从代码层面来看，此方式实现还是比较优雅的，对业务层也没有太多的耦合。
 
 注意:
     1.RedisTemplate 每次set的时候,会重置过期时间,所以并不是在设定时间内超过访问次数就不接受请求,
-    而是当符合条件的请求(两次请求间隔小于设定时间)数大于设定访问次数时,不接受请求.
-    所以要在set的时候取到key的过期时间 timeout,重新赋值的时候加个这个时间.
-    虽然会有一点误差,但是可以接受.
+      而是当符合条件的请求(两次请求间隔小于设定时间)数大于设定访问次数时,不接受请求.
+      所以要在set的时候取到key的过期时间 timeout,重新赋值的时候加个这个时间.
+      虽然会有一点误差,但是可以接受.
+
+    2.此种方式单体和分布式均适用，因为用户实际的访问次数都是存在redis容器里的，和应用的单体或分布式无关。
+
+    3.自定义注解+拦截器+Redis实现限流的实现代码中22 25 27行出现了并发问题
+     （因为中间可能会有其它操作导致先前获取的数量失效），最好用lua解决
 
 拦截器无法注入RedisTemplate
-https://blog.csdn.net/weixin_40910372/article/details/103824720
+        https://blog.csdn.net/weixin_40910372/article/details/103824720
 
 Field redisTemplate in ... required a bean of type ...RedisTemplate' that could not be found.
 (带泛型的RedisTemplate 使用 @Autowired 无法注入 ,要使用 @Resource 才可以.)
-https://blog.csdn.net/weixin_40910372/article/details/103832586
+        https://blog.csdn.net/weixin_40910372/article/details/103832586

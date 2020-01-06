@@ -1,0 +1,4 @@
+guava提供的RateLimiter可以限制物理或逻辑资源的被访问速率，咋一听有点像java并发包下的Samephore，
+但是又不相同，RateLimiter控制的是速率，Samephore控制的是并发量。RateLimiter的原理就是令牌桶，
+它主要由许可发出的速率来定义，如果没有额外的配置，许可证将按每秒许可证规定的固定速度分配，许可将被平滑地分发，
+若请求超过permitsPerSecond则RateLimiter按照每秒 1/permitsPerSecond 的速率释放许可。注意:RateLimiter适用于单体应用.

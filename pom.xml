@@ -113,6 +113,12 @@
 		</dependency>
 <!--	pdf to img end	-->
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>28.1-jre</version>
+		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
