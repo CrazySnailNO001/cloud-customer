@@ -28,7 +28,7 @@ public class RateLimiterController {
     private GuavaRateLimiterService rateLimiterService;
 
     @ResponseBody
-    @RateLimitAspect(1)
+    @RateLimitAnnotation(1)
     @RequestMapping("/test001")
     public String test() {
         return "success";

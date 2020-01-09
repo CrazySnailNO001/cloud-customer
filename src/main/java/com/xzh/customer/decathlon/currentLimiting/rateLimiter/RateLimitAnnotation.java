@@ -6,6 +6,6 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RateLimitAspect {
+public @interface RateLimitAnnotation {
     double value() default 1;
 }

@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 @Slf4j
 public class RateLimitAdap {
 
-    @Pointcut("@annotation(com.xzh.customer.decathlon.currentLimiting.rateLimiter.RateLimitAspect)")
+    @Pointcut("@annotation(com.xzh.customer.decathlon.currentLimiting.rateLimiter.RateLimitAnnotation)")
     public void serviceLimit() {
 
     }
@@ -44,8 +44,8 @@ public class RateLimitAdap {
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        if (method.isAnnotationPresent(RateLimitAspect.class)) {
-            RateLimitAspect annotation = method.getAnnotation(RateLimitAspect.class);
+        if (method.isAnnotationPresent(RateLimitAnnotation.class)) {
+            RateLimitAnnotation annotation = method.getAnnotation(RateLimitAnnotation.class);
             double limit = annotation.value();
 
             RateLimiter rateLimiter = RateLimiter.create(limit);
