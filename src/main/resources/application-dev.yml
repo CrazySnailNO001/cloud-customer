@@ -63,3 +63,26 @@ apache:
 #      springframework:
 #        boot:
 #          autoconfigure: ERROR
+
+appClient:
+  oms:
+    callback:
+      url: https://oms-preprod.decathlon.com.cn:9443/index.php/openapi/rpc/service/
+      token: upzSTZPohCkFvuecICKRuLmAmTFHusRW
+
+
+
+httpClient:
+  pool:
+    timeToLive: 6000
+    maxTotal: 100
+    maxPerRoute: 50
+    socketTimeout: 15000
+    connectTimeout: 15000
+    connectionRequestTimeout: 5000
+    keepAlive: 30000
+  proxy:
+    https:
+      hostname: proxy-internet-aws-china-production.subsidia.org
+      port: 3128
+      schema: https

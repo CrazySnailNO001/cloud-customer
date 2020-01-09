@@ -15,7 +15,7 @@
 	<description>my cutomer</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>12</java.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 	</properties>
 
@@ -118,6 +118,22 @@
 			<artifactId>guava</artifactId>
 			<version>28.1-jre</version>
 		</dependency>
+
+<!--	HTTPClient start	-->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.10</version>
+		</dependency>
+
+<!--	HTTPClient end	-->
+
+
 
 	</dependencies>
 	<dependencyManagement>

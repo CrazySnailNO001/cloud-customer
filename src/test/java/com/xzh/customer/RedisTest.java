@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -107,5 +108,14 @@ public class RedisTest {
     public void getExpireTimeTest2() {
         Long expire = redisTemplate.getExpire("tmalldss:1905041112920");
         System.out.println(expire);
+    }
+
+    @Test
+    public void test004(){
+        redisTemplate.opsForValue().set("time",12,30,TimeUnit.SECONDS);
+        System.out.println("过期时间001: " + redisTemplate.getExpire("time"));
+        Date date = new Date();
+        redisTemplate.expireAt("time",new Date());
+        System.out.println("过期时间002: " + redisTemplate.getExpire("time"));
     }
 }

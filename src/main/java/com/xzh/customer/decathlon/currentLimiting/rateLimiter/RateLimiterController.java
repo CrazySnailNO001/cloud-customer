@@ -29,22 +29,17 @@ public class RateLimiterController {
 
     @ResponseBody
     @RateLimitAspect(1)
-    @RequestMapping("/test002")
-    public String test(){
+    @RequestMapping("/test001")
+    public String test() {
         return "success";
     }
 
     @ResponseBody
-    @RequestMapping("/test001")
+    @RequestMapping("/test002")
     public String testRateLimiter() {
         if (rateLimiterService.tryAcquire())
             return "成功获取许可";
         return "未获取到许可";
-    }
-
-
-    public static void main(String[] args) {
-        test001();
     }
 
     /**
@@ -54,7 +49,9 @@ public class RateLimiterController {
      * 所以最后10个任务的消耗时间为9s左右。
      * create time: 2020-01-05 15:22
      */
-    private static void test001() {
+    @ResponseBody
+    @RequestMapping("/test003")
+    public void test003() {
 
         String start = new SimpleDateFormat(DateUtil.DATE_FORMAT_SECOND).format(new Date());
         log.info("Start time : [ {} ]", start);
