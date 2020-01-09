@@ -2,6 +2,7 @@ package com.xzh.customer.decathlon.jdkHttpClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,7 +32,7 @@ public class JdkHttpClientController {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(String.format("http://localhost:8763/hello?name=%s", data)))
+                .uri(URI.create(String.format("http://localhost:8763/jdk_http_client/getTest?name=%s", data)))
                 .GET()
                 .build();
 
@@ -45,7 +46,7 @@ public class JdkHttpClientController {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(String.format("http://localhost:8763/hello?name=%s", data)))
+                .uri(URI.create(String.format("http://localhost:8763/jdk_http_client/getTest?name=%s", data)))
                 .GET()
                 .build();
 
@@ -63,8 +64,8 @@ public class JdkHttpClientController {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8763/hello"))
-                .header("Content-Type", "application/json")
+                .uri(URI.create("http://localhost:8763/jdk_http_client/postJsonTest"))
+                .header("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(userRequestDto)))
                 .build();
 
@@ -77,10 +78,12 @@ public class JdkHttpClientController {
     public String postFormSync(@RequestBody(required = false) UserRequestDto userRequestDto) throws IOException, InterruptedException {
 
         HttpClient httpClient = HttpClient.newHttpClient();
+        String requestBody ="name1=value1&name2=value2";
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8763/hello"))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .POST(HttpRequest.BodyPublishers.ofString("name="+userRequestDto.getName()+"&age="+userRequestDto.getAge()))
+                .uri(URI.create("http://localhost:8763/jdk_http_client/postFormTest"))
+                .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+//                .POST(HttpRequest.BodyPublishers.ofString("name="+userRequestDto.getName()+"&age="+userRequestDto.getAge()))
                 .build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
