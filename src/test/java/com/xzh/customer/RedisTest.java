@@ -1,5 +1,6 @@
 package com.xzh.customer;
 
+import com.xzh.customer.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -111,11 +114,42 @@ public class RedisTest {
     }
 
     @Test
-    public void test004(){
-        redisTemplate.opsForValue().set("time",12,30,TimeUnit.SECONDS);
-        System.out.println("过期时间001: " + redisTemplate.getExpire("time"));
-        Date date = new Date();
-        redisTemplate.expireAt("time",new Date());
-        System.out.println("过期时间002: " + redisTemplate.getExpire("time"));
+    public void test004() throws InterruptedException {
+        redisTemplate.opsForValue().set("time", 12, 30, TimeUnit.SECONDS);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DATE_FORMAT_SECOND);
+
+
+        Long time = redisTemplate.getExpire("time");
+        System.out.println(simpleDateFormat.format(new Date(Instant.now().toEpochMilli())) + ",过期时间001: " + time);
+
+        Date date = new Date(Instant.now().toEpochMilli() + time * 1000);
+        System.out.println("到 " + simpleDateFormat.format(date) + "过期");
+        Thread.sleep(5000);
+
+        redisTemplate.expireAt("time", date);
+        System.out.println(simpleDateFormat.format(new Date(Instant.now().toEpochMilli())) + ",过期时间002: " + redisTemplate.getExpire("time"));
+    }
+
+    @Test
+    public void testDate001() throws InterruptedException {
+        Instant now = Instant.now();
+        Date date = new Date(now.toEpochMilli());
+        System.out.println(date.getTime());
+
+
+        Thread.sleep(5000);
+
+        Instant now1 = Instant.now();
+        Date date1 = new Date(now1.toEpochMilli());
+        System.out.println(date1.getTime());
+    }
+
+    @Test
+    public void testDate002() {
+        Instant now = Instant.now();
+        Date date = new Date(now.toEpochMilli());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DATE_FORMAT_SECOND);
+        System.out.println(simpleDateFormat.format(date));
     }
 }

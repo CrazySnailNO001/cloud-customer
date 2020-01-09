@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -46,8 +48,14 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
                     //set时一定要加过期时间
                     redisTemplate.opsForValue().set(key, 1, sec, TimeUnit.SECONDS);
                 } else if (maxLimit < limit) {
-//                    redisTemplate.expireAt()
-                    redisTemplate.opsForValue().set(key, maxLimit + 1, Objects.requireNonNull(redisTemplate.getExpire(key)), TimeUnit.SECONDS);
+                    //方案一:
+//                    redisTemplate.opsForValue().set(key, maxLimit + 1, Objects.requireNonNull(redisTemplate.getExpire(key)), TimeUnit.SECONDS);
+
+                    //方案二:
+                    Date date = new Date(Instant.now().toEpochMilli() + Objects.requireNonNull(redisTemplate.getExpire(key)) * 1000);
+                    redisTemplate.opsForValue().set(key, maxLimit + 1);
+                    redisTemplate.expireAt(key, date);
+
                 } else {
                     ResponseUtil.addResponse(response, "请求过于频繁,请稍后再试!");
                     return false;
