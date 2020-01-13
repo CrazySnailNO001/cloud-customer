@@ -32,9 +32,9 @@ public class CustomerApplication {
 
 
     // 实现负载均衡,默认轮训
-    @Bean
-    @LoadBalanced
-    RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
+//    @Bean
+//    @LoadBalanced
+//    RestTemplate restTemplate(){
+//        return new RestTemplate();
+//    }
 }

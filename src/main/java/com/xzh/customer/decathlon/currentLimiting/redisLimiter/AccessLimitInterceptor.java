@@ -1,4 +1,4 @@
-package com.xzh.customer.decathlon.currentLimiting.redis;
+package com.xzh.customer.decathlon.currentLimiting.redisLimiter;
 
 import com.xzh.customer.decathlon.currentLimiting.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
