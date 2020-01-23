@@ -6,3 +6,11 @@ spring:
   datasource:
     tomcat:
       default-transaction-isolation: 2
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR

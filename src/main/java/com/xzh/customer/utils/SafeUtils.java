@@ -245,7 +245,7 @@ public class SafeUtils {
     }
 
     public static Integer getInteger(Object obj) {
-        Integer tmpret = new Integer(0);
+        Integer tmpret = 0;
         if (obj != null) {
             try {
                 tmpret = Integer.valueOf(obj.toString());
@@ -256,8 +256,8 @@ public class SafeUtils {
         return tmpret;
     }
 
-    public static Integer getInteger(Object obj, int defvalue) {
-        Integer tmpret = new Integer(defvalue);
+    public static Integer getInteger(Object obj, int defaultValue) {
+        Integer tmpret = defaultValue;
         if (obj != null) {
             try {
                 tmpret = Integer.valueOf(obj.toString());
