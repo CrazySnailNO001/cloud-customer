@@ -7,8 +7,7 @@
             </filter>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    [customer] %cyan(%-25d{yyyy-MM-dd HH:mm:ss.SSS}) %red(%-5p) %yellow(---) %blue([%-15t])
-                    %green(%-25logger{0} : ) %marker%m%ex{full} - %logger - %F:%L%n
+                    [customer] %cyan(%-25d{yyyy-MM-dd HH:mm:ss.SSS}) %red(%-5p) %yellow(---) %blue([%-15t])%green(%-25logger{0} : ) %marker%m%ex{full} - %logger - %F:%L%n
                     <!--          %white(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%lsn) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{10}) - %cyan(%msg%n)-->
                 </pattern>
             </layout>
