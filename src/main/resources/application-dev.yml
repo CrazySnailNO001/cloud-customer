@@ -48,9 +48,39 @@ feign:
     connection-timeout: 5000
 
 ribbon:
+  OkToRetryOnAllOperations: false
+    ReadTimeout: 5000
+    ConnectTimeout: 5000
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1
   eager-load:
     enabled: true
     clients: ${feign.client.provide}
+
+hystrix:
+  shareSecurityContext: true
+  threadpool:
+    default:
+      coreSize: 50 ##并发执行的最大线程数，默认10
+      maxQueueSize: 200 ##BlockingQueue的最大队列数
+      queueSizeRejectionThreshold: 100 ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD
+          semaphore:
+            maxConcurrentRequests: 1000
+          thread:
+            timeoutInMilliseconds: 30000
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
 
 #rocketMQ
 apache:
@@ -66,7 +96,6 @@ apache:
 
 
 
-
 httpClient:
   pool:
     timeToLive: 6000
@@ -76,8 +105,9 @@ httpClient:
     connectTimeout: 15000
     connectionRequestTimeout: 5000
     keepAlive: 30000
-  proxy:
-    https:
-      hostname: proxy-internet-aws-china-production.subsidia.org
-      port: 3128
-      schema: https
+      #  proxy:
+      #    https:
+      #      hostname: proxy-internet-aws-china-production.subsidia.org
+      #      port: 3128
+    #      schema: https
+
