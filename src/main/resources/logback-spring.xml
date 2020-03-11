@@ -9,8 +9,7 @@
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
                     <!--                    [customer] %cyan(%-25d{yyyy-MM-dd HH:mm:ss.SSS}) %red(%-5p) %yellow(-&#45;&#45;) %blue([%-15t])%green(%-25logger{0} : ) %marker%m%ex{full} - %logger - %F:%L%n-->
-                    %red([customer] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-20t]) %yellow([%-30logger{0}])
-                    %blue(%marker%m%ex{full} - %logger - %F:%L%n)
+                    %red([customer] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-20t]) %yellow([%-30logger{0}]) %blue(%marker%m%ex{full} - %logger - %F:%L%n)
                 </pattern>
             </layout>
         </appender>
@@ -40,8 +39,7 @@
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <!--       日志输出格式         -->
                 <pattern>
-                    [customer] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger -
-                    %F:%L%n
+                    [customer] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
                 </pattern>
             </layout>
         </appender>
@@ -50,8 +48,7 @@
         <appender name="log-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>/Users/ZHONGHUI/log/customer-info.log</file>
             <encoder>
-                <pattern>【customer】%blue([requestId:%X{requestId:-syslogId}]) %d{yyyy-MM-dd HH:mm:ss.SSS}
-                    %red([%thread]) %5level - %msg%n
+                <pattern>【customer】%blue([requestId:%X{requestId:-syslogId}]) %d{yyyy-MM-dd HH:mm:ss.SSS} %red([%thread]) %5level - %msg%n
                 </pattern>
             </encoder>
             <!-- filter过滤器，INFO级别 -->
@@ -65,8 +62,7 @@
         <appender name="log-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>/Users/ZHONGHUI/log/customer-error.log</file>
             <encoder>
-                <pattern>【customer】%blue([requestId:%X{requestId:-syslogId}]) %d{yyyy-MM-dd HH:mm:ss.SSS}
-                    %red([%thread]) %5level - %msg%n
+                <pattern>【customer】%blue([requestId:%X{requestId:-syslogId}]) %d{yyyy-MM-dd HH:mm:ss.SSS} %red([%thread]) %5level - %msg%n
                 </pattern>
             </encoder>
             <!-- filter过滤器，ERROR级别 -->
@@ -91,8 +87,7 @@
             </filter>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger -
-                    %F:%L%n
+                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
                 </pattern>
             </layout>
         </appender>
@@ -109,8 +104,7 @@
             </filter>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger -
-                    %F:%L%n
+                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
                 </pattern>
             </layout>
         </appender>
@@ -121,8 +115,7 @@
             </filter>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger -
-                    %F:%L%n
+                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
                 </pattern>
             </layout>
             <servers>de-kafka.pp.dktapp.cloud:9092</servers>
@@ -146,8 +139,7 @@
             </filter>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger -
-                    %F:%L%n
+                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
                 </pattern>
             </layout>
         </appender>
@@ -158,8 +150,7 @@
             </filter>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger -
-                    %F:%L%n
+                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
                 </pattern>
             </layout>
             <servers>de-kafka.dktapp.cloud:9092</servers>
