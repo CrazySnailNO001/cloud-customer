@@ -3,12 +3,10 @@ package com.xzh.customer.config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
-import org.apache.http.HttpHost;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.impl.conn.SystemDefaultRoutePlanner;
 import org.apache.http.message.BasicHeaderElementIterator;
@@ -68,11 +66,14 @@ public class RestTemplateConfig {
                 .build();
     }
 
-    @Bean
-    public DefaultProxyRoutePlanner defaultProxyRoutePlanner() {
-        HttpHost proxy = new HttpHost(httpsProxyHostName, httpsProxyPort);
-        return new DefaultProxyRoutePlanner(proxy);
-    }
+    /**
+     * 设置代理
+     */
+//    @Bean
+//    public DefaultProxyRoutePlanner defaultProxyRoutePlanner() {
+//        HttpHost proxy = new HttpHost(httpsProxyHostName, httpsProxyPort);
+//        return new DefaultProxyRoutePlanner(proxy);
+//    }
 
     @Bean
     public SystemDefaultRoutePlanner systemDefaultRoutePlanner() {

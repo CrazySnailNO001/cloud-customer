@@ -8,8 +8,9 @@
             </filter>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>
-                    [customer] %cyan(%-25d{yyyy-MM-dd HH:mm:ss.SSS}) %red(%-5p) %yellow(---) %blue([%-15t])%green(%-25logger{0} : ) %marker%m%ex{full} - %logger - %F:%L%n
-                    <!--          %white(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%lsn) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{10}) - %cyan(%msg%n)-->
+                    <!--                    [customer] %cyan(%-25d{yyyy-MM-dd HH:mm:ss.SSS}) %red(%-5p) %yellow(-&#45;&#45;) %blue([%-15t])%green(%-25logger{0} : ) %marker%m%ex{full} - %logger - %F:%L%n-->
+                    %red([customer] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-20t]) %yellow([%-30logger{0}])
+                    %blue(%marker%m%ex{full} - %logger - %F:%L%n)
                 </pattern>
             </layout>
         </appender>
@@ -33,7 +34,7 @@
                 <!--日志文件保留天数-->
                 <MaxHistory>30</MaxHistory>
                 <!--日志文件的最大大小-->
-                <MaxFileSize>100MB</MaxFileSize>
+                <!--                <MaxFileSize>100MB</MaxFileSize>-->
             </rollingPolicy>
 
             <layout class="ch.qos.logback.classic.PatternLayout">

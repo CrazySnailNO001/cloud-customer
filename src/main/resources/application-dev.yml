@@ -49,10 +49,10 @@ feign:
 
 ribbon:
   OkToRetryOnAllOperations: false
-    ReadTimeout: 5000
-    ConnectTimeout: 5000
-    MaxAutoRetries: 0
-    MaxAutoRetriesNextServer: 1
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
   eager-load:
     enabled: true
     clients: ${feign.client.provide}
@@ -105,9 +105,9 @@ httpClient:
     connectTimeout: 15000
     connectionRequestTimeout: 5000
     keepAlive: 30000
-      #  proxy:
-      #    https:
-      #      hostname: proxy-internet-aws-china-production.subsidia.org
-      #      port: 3128
-    #      schema: https
+  proxy:
+    https:
+      hostname: proxy-internet-aws-china-production.subsidia.org
+      port: 3128
+      schema: https
 
