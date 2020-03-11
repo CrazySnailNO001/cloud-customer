@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <springProfile name="dev">
-        <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <!--  appender: 是用来定义一个写日志记录的组件，常用的appender类有ConsoleAppender和RollingFileAppender，前者个是用来在控制台上打印日志，后者是将日志输出到文件中     -->
+        <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
             <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                 <level>INFO</level>
             </filter>
@@ -13,7 +14,9 @@
             </layout>
         </appender>
 
-        <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <appender name="RollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!--      filter，过滤器分为三种，logback-classic提供的是两种，分别是常规的过滤器和Turbo过滤器。常用的过滤器就是按照日志级别来控制，
+            将不同级别的日志输出到不同文件中，便于查看日志。如：错误日志输出到xxx-error.log，info日志输出到xxx-info.log中。      -->
             <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                 <level>INFO</level>
             </filter>
@@ -22,6 +25,8 @@
                 /Users/ZHONGHUI/log/customer.log
             </file>
 
+            <!--rollingPolicy，用来设置日志的滚动策略，当达到条件后会自动将条件前的日志生成一个备份日志文件，条件后的日志输出到最新的日志文件中。
+            常用的是按照时间来滚动（使用的类TimeBaseRollingPolicy）,还有一种就是基于索引来实现（使用的类FixedWindowRollingPolicy）。-->
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <!--日志文件输出的文件名-->
                 <FileNamePattern>/Users/ZHONGHUI/log/customer.log.%d{yyyy-MM-dd}</FileNamePattern>
@@ -40,8 +45,41 @@
             </layout>
         </appender>
 
+        <!-- info级别日志会输出到customer-info.log日志文件中 -->
+        <appender name="log-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>/Users/ZHONGHUI/log/customer-info.log</file>
+            <encoder>
+                <pattern>【customer】%blue([requestId:%X{requestId:-syslogId}]) %d{yyyy-MM-dd HH:mm:ss.SSS}
+                    %red([%thread]) %5level - %msg%n
+                </pattern>
+            </encoder>
+            <!-- filter过滤器，INFO级别 -->
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+        </appender>
+        <!-- error级别日志会输出到customer-error.log日志文件中 -->
+        <appender name="log-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>/Users/ZHONGHUI/log/customer-error.log</file>
+            <encoder>
+                <pattern>【customer】%blue([requestId:%X{requestId:-syslogId}]) %d{yyyy-MM-dd HH:mm:ss.SSS}
+                    %red([%thread]) %5level - %msg%n
+                </pattern>
+            </encoder>
+            <!-- filter过滤器，ERROR级别 -->
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+        </appender>
+
+
         <root level="DEBUG">
-            <appender-ref ref="consoleLog"/>
+            <appender-ref ref="ConsoleAppender"/>
+            <!--            <appender-ref ref="RollingFileAppender"/>-->
         </root>
     </springProfile>
 
