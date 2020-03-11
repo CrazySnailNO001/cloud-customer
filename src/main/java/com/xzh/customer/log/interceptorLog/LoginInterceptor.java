@@ -2,6 +2,7 @@ package com.xzh.customer.log.interceptorLog;
 
 import com.xzh.customer.log.Auth;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -15,8 +16,10 @@ import java.lang.reflect.Method;
  * @create 2019/4/9 0009 14:25
  * @modify By:
  **/
+@Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("===========");
         if (!handler.getClass().isAssignableFrom(HandlerMethod.class)) {
             return true;
         }

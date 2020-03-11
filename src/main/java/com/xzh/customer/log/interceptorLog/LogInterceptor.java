@@ -3,6 +3,7 @@ package com.xzh.customer.log.interceptorLog;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.util.Enumeration;
  * @create 2019/4/9 0009 14:20
  * @modify By:
  **/
+@Component
 public class LogInterceptor extends HandlerInterceptorAdapter {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

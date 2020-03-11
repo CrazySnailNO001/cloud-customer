@@ -17,7 +17,7 @@ import java.util.Date;
 @Slf4j
 public class FastJsonController {
 
-    @GetMapping("/test001")
+    @GetMapping(value = "/test001",produces = "application/json")
     public FastJasonDto test001() {
         FastJasonDto fastJasonDto = new FastJasonDto();
         fastJasonDto.setUserName("张三");
