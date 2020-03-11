@@ -1,4 +1,4 @@
-package com.xzh.customer.decathlon.auth;
+package com.xzh.customer.decathlon.authInterceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

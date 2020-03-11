@@ -1,4 +1,4 @@
-package com.xzh.customer.decathlon.auth;
+package com.xzh.customer.decathlon.authInterceptor;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.web.bind.annotation.RequestMapping;
