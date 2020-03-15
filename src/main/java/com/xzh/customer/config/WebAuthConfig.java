@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 /**
  * @author ：xzh
  * @date ：Created in 2020-03-11 15:59
- * @description：
+ * @description：注意,一个项目中不能有两个类都继承WebMvcConfigurationSupport
  * @modified By：
  * @version:
  */

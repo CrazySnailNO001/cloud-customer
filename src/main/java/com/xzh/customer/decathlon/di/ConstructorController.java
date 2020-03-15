@@ -1,5 +1,6 @@
 package com.xzh.customer.decathlon.di;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/constructor")
+@Slf4j
 public class ConstructorController {
     private  DiService diService;
     private  String result;
@@ -28,7 +30,7 @@ public class ConstructorController {
 
     @Autowired
     public ConstructorController(DiService diService) {
-        System.out.println("第二个构造方法");
+//        System.out.println("第二个构造方法");
         this.diService = diService;
         this.result = diService.test001("constructor");
     }

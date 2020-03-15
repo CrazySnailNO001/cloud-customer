@@ -18,12 +18,12 @@ public class PostConstructA {
     private PostConstructB postConstructB;
 
     public PostConstructA() {
-        System.out.println("这是PostConstructA 的构造方法");
+//        System.out.println("这是PostConstructA 的构造方法");
     }
 
     @PostConstruct
     private void init() {
-        System.out.println("这是PostConstructA的 init 方法");
+//        System.out.println("这是PostConstructA的 init 方法");
         postConstructB.test();
     }
 }

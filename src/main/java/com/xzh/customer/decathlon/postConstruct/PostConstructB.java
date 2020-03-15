@@ -14,15 +14,15 @@ import javax.annotation.PostConstruct;
 @Component
 public class PostConstructB {
     public PostConstructB() {
-        System.out.println("这是PostConstructB的 构造方法");
+//        System.out.println("这是PostConstructB的 构造方法");
     }
 
     @PostConstruct
     private void init() {
-        System.out.println("这是PostConstructB的 init 方法");
+//        System.out.println("这是PostConstructB的 init 方法");
     }
 
     void test() {
-        System.out.println("这是PostConstructB的 test 方法");
+//        System.out.println("这是PostConstructB的 test 方法");
     }
 }
