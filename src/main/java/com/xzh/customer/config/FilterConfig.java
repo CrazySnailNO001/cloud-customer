@@ -20,6 +20,7 @@ public class FilterConfig {
         FilterRegistrationBean registration = new FilterRegistrationBean(new MyTestFilter());
         registration.addUrlPatterns("/filter/*");
         registration.setName("testFilter");
+        registration.setOrder(1);
         return registration;
     }
 }
