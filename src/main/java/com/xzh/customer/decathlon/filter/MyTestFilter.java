@@ -27,7 +27,9 @@ public class MyTestFilter implements Filter {
         log.info("[ {} ] 执行啦...", this.getClass().getSimpleName());
 
         //不加这句,servlet不会执行请求
+        log.info("chain.doFilter开始");
         chain.doFilter(request, response);
+        log.info("chain.doFilter完成");
     }
 
     @Override
