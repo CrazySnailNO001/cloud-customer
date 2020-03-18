@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
+import com.xzh.customer.common.helper.LowerCaseClassNameResolver;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
