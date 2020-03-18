@@ -1,4 +1,4 @@
-package com.xzh.customer.hander;
+package com.xzh.customer.common.hander;
 
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.xzh.customer.common.ApiResponseDto;

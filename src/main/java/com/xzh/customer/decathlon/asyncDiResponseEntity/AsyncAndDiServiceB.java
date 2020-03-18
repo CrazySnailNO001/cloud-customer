@@ -1,4 +1,4 @@
-package com.xzh.customer.decathlon.asyncAndDi;
+package com.xzh.customer.decathlon.asyncDiResponseEntity;
 
 import org.springframework.stereotype.Service;
 

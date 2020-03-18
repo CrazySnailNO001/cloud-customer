@@ -1,4 +1,4 @@
-package com.xzh.customer.decathlon.asyncAndDi;
+package com.xzh.customer.decathlon.asyncDiResponseEntity;
 
 public interface AsyncAndDiServiceA {
     String test();
