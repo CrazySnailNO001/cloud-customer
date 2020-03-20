@@ -13,11 +13,11 @@ import java.io.IOException;
  * @modified By：
  * @version:
  */
-//@Order(2)
+//@Order(1)
 //@WebFilter(urlPatterns = "/filter/*", filterName = "myTestFilter")
 @Component //与@WebFilter不能同时使用,否则urlPatterns 就不起作用了
 @Slf4j
-public class MyTestFilter implements Filter {
+public class MyTestFilter02 implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("[ {} ] 创建啦...", this.getClass().getSimpleName());
