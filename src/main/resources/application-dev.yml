@@ -58,29 +58,50 @@ ribbon:
     clients: ${feign.client.provide}
 
 hystrix:
-  shareSecurityContext: true
   threadpool:
     default:
-      coreSize: 50 ##并发执行的最大线程数，默认10
-      maxQueueSize: 200 ##BlockingQueue的最大队列数
-      queueSizeRejectionThreshold: 100 ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
-      execution:
-        timeout:
-          enabled: true
-        isolation:
-          strategy: THREAD
-          semaphore:
-            maxConcurrentRequests: 1000
-          thread:
-            timeoutInMilliseconds: 30000
+      coreSize: 12 #并发执行的最大线程数，默认10
+      maxQueueSize: 20 #BlockingQueue的最大队列长度,默认-1,使用SynchronousQueue。其他值则使用 LinkedBlockingQueue。
+      queueSizeRejectionThreshold: 10 #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
+
   command:
-    default:
+    aa: #被调用的指定方法（HystrixCommandKey方法名）
       execution:
         timeout:
-          enabled: false
+          enable: true
         isolation:
           thread:
-            timeoutInMilliseconds: 5000
+            timeoutInMilliseconds: 50 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+    default:
+      fallback:
+        enabled: true #确定在发生失败或拒绝时是否尝试调用HystrixCommand.getFallback（）。默认值为true
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 10 #设置从调用线程允许HystrixCommand.getFallback（）方法的最大请求数。 SEMAPHORE模式有效, 默认值：10
+
+      circuitBreaker:
+        enabled: true #确定断路器是否用于跟踪运行状况和短路请求（如果跳闸）。默认true
+        requestVolumeThreshold: 10 #当在配置时间窗口内达到此数量的失败后，进行短路。默认20个
+        sleepWindowInMilliseconds: 10000 #短路多久以后开始尝试是否恢复，默认5000
+        errorThresholdPercentage: #出错百分比阈值，当达到此阈值后，开始短路。默认50%
+        forceOpen: false #强制断路器进入打开（跳闸）状态，其中它将拒绝所有请求。默认false,此属性优先于circuitBreaker.forceClosed
+        forceClosed: false #迫使断路器进入闭合状态，其中它将允许请求，而不考虑误差百分比。默认值为false.如果是强依赖，应该设置为true
+                            #circuitBreaker.forceOpen属性优先，因此如果forceOpen设置为true，此属性不执行任何操作。
+      execution:
+        timeout:
+          enabled: true #是否开启超时设置 默认true
+        isolation:
+          strategy: THREAD #隔离策略,1.THREAD - 它在单独的线程上执行，并发请求受线程池中的线程数量的限制;#2.SEMAPHORE - 它在调用线程上执行，并发请求受到信号量计数的限制
+                                  #默认使用THREAD模式，以下几种场景可以使用SEMAPHORE模式：
+                                  #只想控制并发度;外部的方法已经做了线程隔离;调用的是本地方法或者可靠度非常高、耗时特别小的方法（如medis）
+          semaphore:
+            maxConcurrentRequests: 1000 #设置在使用时允许到HystrixCommand.run（）方法的最大请求数。默认值：10,SEMAPHORE模式有效
+          thread:
+            interruptOnTimeout: true #在发生超时时，是否中断HystrixCommand.run() 的执行, 默认true,THREAD模式有效
+            timeoutInMilliseconds: 5000 #在调用方配置，被调用的所有方法的超时时间都是该值，优先级低于指定配置(HystrixCommandKey) 默认1000
+                                        #在THREAD模式下，达到超时时间，可以中断;在SEMAPHORE模式下，会等待执行完成后，再去判断是否超时
+            interruptOnCancel: false #当发生取消任务时，是否中断HystrixCommand.run() 的执行, 默认false,THREAD模式有效
+  shareSecurityContext: true
 
 #rocketMQ
 apache:

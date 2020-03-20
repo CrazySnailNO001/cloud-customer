@@ -1,9 +1,9 @@
 package com.xzh.customer.decathlon.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
@@ -13,8 +13,8 @@ import java.io.IOException;
  * @modified By：
  * @version:
  */
-@Component
-//@WebFilter(urlPatterns = "/filter/*", filterName = "myTestFilter") //不知道为啥urlPatterns没起作用
+@WebFilter(urlPatterns = "/filter/*", filterName = "myTestFilter")
+//@Component 加了它 urlPatterns 就不起作用了
 @Slf4j
 public class MyTestFilter implements Filter {
     @Override

@@ -20,7 +20,13 @@ public class AuthController {
     @RequestMapping("/test001")
     public String test001(String name, HttpServletRequest httpRequest) {
 
-        return "success";
+        return "test001 success";
+    }
+
+    @RequestMapping("/test002")
+    public String test002(String name, HttpServletRequest httpRequest) {
+
+        return "test002 success";
     }
 
 }

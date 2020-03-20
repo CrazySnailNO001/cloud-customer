@@ -22,7 +22,8 @@ public class WebAuthConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor).addPathPatterns("/auth/**");
+        registry.addInterceptor(authInterceptor).addPathPatterns("/auth/**")
+        .excludePathPatterns("/auth/test002");
         super.addInterceptors(registry);
     }
 
