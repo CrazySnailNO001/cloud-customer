@@ -1,8 +1,8 @@
 package com.xzh.customer.config;
 
 
-import com.xzh.customer.log.interceptorLog.LogInterceptor;
-import com.xzh.customer.log.interceptorLog.LoginInterceptor;
+import com.xzh.customer.technical.log.interceptorLog.LogInterceptor;
+import com.xzh.customer.technical.log.interceptorLog.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

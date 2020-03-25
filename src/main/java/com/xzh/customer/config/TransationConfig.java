@@ -1,12 +1,6 @@
 package com.xzh.customer.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionException;
-import org.springframework.transaction.TransactionStatus;
 
 /**
  * @author ：xzh
@@ -17,7 +11,7 @@ import org.springframework.transaction.TransactionStatus;
  */
 @Component
 public class TransationConfig {
-//    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.xzh.customer.decathlon.async..*.*(..))";
+//    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.xzh.customer.technical.decathlon.async..*.*(..))";
 //
 //    @Autowired
 //    private PlatformTransactionManager platformTransactionManager;

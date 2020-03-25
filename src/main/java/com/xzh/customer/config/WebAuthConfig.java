@@ -1,6 +1,6 @@
 package com.xzh.customer.config;
 
-import com.xzh.customer.decathlon.authInterceptor.AuthInterceptor;
+import com.xzh.customer.technical.decathlon.authInterceptor.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
