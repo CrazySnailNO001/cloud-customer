@@ -43,19 +43,30 @@ feign:
   hystrix:
     enabled: true
   client:
-    provide: provider-service
+    provide:
+      name: provider-service
+      path: /provider
+    config:
+      provider-service:
+        connectTimeout: 500
+        readTimeout: 500
+#        loggerLevel: basic
   httpclient:
-    connection-timeout: 5000
+    connection-timeout: 500
+    enabled: true
+    max-connections: 200
+    follow-redirects: true
+    connection-timer-repeat: 3000
 
 ribbon:
   OkToRetryOnAllOperations: false
-  ReadTimeout: 5000
-  ConnectTimeout: 5000
+  ReadTimeout: 500
+  ConnectTimeout: 500
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 1
   eager-load:
     enabled: true
-    clients: ${feign.client.provide}
+    clients: ${feign.client.provide.name}
 
 hystrix:
   threadpool:
@@ -65,13 +76,7 @@ hystrix:
       queueSizeRejectionThreshold: 10 #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
 
   command:
-    aa: #被调用的指定方法（HystrixCommandKey方法名）
-      execution:
-        timeout:
-          enable: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 50 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+    ##内置全局默认值
     default:
       fallback:
         enabled: true #确定在发生失败或拒绝时是否尝试调用HystrixCommand.getFallback（）。默认值为true
@@ -101,6 +106,16 @@ hystrix:
             timeoutInMilliseconds: 5000 #在调用方配置，被调用的所有方法的超时时间都是该值，优先级低于指定配置(HystrixCommandKey) 默认1000
                                         #在THREAD模式下，达到超时时间，可以中断;在SEMAPHORE模式下，会等待执行完成后，再去判断是否超时
             interruptOnCancel: false #当发生取消任务时，是否中断HystrixCommand.run() 的执行, 默认false,THREAD模式有效
+        ##内置实例默认值
+    hystrixTimeoutTest: #实例属性配置（hystrixTest001为指定的commandKey)
+#    "HystrixController#hystrixTest001()":
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 500 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+
   shareSecurityContext: true
 
 #rocketMQ

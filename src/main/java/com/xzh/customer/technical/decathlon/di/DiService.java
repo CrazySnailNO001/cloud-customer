@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiService {
     public String test001(String result){
-        System.out.println(result);
+//        System.out.println(result);
         return result;
     }
 }

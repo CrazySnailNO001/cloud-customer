@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@EnableEurekaClient
 //@EnableCircuitBreaker
 @SpringCloudApplication  //相当于上面3个的注解
-@EnableFeignClients(basePackages = {"com.xzh.customer.technical.cloud.feign"})
+@EnableFeignClients(basePackages = {"com.xzh.customer.technical.cloud"})
 @EnableTransactionManagement //开启事务
 //@ComponentScan("com.xzh.customer")
 @EnableAsync    //开启异步线程

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @create 2019/4/28 0028 14:48
  * @modify By:
  **/
-@FeignClient(name= "provider-service",fallback = FeignFallbackImpl.class,configuration = FeignConfig.class)
+@FeignClient(name= "${feign.client.provide.name}",path = "${feign.client.provide.path}",fallback = FeignFallbackImpl.class,configuration = FeignConfig.class)
 //@FeignClient(name= "provider-service",fallbackFactory = FeignFallbackFactory.class)
 //@FeignClient(name= "provider-service")
 @Component

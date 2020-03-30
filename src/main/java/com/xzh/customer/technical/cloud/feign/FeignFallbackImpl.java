@@ -19,12 +19,13 @@ public class FeignFallbackImpl implements HystrixServiceFeign {
 
     /**
      * hystrix fallback方法
+     *
      * @param name name
      * @return 默认的用户
      */
     @Override
     public String hello(String name) {
-        System.out.println("hello请求失败,进入fallback");
+        System.out.println(this.getClass().getSimpleName() + "hello请求失败,进入fallback");
         return "hello请求失败,进入fallback";
     }
 }
