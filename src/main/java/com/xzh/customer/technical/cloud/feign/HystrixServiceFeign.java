@@ -18,9 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 //@FeignClient(name= "provider-service")
 @Component
 public interface HystrixServiceFeign {
+    /**
+     * create by: xzh
+     * description: Hello World API
+     * create time: 2020-03-30 15:52
+     */
     @GetMapping (value = "/hello")
     String hello(@RequestParam(value = "name") String name);
 
     @RequestMapping("/time_out/{time}")
     String testTimeOutFeign(@PathVariable("time") Long time);
+
+    /**
+     * create by: xzh
+     * description: 测试 timeout API
+     * create time: 2020-03-30 15:52
+     */
+    @GetMapping (value = "/timeout")
+    String timeout(@RequestParam(value = "name") String name);
 }

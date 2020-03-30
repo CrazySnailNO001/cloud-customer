@@ -15,6 +15,11 @@ public class FeignFallbackFactory implements FallbackFactory<HystrixServiceFeign
     public HystrixServiceFeign create(Throwable throwable) {
         return new HystrixServiceFeign() {
             @Override
+            public String timeout(String name) {
+                return "timeout请求失败,进入FeignFallbackFactory.HystrixServiceFeign.timeout fallback 方法";
+            }
+
+            @Override
             public String hello(String name) {
                 return "hello请求失败,进入fallback";
             }

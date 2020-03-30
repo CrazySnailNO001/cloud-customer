@@ -32,6 +32,6 @@ public class HystrixController {
     @HystrixCommand(commandKey = "hystrixTimeoutTest")
     @GetMapping(value = "/hystrixTimeoutTest", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
     public String hystrixTimeoutTest(String name) {
-        return hystrixServiceFeign.hello(name);
+        return hystrixServiceFeign.timeout(name);
     }
 }

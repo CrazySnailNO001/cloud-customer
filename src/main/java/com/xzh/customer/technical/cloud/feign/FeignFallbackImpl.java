@@ -10,10 +10,15 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class FeignFallbackImpl implements HystrixServiceFeign {
+    @Override
+    public String timeout(String name) {
+        System.out.println(this.getClass().getSimpleName() + "timeout,进入fallback");
+        return "timeout,进入FeignFallbackImpl.fallback";
+    }
 
     @Override
     public String testTimeOutFeign(Long time) {
-        System.out.println("testTimeOutFeign请求失败,进入fallback");
+        System.out.println("testTimeOutFeign请求失败,进入FeignFallbackImpl.fallback");
         return "testTimeOutFeign请求失败,进入fallback";
     }
 
@@ -25,7 +30,7 @@ public class FeignFallbackImpl implements HystrixServiceFeign {
      */
     @Override
     public String hello(String name) {
-        System.out.println(this.getClass().getSimpleName() + "hello请求失败,进入fallback");
+        System.out.println(this.getClass().getSimpleName() + "hello请求失败,进入FeignFallbackImpl.fallback");
         return "hello请求失败,进入fallback";
     }
 }
