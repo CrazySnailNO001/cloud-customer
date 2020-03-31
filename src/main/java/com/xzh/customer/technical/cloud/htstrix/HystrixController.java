@@ -34,4 +34,10 @@ public class HystrixController {
     public String hystrixTimeoutTest(String name) {
         return hystrixServiceFeign.timeout(name);
     }
+
+    @HystrixCommand(commandKey = "HystrixConfigTestKey")
+    @GetMapping(value = "/hystrixConfigTestKey", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+    public String hystrixConfigTestKey(String name) {
+        return hystrixServiceFeign.timeout(name);
+    }
 }

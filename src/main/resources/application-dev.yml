@@ -49,7 +49,7 @@ feign:
     config:
       provider-service:
         connectTimeout: 500
-        readTimeout: 50
+        readTimeout: 500
 #        loggerLevel: basic
   httpclient:
     connection-timeout: 500
@@ -109,13 +109,21 @@ hystrix:
 
     ##内置实例默认值
 #    "hystrixServiceFeign#hello()": #不好使
-    hystrixTimeoutTest: #实例属性配置（hystrixTest001为指定的commandKey)
+    hystrixTimeoutTest: #实例属性配置（hystrixTimeoutTest为指定的commandKey)
       execution:
         timeout:
           enable: true
         isolation:
           thread:
             timeoutInMilliseconds: 500 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+
+    HystrixConfigTestKey: #实例属性配置（HystrixConfigTestKey为指定的commandKey)
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
 
   shareSecurityContext: true
 
