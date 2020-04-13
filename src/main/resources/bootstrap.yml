@@ -1,0 +1,9 @@
+#spring:
+#  profiles: dev
+#  application:
+#    name: customer-service
+#  cloud:
+#    config:
+#      uri: http://localhost:8760
+#      label: master
+#      profile: dev

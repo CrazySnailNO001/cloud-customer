@@ -26,7 +26,7 @@ public class CrossDomainConfig {
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", buildConfig()); // enable all interface support cross domian
+        source.registerCorsConfiguration("/**", buildConfig()); // enable all interface support cross domain
         return new CorsFilter(source);
     }
 }

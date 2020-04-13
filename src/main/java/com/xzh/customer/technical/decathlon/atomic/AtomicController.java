@@ -32,12 +32,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AtomicController {
     @Resource
     private ThreadPoolExecutor threadPoolExecutor;
-    private Integer intNumber;
+    private volatile Integer intNumber;//volatile 不保证原子性
     private AtomicInteger atomicInteger;
+    private List<Integer> list;
+
 
     @PostMapping(value = "/list_test", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ApiResponseDto> test01() throws ExecutionException, InterruptedException {
-        List<Integer> list = new ArrayList<>();
+        list = new ArrayList<>();
 
         return getApiResponseDtoResponseEntity(list);
     }
@@ -87,7 +89,8 @@ public class AtomicController {
                 public void run() {
                     for (int i = 0; i < 1000; i++) {
                         count();
-                        safeCount(atomicInteger);
+//                        safeCount(atomicInteger);
+                        atomicInteger.incrementAndGet();
                     }
                 }
             });
