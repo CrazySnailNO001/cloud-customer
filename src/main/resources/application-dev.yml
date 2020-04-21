@@ -22,24 +22,6 @@ spring:
 #  jackson:
 #    property-naming-strategy: SNAKE_CASE //统一配置json序列化格式
 
-eurekaServer:
-  host: localhost  #注册中心的地址
-  port: 8761       #注册中心服务端的端口号
-  user: user     #注册中心安全校验用户名
-  password: 123456 #注册中心安全校验密码
-
-eureka:
-  server:
-    max-time-for-replication: 30000
-#    a-w-s-access-id: user
-#    a-w-s-secret-key: 123456
-  client:
-    register-with-eureka: true  #将此项目注册到Eureka服务
-    service-url:
-#      defaultZone: http://user:123456@localhost:8761/eureka
-      defaultZone: http://localhost:8761/eureka/    #注册地址
-    fetch-registry: true
-
 #在feign中使用hystrix断路器
 feign:
   hystrix:
