@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author ：xzh
  * @date ：Created in 2020-04-21 11:51
- * @description： 如果仅需要键(keys)或值(values)使用方法二。如果你使用的语言版本低于java 5，或是打算在遍历时删除entries，必须使用方法三。否则使用方法一(键值都要)。
+ * @description：如果需要使用remove(key)方法,必须使用方法三,否则,若你使用的jdk版本在1.8以上建议使用方法master,否则推荐方法一
  * @modified By：
  * @version:
  */
@@ -23,9 +23,16 @@ public class MapForeach {
         map.put("周六", 15);
 
         /**
+         * java8 lumbda 效率最高
+         */
+        map.forEach((key, value) ->
+                System.out.println("[Method master] Key = " + key + ", Value = " + value)
+        );
+
+
+        /**
          * 方法一 在for-each循环中使用entries来遍历
          * for-each循环在java 5中被引入所以该方法只能应用于java 5或更高的版本中。
-         * 如果你遍历的是一个空的map对象，for-each循环将抛出NullPointerException，因此在遍历前你总是应该检查空引用。
          */
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             System.out.println("[Method 001] key : [" + entry.getKey() + "], value : [" + entry.getValue() + "]");

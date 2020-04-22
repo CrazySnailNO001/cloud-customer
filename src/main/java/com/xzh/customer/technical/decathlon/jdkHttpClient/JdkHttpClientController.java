@@ -2,6 +2,7 @@ package com.xzh.customer.technical.decathlon.jdkHttpClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +10,12 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -79,6 +83,26 @@ public class JdkHttpClientController {
 
         String response = objectCompletableFuture.get();
 
+        //获取statusCode
+        CompletableFuture<Integer> statusCode = httpClient
+                .sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::statusCode);
+        if (statusCode.get() == HttpStatus.OK.value())
+            log.info("status success {}", statusCode);
+        else
+            log.info("status failed {}", statusCode);
+
+        //对response进行处理
+        CompletableFuture<String> responseBody = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(httpResponse -> {
+                    HttpHeaders headers = httpResponse.headers();
+                    Map<String, List<String>> map = headers.map();
+                    map.forEach((name, value) -> log.info("name : {} , value : {}", name, value));
+
+                    return httpResponse.body();
+                });
+        log.info("responseBody {}", responseBody);
+
         return response;
     }
 
@@ -137,6 +161,4 @@ public class JdkHttpClientController {
 
         return stringCompletableFuture.get();
     }
-
-
 }
