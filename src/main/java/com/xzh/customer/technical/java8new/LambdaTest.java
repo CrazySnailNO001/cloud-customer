@@ -19,6 +19,14 @@ public class LambdaTest {
         list.add(2);
         list.add(3);
         list.forEach(System.out::println);
+
+        System.out.println();
+
+        /**
+         * 安全的删除元素
+         */
+        list.removeIf(value -> value==1);
+        list.forEach(System.out::println);
     }
     public int add(int x, int y) {
         return x + y;
