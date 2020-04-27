@@ -3,6 +3,7 @@ package com.xzh.customer.technical.java8new;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author XZHH
@@ -13,6 +14,10 @@ import java.util.stream.Collectors;
 
 public class StreamTest {
     public static void main(String[] args) {
+        //打印1-9
+        IntStream.range(1,10).forEach(value -> {
+            System.out.println("IntStream: "+value);
+        });
 
         List list = new ArrayList();
         for (int i = 1; i <= 7; i++) {

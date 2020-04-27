@@ -10,24 +10,18 @@ import java.util.List;
  * @modify By:
  **/
 public class LambdaTest {
-    public static void main(String[] args){
-        Object o = (Runnable) () -> { System.out.println("hi"); }; // correct
-
+    public static void main(String[] args) {
+        Object o = (Runnable) () -> {
+            System.out.println("hi");
+        }; // correct
 
         List<Integer> list = new ArrayList();
         list.add(1);
         list.add(2);
         list.add(3);
         list.forEach(System.out::println);
-
-        System.out.println();
-
-        /**
-         * 安全的删除元素
-         */
-        list.removeIf(value -> value==1);
-        list.forEach(System.out::println);
     }
+
     public int add(int x, int y) {
         return x + y;
     }
