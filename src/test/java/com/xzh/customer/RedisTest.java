@@ -39,7 +39,8 @@ public class RedisTest {
                 stringIntegerRedisTemplate.getExpire("testData"));
 
         Thread.sleep(5000);
-        stringIntegerRedisTemplate.opsForValue().set("testData", 13);
+//        stringIntegerRedisTemplate.opsForValue().getAndSet("testData", 13);
+        stringIntegerRedisTemplate.opsForValue().set("testData", 13); //都会重置过期时间
         log.info("testData value : [ {} ] 过期时间 --002 [ {} ]", stringIntegerRedisTemplate.opsForValue().get("testData"),
                 stringIntegerRedisTemplate.getExpire("testData"));
     }
