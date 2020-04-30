@@ -12,10 +12,6 @@ import java.util.stream.IntStream;
  **/
 public class LambdaTest {
     public static void main(String[] args) {
-        Object o = (Runnable) () -> {
-            System.out.println("hi");
-        }; // correct
-
         List<Integer> list = new ArrayList();
         list.add(3);
         list.add(2);
