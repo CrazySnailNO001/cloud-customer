@@ -9,14 +9,18 @@ package com.xzh.customer.technical.threadPool;
  */
 public class ThreadTest {
     public static void main(String[] args) throws InterruptedException {
-        Runnable runnable = () -> {
-            System.out.println("runnable~");
-        };
-        Thread thread02 = new Thread(runnable);
+//        Runnable runnable = () -> {
+//            System.out.println("runnable~");
+//        };
+//        Thread thread02 = new Thread(runnable);
+
+        /**
+         * 和上面这种方法是一样的,只不过使用 lambda 替代了 上面的 runnable 对象
+         */
         Thread thread = new Thread(() -> System.out.println("================THREAD--running"));
 
 
-        test001(thread02);
+        test001(thread);
 //        test002(thread);
 //        test003(thread);
     }
