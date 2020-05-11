@@ -14,9 +14,7 @@ import java.util.stream.IntStream;
 public class ParallelStreamTest {
     public static void main(String[] args) {
         List<Integer> list = new ArrayList<>();
-        IntStream.range(1, 10).forEach(value -> {
-            list.add(value);
-        });
+        IntStream.range(1, 10).forEach(list::add);
 
 
         streamPrint(list);
@@ -28,8 +26,8 @@ public class ParallelStreamTest {
      * description: 串行执行
      * create time: 2020-05-11 17:30
      */
-    public static void streamPrint(List list) {
-        list.stream().forEach(value->{
+    private static void streamPrint(List<Integer> list) {
+        list.forEach(value->{
             System.out.println("streamPrint ====   " + Thread.currentThread().getName() + "====   value : " + value);
         });
     }
@@ -39,7 +37,7 @@ public class ParallelStreamTest {
      * description: 并行执行
      * create time: 2020-05-11 17:30
      */
-    public static void parallelStreamPrint(List list) {
+    private static void parallelStreamPrint(List<Integer> list) {
         list.parallelStream().forEach(value -> {
             System.out.println("parallelStreamPrint ====   " + Thread.currentThread().getName() + "====   value : " + value);
         });
