@@ -1,6 +1,8 @@
 server:
   port: 8764
   connection-timeout: 6000
+  tomcat:
+    max-threads: 200
 #  servlet:
 #    context-path: /customer
 spring:
@@ -120,11 +122,6 @@ apache:
     consumer:
       pushConsumer: PushConsumer # 消费者的组名
 
-
-
-
-
-
 httpClient:
   pool:
     timeToLive: 6000
@@ -139,4 +136,3 @@ httpClient:
       hostname: proxy-internet-aws-china-production.subsidia.org
       port: 3128
       schema: https
-

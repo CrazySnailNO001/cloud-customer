@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -27,7 +28,7 @@ import java.util.stream.IntStream;
 @RequestMapping("/countDown")
 public class CountDownController {
 
-    @Autowired
+    @Resource
     private ThreadPoolExecutor threadPoolExecutor;
 
     @GetMapping("/test001")
@@ -35,24 +36,20 @@ public class CountDownController {
         log.info("主线程 [{}] 开始执行...", Thread.currentThread().getName());
 
         List<Count> list = new ArrayList<>();
-        IntStream.range(0, 10).forEach(value -> {
-            list.add(new Count(value, value));
-        });
+        IntStream.range(0, 10).forEach(value -> list.add(new Count(value, value)));
 
         CountDownLatch countDownLatch = new CountDownLatch(list.size());
 
-        list.forEach(count -> {
-            threadPoolExecutor.execute(() -> {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                count.setB(count.getB() + 1);
-                log.info("子线程 [{}] 开始执行... a = [ {} ] , b = [ {} ]", Thread.currentThread().getName(), count.getA(), count.getB());
-                countDownLatch.countDown();
-            });
-        });
+        list.forEach(count -> threadPoolExecutor.execute(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            count.setB(count.getB() + 1);
+            log.info("子线程 [{}] 开始执行... a = [ {} ] , b = [ {} ]", Thread.currentThread().getName(), count.getA(), count.getB());
+            countDownLatch.countDown();
+        }));
         countDownLatch.await(400,TimeUnit.MILLISECONDS);
         log.info(list.toString());
         log.info("主线程 [{}] 结束执行...", Thread.currentThread().getName());
