@@ -95,7 +95,7 @@ public class ParallelStreamTest {
 
 
         //修改ForkJoinPool线程数方法二
-        ForkJoinTask<?> submit = new ForkJoinPool().submit(() -> test001(list));
+        ForkJoinTask<?> submit = new ForkJoinPool(20).submit(() -> test001(list));
         try {
             Object o = submit.get();
         } catch (InterruptedException e) {
