@@ -70,7 +70,7 @@ ribbon:
     clients: ${feign.client.provide.name}
 
 hystrix:
-  threadpool:Å
+  threadpool:
     default:
       coreSize: 12 #并发执行的最大线程数，默认10
       maxQueueSize: 20 #BlockingQueue的最大队列长度,默认-1,使用SynchronousQueue。其他值则使用 LinkedBlockingQueue。
@@ -85,7 +85,7 @@ hystrix:
           semaphore:
             maxConcurrentRequests: 10 #设置从调用线程允许HystrixCommand.getFallback（）方法的最大请求数。 SEMAPHORE模式有效, 默认值：10
 
-      circuitBreaker:Å
+      circuitBreaker:
         enabled: true #确定断路器是否用于跟踪运行状况和短路请求（如果跳闸）。默认true
         requestVolumeThreshold: 10 #当在配置时间窗口内达到此数量的失败后，进行短路。默认20个
         sleepWindowInMilliseconds: 10000 #短路多久以后开始尝试是否恢复，默认5000
