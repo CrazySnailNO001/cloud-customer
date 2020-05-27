@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: customer-service
+
+#Redis start
   redis:
     port: 6379
 #    host: xzhwxx.xyz
@@ -21,7 +23,10 @@ spring:
 #    password: springboot  # Redis服务器连接密码（默认为空）
 #  jackson:
 #    property-naming-strategy: SNAKE_CASE //统一配置json序列化格式
+#Redis end
 
+
+# Mongodb start
   data:
     mongodb:
       host: localhost
@@ -29,6 +34,7 @@ spring:
 #      username: admin
 #      password: 123456
       port: 27017
+# Mongodb end
 
 
 #在feign中使用hystrix断路器
