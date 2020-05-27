@@ -1,14 +1,10 @@
-package com.xzh.customer.technical.db.mongo;
+package com.xzh.customer.config;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.convert.CustomConversions;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.convert.DbRefResolver;
-import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
-import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
-import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+import org.springframework.data.mongodb.core.convert.*;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 /**
@@ -27,7 +23,7 @@ public class MongoConfig {
         DbRefResolver dbRefResolver = new DefaultDbRefResolver(factory);
         MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, context);
         try {
-            converter.setCustomConversions(beanFactory.getBean(CustomConversions.class));
+            converter.setCustomConversions(beanFactory.getBean(MongoCustomConversions.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
