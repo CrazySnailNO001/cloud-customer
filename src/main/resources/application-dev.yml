@@ -70,12 +70,19 @@ ribbon:
     clients: ${feign.client.provide.name}
 
 hystrix:
+
+# threadPool start
   threadpool:
     default:
       coreSize: 12 #并发执行的最大线程数，默认10
+      allowMaximumSizeToDivergeFromCoreSize为false: true
+      maximumSize: 50 #线程池允许最大线程数,如果allowMaximumSizeToDivergeFromCoreSize为false,则配置此无效
       maxQueueSize: 20 #BlockingQueue的最大队列长度,默认-1,使用SynchronousQueue。其他值则使用 LinkedBlockingQueue。
       queueSizeRejectionThreshold: 10 #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
+      keepAliveTimeMinutes: 5 #非核心线程空闲等待时间,默认2minute
+# threadPool end
 
+#command start
   command:
     ##内置全局默认值
     default:
@@ -125,10 +132,11 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 50 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+#command end
 
   shareSecurityContext: true
 
-#rocketMQ
+#rocketMQ start
 apache:
   rocketmq:
     namesrvAddr: 127.0.0.1:9876   # NameServer地址
@@ -136,6 +144,8 @@ apache:
       producerGroup: Producer   # 生产者的组名
     consumer:
       pushConsumer: PushConsumer # 消费者的组名
+
+#rocketMQ end
 
 httpClient:
   pool:

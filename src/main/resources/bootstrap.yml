@@ -9,6 +9,7 @@
 #      profile: dev
 
 eurekaServer:
+#  host: localhost  #注册中心的地址
   host: xzhwxx.xyz  #注册中心的地址
   port: 8761       #注册中心服务端的端口号
   user: user     #注册中心安全校验用户名
@@ -23,6 +24,5 @@ eureka:
     register-with-eureka: true  #将此项目注册到Eureka服务
     service-url:
       #      defaultZone: http://user:123456@localhost:8761/eureka
-      #      defaultZone: http://localhost:8761/eureka/
       defaultZone: http://${eurekaServer.host}:${eurekaServer.port}/eureka/
     fetch-registry: true
