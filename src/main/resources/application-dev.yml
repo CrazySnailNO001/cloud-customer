@@ -75,7 +75,7 @@ hystrix:
   threadpool:
     default:
       coreSize: 12 #并发执行的最大线程数，默认10
-      allowMaximumSizeToDivergeFromCoreSize为false: true
+      allowMaximumSizeToDivergeFromCoreSize: true
       maximumSize: 50 #线程池允许最大线程数,如果allowMaximumSizeToDivergeFromCoreSize为false,则配置此无效
       maxQueueSize: 20 #BlockingQueue的最大队列长度,默认-1,使用SynchronousQueue。其他值则使用 LinkedBlockingQueue。
       queueSizeRejectionThreshold: 10 #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
