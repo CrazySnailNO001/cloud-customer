@@ -9,7 +9,7 @@ import static com.google.common.base.Stopwatch.createStarted;
 /**
  * @author ：xzh
  * @date ：Created in 2020-06-01 14:47
- * @description：
+ * @description：Stopwatch使用了操作系统和硬件提供的最高分辨率机制，通常少于1毫秒（相比之下DateTime.Now和Environment.TickCount的分辨率在15毫秒左右）
  * 53
  * 105
  * @modified By：
