@@ -17,6 +17,9 @@
     <properties>
         <java.version>12</java.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <!-- The main class to start by executing java -jar -->
+        <!--   解决项目有多个main方法导致项目无法打包成功     -->
+        <start-class>com.mycorp.starter.HelloWorldApplication</start-class>
     </properties>
 
     <dependencies>
@@ -169,11 +172,11 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13</version>
         </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itext-parent</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.itextpdf</groupId>-->
+<!--            <artifactId>itext-parent</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-asian -->
         <dependency>
             <groupId>com.itextpdf</groupId>
