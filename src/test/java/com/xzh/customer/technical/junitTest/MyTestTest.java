@@ -13,21 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 //@SpringBootTest
 //@RunWith(SpringRunner.class)
-public class MytestTest {
+public class MyTestTest {
     //无法注入
     @Autowired
-    private Mytest mytest;
+    private MyTest mytest;
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
-    public void soutTest() throws Exception {
-        mytest.soutTest();
+    public void printTestTest() {
+        mytest.printTest();
     }
 
     @Test(timeout = 1000)   //超过1s就不通过
