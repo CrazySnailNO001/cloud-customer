@@ -1,7 +1,11 @@
 package com.xzh.customer.technical.java8new;
 
+import com.xzh.customer.technical.object.User;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -14,9 +18,38 @@ import java.util.stream.IntStream;
 
 public class StreamTest {
     public static void main(String[] args) {
+        listToMap();
+//        test();
+    }
+
+    private static void listToMap() {
+        List<User> users = new ArrayList<>();
+        IntStream.range(1, 5).forEach(value ->
+                users.add(new User("name00" + value, value))
+        );
+
+
+        //添加的字段
+        Map<String, Integer> collect = users.stream().collect(Collectors.toMap(User::getName, User::getAge));
+        System.out.println(collect);
+
+        //添加的User对象,Function.identity()返回一个输出跟输入一样的Lambda表达式对象，等价于形如t -> t形式的Lambda表达式。
+        Map<String, User> collect1 = users.stream().collect(Collectors.toMap(User::getName, Function.identity()));
+        System.out.println(collect1);
+
+        IntStream.range(1, 5).forEach(value ->
+                users.add(new User("name00" + value, value))
+        );
+
+        //当key重复的时候取第二个key
+        Map<String, User> collect2 = users.stream().collect(Collectors.toMap(User::getName, Function.identity(), (key1, key2) -> key2));
+        System.out.println(collect2);
+    }
+
+    private static void test() {
         //打印1-9
-        IntStream.range(1,10).forEach(value -> {
-            System.out.println("IntStream: "+value);
+        IntStream.range(1, 10).forEach(value -> {
+            System.out.println("IntStream: " + value);
         });
 
         List list = new ArrayList();
@@ -36,7 +69,7 @@ public class StreamTest {
         list.stream().sorted().forEach(System.out::print);  //升序
 
         System.out.println("");
-        list.stream().sorted((param1,param2) -> ((int)param1 < (int)param2 ? 1:-1)).forEach(System.out::print);//降序
+        list.stream().sorted((param1, param2) -> ((int) param1 < (int) param2 ? 1 : -1)).forEach(System.out::print);//降序
 
         list.add(1);
         list.add(1);
@@ -51,6 +84,6 @@ public class StreamTest {
         List list1 = (List) list.stream().filter(param -> (int) param % 2 == 0).collect(Collectors.toList());
         list1.stream().filter(p -> (int) p == 4).forEach(System.out::print);
         System.out.println("");
-        list1.forEach(p-> System.out.print(p));
+        list1.forEach(p -> System.out.print(p));
     }
 }
