@@ -1,5 +1,6 @@
 package com.xzh.customer.technical.redis;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,24 @@ import java.util.Map;
 public class RedisUtils {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+
+    public static final Integer DEFAULT_TIMEOUT_MINUTES = 60;
+    public static final String REDIS_PREFIX_MODULE_CUSTOMER = "customer";
+    private static final String SPLIT = ":";
+
+    public static String getRedisKey(String... name) {
+        StringBuffer sb = new StringBuffer();
+        for (String str : name) {
+            if (StringUtils.isNotBlank(str)) {
+                sb.append(str);
+                sb.append(SPLIT);
+            }
+        }
+        sb = sb.deleteCharAt(sb.lastIndexOf(SPLIT));
+
+        return sb.toString();
+    }
+
 
     /**
      * 读取缓存

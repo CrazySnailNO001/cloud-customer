@@ -30,7 +30,9 @@ public class StreamTest {
         );
 
         List<String> collect = users.stream().map(User::getName).collect(Collectors.toList());
+        long count = users.stream().mapToInt(User::getAge).count();
         System.out.println(collect);
+        System.out.println(count);
     }
 
     private static void listToMap() {
