@@ -18,8 +18,19 @@ import java.util.stream.IntStream;
 
 public class StreamTest {
     public static void main(String[] args) {
-        listToMap();
+//        listToMap();
+        listToList();
 //        test();
+    }
+
+    private static void listToList() {
+        List<User> users = new ArrayList<>();
+        IntStream.range(1, 5).forEach(value ->
+                users.add(new User("name00" + value, value))
+        );
+
+        List<String> collect = users.stream().map(User::getName).collect(Collectors.toList());
+        System.out.println(collect);
     }
 
     private static void listToMap() {
