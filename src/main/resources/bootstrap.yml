@@ -10,7 +10,8 @@
 
 eurekaServer:
 #  host: localhost  #注册中心的地址
-  host: xzhwxx.xyz  #注册中心的地址
+  host: aliCloud  #注册中心的地址
+#  host: xzhwxx.xyz  #注册中心的地址
   port: 8761       #注册中心服务端的端口号
   user: user     #注册中心安全校验用户名
   password: 123456 #注册中心安全校验密码

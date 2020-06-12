@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 /**
  * @author XZHH
  * @Description:
+ * leftPushAll: 批量把一个集合插入到列表中
+ * leftPushIfPresent:只有存在key对应的列表才能将这个value值插入到key所对应的列表中
  * @create 2019/4/26 0026 17:07
  * @modify By:
  **/

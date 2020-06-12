@@ -34,8 +34,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+    public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
         //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值（默认使用JDK的序列化方式）

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @modified By：
  * @version:
  */
-@Service
 public interface MockService {
      String mockGetTest(@RequestParam String name);
 }

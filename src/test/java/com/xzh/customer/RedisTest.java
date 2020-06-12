@@ -32,6 +32,24 @@ public class RedisTest {
     @Resource
     private RedisTemplate<String, Integer> stringIntegerRedisTemplate;
 
+    /**
+     * 有key存在的时候才能存进去
+     */
+    @Test
+    public void setIfPresent() {
+        Boolean result = redisTemplate.opsForValue().setIfPresent("setIfPresent", "data", 6000, TimeUnit.MILLISECONDS);
+        System.out.println(result);
+    }
+
+    /**
+     * 不存在key的时候才能存进去
+     */
+    @Test
+    public void setIfAbsent() {
+        Boolean result = redisTemplate.opsForValue().setIfAbsent("setIfAbsent", "data", 6000, TimeUnit.MILLISECONDS);
+        System.out.println(result);
+    }
+
     @Test
     public void redisTest01() throws InterruptedException {
         stringIntegerRedisTemplate.opsForValue().set("testData", 12, 20, TimeUnit.SECONDS);

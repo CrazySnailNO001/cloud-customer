@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author XZHH
@@ -23,6 +24,11 @@ public class RedisUtils {
     public static final String REDIS_PREFIX_MODULE_CUSTOMER = "customer";
     private static final String SPLIT = ":";
 
+    /**
+     * 生成制定规则的 key
+     * @param name
+     * @return
+     */
     public static String getRedisKey(String... name) {
         StringBuffer sb = new StringBuffer();
         for (String str : name) {
@@ -34,6 +40,24 @@ public class RedisUtils {
         sb = sb.deleteCharAt(sb.lastIndexOf(SPLIT));
 
         return sb.toString();
+    }
+
+    /**
+     *有key存在的时候才能存进去
+     * @param key
+     * @return
+     */
+    public Boolean setIfPresent(String key) {
+        return redisTemplate.opsForValue().setIfPresent(key, "data", 6000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     *不存在key的时候才能存进去
+     * @param key
+     * @return
+     */
+    public Boolean setIfAbsent(String key) {
+        return redisTemplate.opsForValue().setIfAbsent(key, "data", 6000, TimeUnit.MILLISECONDS);
     }
 
 

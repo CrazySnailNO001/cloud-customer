@@ -1,5 +1,6 @@
 package com.xzh.customer.technical.myMock;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @modified By：
  * @version:
  */
+@Service
 public class MockServiceImpl implements MockService {
     @Override
     public String mockGetTest(@RequestParam String name) {
