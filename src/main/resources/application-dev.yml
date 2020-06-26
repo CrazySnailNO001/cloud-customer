@@ -13,7 +13,8 @@ spring:
   redis:
     port: 6379
 #    host: xzhwxx.xyz
-    host: localhost
+    host: aliCloud
+#    host: localhost
     database: 0   #选择redis的db0作为缓存存储位置
     jedis:
       pool:
@@ -22,7 +23,7 @@ spring:
         max-idle: 20     # 连接池中的最大空闲连接
         min-idle: 2
     timeout: 5000
-#    password: springboot  # Redis服务器连接密码（默认为空）
+  #    password: springboot  # Redis服务器连接密码（默认为空）
 #  jackson:
 #    property-naming-strategy: SNAKE_CASE //统一配置json序列化格式
 #Redis end
@@ -31,7 +32,8 @@ spring:
 # Mongodb start
   data:
     mongodb:
-      host: localhost
+#      host: xzhwxx.xyz
+      host: aliCloud
       database: testDb
 #      username: admin
 #      password: 123456

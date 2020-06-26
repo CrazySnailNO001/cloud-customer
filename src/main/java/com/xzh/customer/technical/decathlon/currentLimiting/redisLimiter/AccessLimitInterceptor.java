@@ -3,6 +3,7 @@ package com.xzh.customer.technical.decathlon.currentLimiting.redisLimiter;
 import com.xzh.customer.technical.decathlon.currentLimiting.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @version:
  */
 @Slf4j
+@Component
 public class AccessLimitInterceptor implements HandlerInterceptor {
     @Resource
     private RedisTemplate<String, Integer> redisTemplate;
