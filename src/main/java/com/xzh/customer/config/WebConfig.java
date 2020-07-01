@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 /**
  * @author ：xzh
  * @date ：Created in 2020-03-11 15:59
- * @description： 注意,一个项目中不能有两个类继承 WebMvcConfigurationSupport 或者 WebMvcConfigurer
+ * @description： 注意, 一个项目中不能有两个类继承 WebMvcConfigurationSupport 或者 WebMvcConfigurer
  * @modified By：
  * @version:
  */
@@ -31,7 +31,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
          * 实现权限管理
          */
         registry.addInterceptor(authInterceptor).addPathPatterns("/auth/**")
-        .excludePathPatterns("/auth/test002");
+                .excludePathPatterns("/auth/test002");
 
         /**
          * 实现限流功能
@@ -44,7 +44,10 @@ public class WebConfig extends WebMvcConfigurationSupport {
     //由于继承WebMvcConfigurationSupport后会导致自动配置失效，所以这里要指定默认的静态资源的位置。
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/public/")
+                .addResourceLocations("classpath:/resources/");
         super.addResourceHandlers(registry);
     }
 }
