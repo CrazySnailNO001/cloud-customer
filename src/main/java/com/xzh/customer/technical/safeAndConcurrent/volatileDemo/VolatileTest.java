@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.volatileDemo;
+package com.xzh.customer.technical.safeAndConcurrent.volatileDemo;
 
 import lombok.extern.slf4j.Slf4j;
 

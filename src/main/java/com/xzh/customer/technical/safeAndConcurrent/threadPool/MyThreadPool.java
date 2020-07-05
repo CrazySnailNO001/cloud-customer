@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.threadPool;
+package com.xzh.customer.technical.safeAndConcurrent.threadPool;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;

@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.threadPool;
+package com.xzh.customer.technical.safeAndConcurrent.threadPool;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
