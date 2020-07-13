@@ -23,6 +23,9 @@ import java.util.Map;
 public class ObjectController {
     @GetMapping("/test001")
     public void test001() {
+        Object o = new Object();
+        boolean equals = o.equals(o);
+        int i = o.hashCode();
 
     }
 

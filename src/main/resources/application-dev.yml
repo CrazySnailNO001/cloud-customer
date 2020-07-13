@@ -3,13 +3,13 @@ server:
   connection-timeout: 6000
   tomcat:
     max-threads: 200
-#  servlet:
-#    context-path: /customer
+  servlet:
+    context-path: /customer
 spring:
   application:
     name: customer-service
 
-#Redis start
+############################################################   Redis  start ##########################################################################
   redis:
     port: 6379
 #    host: xzhwxx.xyz
@@ -26,10 +26,11 @@ spring:
   #    password: springboot  # Redis服务器连接密码（默认为空）
 #  jackson:
 #    property-naming-strategy: SNAKE_CASE //统一配置json序列化格式
-#Redis end
+############################################################   Redis  end ##########################################################################
 
 
-# Mongodb start
+
+############################################################   Mongodb  start ##########################################################################
   data:
     mongodb:
 #      host: xzhwxx.xyz
@@ -38,8 +39,35 @@ spring:
 #      username: admin
 #      password: 123456
       port: 27017
-# Mongodb end
+############################################################   Mongodb  end ##########################################################################
 
+############################################################   springCloud Eureka  start ##########################################################################
+
+eureka:
+  instance:
+    appname: customer
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: false
+    virtualHostName: ${spring.application.name}
+    statusPageUrlPath: ${server.servlet.context-path}/actuator/info
+    homePageUrlPath: ${server.servlet.context-path}/actuator/
+    healthCheckUrlPath: ${server.servlet.context-path}/actuator/health
+    hostname: localhost
+    non-secure-port-enabled: true   #开启不安全通信的端口，就是使用http进行通信
+    non-secure-port: 8764         #设置不安全端口号
+    secure-port: 443
+    secure-port-enabled: true     #开启安全通信的端口，就是使用https进行通信
+    leaseRenewalIntervalInSeconds: 5
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: https://shiphub-asia-eureka-dev.preprod.subsidia.org/peer1/eureka,https://shiphub-asia-eureka-dev.preprod.subsidia.org/peer2/eureka
+############################################################   springCloud Eureka  end ##########################################################################
+
+
+
+############################################################   springCloud Feign  start ##########################################################################
 
 #在feign中使用hystrix断路器
 feign:
@@ -60,6 +88,9 @@ feign:
     max-connections: 200
     follow-redirects: true
     connection-timer-repeat: 3000
+############################################################   springCloud Feign  start ##########################################################################
+
+############################################################   springCloud Ribbon  start ##########################################################################
 
 ribbon:
   OkToRetryOnAllOperations: false
@@ -70,7 +101,9 @@ ribbon:
   eager-load:
     enabled: true
     clients: ${feign.client.provide.name}
+############################################################   springCloud Ribbon  end ##########################################################################
 
+############################################################   springCloud Hystrix  start ##########################################################################
 hystrix:
 
 # threadPool start
@@ -137,6 +170,7 @@ hystrix:
 #command end
 
   shareSecurityContext: true
+############################################################   springCloud Hystrix  end ##########################################################################
 
 #rocketMQ start
 apache:
