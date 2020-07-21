@@ -62,7 +62,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: https://shiphub-asia-eureka-dev.preprod.subsidia.org/peer1/eureka,https://shiphub-asia-eureka-dev.preprod.subsidia.org/peer2/eureka
+      defaultZone: http://aliCloud:8761/eureka
 ############################################################   springCloud Eureka  end ##########################################################################
 
 
@@ -93,11 +93,11 @@ feign:
 ############################################################   springCloud Ribbon  start ##########################################################################
 
 ribbon:
-  OkToRetryOnAllOperations: false
-  ReadTimeout: 500
-  ConnectTimeout: 500
-  MaxAutoRetries: 0
-  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false #无论是请求超时或者socket read timeout都进行重试
+  ReadTimeout: 5000 #请求处理的超时时间
+  ConnectTimeout: 500 #请求连接的超时时间
+  MaxAutoRetries: 0 #对当前实例的重试次数（默认值为 0）
+  MaxAutoRetriesNextServer: 1 #切换实例的重试次数（默认值为 1）
   eager-load:
     enabled: true
     clients: ${feign.client.provide.name}
@@ -122,7 +122,7 @@ hystrix:
     ##内置全局默认值
     default:
       fallback:
-        enabled: true #确定在发生失败或拒绝时是否尝试调用HystrixCommand.getFallback（）。默认值为trueÅ
+        enabled: true #确定在发生失败或拒绝时是否尝试调用HystrixCommand.getFallback（）。默认值为true
         isolation:
           semaphore:
             maxConcurrentRequests: 10 #设置从调用线程允许HystrixCommand.getFallback（）方法的最大请求数。 SEMAPHORE模式有效, 默认值：10
@@ -141,7 +141,7 @@ hystrix:
         isolation:
           strategy: THREAD #隔离策略,1.THREAD - 它在单独的线程上执行，并发请求受线程池中的线程数量的限制;#2.SEMAPHORE - 它在调用线程上执行，并发请求受到信号量计数的限制
                                   #默认使用THREAD模式，以下几种场景可以使用SEMAPHORE模式：
-                                  #只想控制并发度;外部的方法已经做了线程隔离;调用的是本地方法或者可靠度非常高、耗时特别小的方法（如medis）
+                                  #只想控制并发度;外部的方法已经做了线程隔离;调用的是本地方法或者可靠度非常高、耗时特别小的方法（如redis）
           semaphore:
             maxConcurrentRequests: 1000 #设置在使用时允许到HystrixCommand.run（）方法的最大请求数。默认值：10,SEMAPHORE模式有效
           thread:
