@@ -116,6 +116,7 @@ public enum AppClientResponse {
   GENERAL_PARAM_ERROR("1405", "error", "Request param check invalid."),
   GENERAL_NOT_FOUND_ERROR("1406", "error", "Resource not found."),
   GENERAL_REQUEST_PAGE_SIZE_ERROR("1407", "error", "Request page size is too large."),
+  HYSTRIX_RUNTIM_EEXCEPTION("1408", "exception", "Hystrix Runtime Exception occurs."),
   GENERAL_SUCC("210000", "succ", "");
 
 

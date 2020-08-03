@@ -7,10 +7,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-//@SpringBootApplication
-//@EnableEurekaClient
-//@EnableCircuitBreaker
-@SpringCloudApplication  //相当于上面3个的注解
+@SpringCloudApplication
 @EnableFeignClients(basePackages = {"com.xzh.customer.technical.cloud"})
 @EnableTransactionManagement //开启事务
 //@ComponentScan("com.xzh.customer")

@@ -1,6 +1,5 @@
 package com.xzh.customer.hander;
 
-import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.xzh.customer.common.ApiResponseDto;
 import com.xzh.customer.common.AppClientResponse;
 import com.xzh.customer.common.IMessageDto;
@@ -20,18 +19,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(HystrixRuntimeException.class)
-    public ResponseEntity handle(HystrixRuntimeException e) {
-        log.error("HystrixRuntimeException occurs: ", e);
-
-        if (e.getCause() instanceof FeignException) {
-            return this.handle((FeignException) e.getCause());
-        } else {
-            return buildResponseEntity(
-                    AppClientResponse.GENERAL_ERROR,
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @ExceptionHandler(HystrixRuntimeException.class)
+//    public ResponseEntity handle(HystrixRuntimeException e) {
+//        log.error("HystrixRuntimeException occurs: ", e);
+//
+//        if (e.getCause() instanceof FeignException) {
+//            return this.handle((FeignException) e.getCause());
+//        } else {
+//            HttpHeaders httpHeaders = new HttpHeaders();
+//            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//            return new ResponseEntity<>(e.getCause().getCause().toString(),httpHeaders,HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @ExceptionHandler(FeignException.class)
     public ResponseEntity handle(FeignException e) {
@@ -90,14 +89,14 @@ public class GlobalExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity exceptionHandle(Exception e) {
-        log.error("exception occurs: ", e);
-
-        return buildResponseEntity(
-                new ApiResponseDto(AppClientResponse.GENERAL_ERROR),
-                HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity exceptionHandle(Exception e) {
+//        log.error("exception occurs: ", e);
+//
+//        return buildResponseEntity(
+//                new ApiResponseDto(AppClientResponse.GENERAL_ERROR),
+//                HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     private ResponseEntity<Object> buildResponseEntity(
             IMessageDto messageDto,

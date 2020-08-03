@@ -9,12 +9,7 @@ import org.springframework.stereotype.Component;
  * @modify By:
  **/
 @Component
-public class FeignFallbackImpl implements HystrixServiceFeign {
-    @Override
-    public String timeout(String name) {
-        System.out.println(this.getClass().getSimpleName() + "timeout,进入fallback");
-        return "timeout,进入FeignFallbackImpl.fallback";
-    }
+public class FeignFallbackImpl extends GeneralFallbackResponse implements HystrixServiceFeign {
 
     @Override
     public String testTimeOutFeign(Long time) {
@@ -30,7 +25,11 @@ public class FeignFallbackImpl implements HystrixServiceFeign {
      */
     @Override
     public String hello(String name) {
-        System.out.println(this.getClass().getSimpleName() + "hello请求失败,进入FeignFallbackImpl.fallback");
-        return "hello请求失败,进入fallback";
+        return super.generalFail();
+    }
+
+    @Override
+    public String hystrixTimeOut(long time) {
+        return super.generalFail();
     }
 }

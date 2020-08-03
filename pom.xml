@@ -206,11 +206,11 @@
         <!-- mongodb end-->
 
 <!--        Java对象内存布局-->
-        <dependency>
-            <groupId>org.openjdk.jol</groupId>
-            <artifactId>jol-core</artifactId>
-            <version>0.09</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.openjdk.jol</groupId>-->
+<!--            <artifactId>jol-core</artifactId>-->
+<!--            <version>0.09</version>-->
+<!--        </dependency>-->
 
 
     </dependencies>

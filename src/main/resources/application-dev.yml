@@ -55,8 +55,8 @@ eureka:
     hostname: localhost
     non-secure-port-enabled: true   #开启不安全通信的端口，就是使用http进行通信
     non-secure-port: 8764         #设置不安全端口号
-    secure-port: 443
     secure-port-enabled: true     #开启安全通信的端口，就是使用https进行通信
+    secure-port: 443
     leaseRenewalIntervalInSeconds: 5
   client:
     registerWithEureka: true
@@ -72,18 +72,18 @@ eureka:
 #在feign中使用hystrix断路器
 feign:
   hystrix:
-    enabled: true
+    enabled: false
   client:
     provide:
       name: provider-service
       path: /provider
     config:
       provider-service:
-        connectTimeout: 500
-        readTimeout: 500
-#        loggerLevel: basic
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
   httpclient:
-    connection-timeout: 500
+    connection-timeout: 5000
     enabled: true
     max-connections: 200
     follow-redirects: true
@@ -95,7 +95,7 @@ feign:
 ribbon:
   OkToRetryOnAllOperations: false #无论是请求超时或者socket read timeout都进行重试
   ReadTimeout: 5000 #请求处理的超时时间
-  ConnectTimeout: 500 #请求连接的超时时间
+  ConnectTimeout: 5000 #请求连接的超时时间
   MaxAutoRetries: 0 #对当前实例的重试次数（默认值为 0）
   MaxAutoRetriesNextServer: 1 #切换实例的重试次数（默认值为 1）
   eager-load:
@@ -109,11 +109,19 @@ hystrix:
 # threadPool start
   threadpool:
     default:
-      coreSize: 12 #并发执行的最大线程数，默认10
+      coreSize: 10 #并发执行的最大线程数，默认10
       allowMaximumSizeToDivergeFromCoreSize: true
-      maximumSize: 50 #线程池允许最大线程数,如果allowMaximumSizeToDivergeFromCoreSize为false,则配置此无效
+      maximumSize: 20 #线程池允许最大线程数,如果allowMaximumSizeToDivergeFromCoreSize为false,则配置此无效
       maxQueueSize: 20 #BlockingQueue的最大队列长度,默认-1,使用SynchronousQueue。其他值则使用 LinkedBlockingQueue。
       queueSizeRejectionThreshold: 10 #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
+      keepAliveTimeMinutes: 5 #非核心线程空闲等待时间,默认2minute
+#自定义线程池
+    provider-service:   #默认FeignClientName
+      coreSize: 1 #并发执行的最大线程数，默认10
+      allowMaximumSizeToDivergeFromCoreSize: true
+      maximumSize: 2 #线程池允许最大线程数,如果allowMaximumSizeToDivergeFromCoreSize为false,则配置此无效
+      maxQueueSize: 3 #BlockingQueue的最大队列长度,默认-1,使用SynchronousQueue。其他值则使用 LinkedBlockingQueue。
+      queueSizeRejectionThreshold: 1 #排队线程数量阈值，默认为5，达到时拒绝，如果配置了该选项，队列的大小是该队列
       keepAliveTimeMinutes: 5 #非核心线程空闲等待时间,默认2minute
 # threadPool end
 
@@ -151,22 +159,22 @@ hystrix:
             interruptOnCancel: false #当发生取消任务时，是否中断HystrixCommand.run() 的执行, 默认false,THREAD模式有效
 
     ##内置实例默认值
-#    "hystrixServiceFeign#hello()": #不好使
-    hystrixTimeoutTest: #实例属性配置（hystrixTimeoutTest为指定的commandKey)
+    command_key_test: #实例属性配置（hystrixTimeoutTest为指定的commandKey),如果没有指定,默认为 类名+方法名,如:  HystrixServiceFeign#hystrixTimeOut(long)
       execution:
         timeout:
           enable: true
         isolation:
           thread:
-            timeoutInMilliseconds: 500 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+            timeoutInMilliseconds: 700 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
 
-    HystrixConfigTestKey: #实例属性配置（HystrixConfigTestKey为指定的commandKey)
-      execution:
-        timeout:
-          enable: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 50 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+#    HystrixServiceFeign#hystrixTimeOut(long): #实例属性配置,默认commandKey
+#      execution:
+#        timeout:
+#          enable: true
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 700 #在调用方配置，被调用方的指定方法的超时时间 注意:如果maxQueueSize=-1的话，则该选项不起作用
+
 #command end
 
   shareSecurityContext: true

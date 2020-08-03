@@ -1,7 +1,6 @@
 package com.xzh.customer.utils;
 
 import lombok.Synchronized;
-import org.apache.commons.math3.random.RandomDataGenerator;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +9,7 @@ import java.util.stream.IntStream;
 /**
  * @author ：xzh
  * @date ：Created in 2020-04-15 10:27
- * @description： 设计模式:双重检查式单例模式
+ * @description： 双重检查式(花里胡哨的,其实使用饿汗模式就OK了)
  * @modified By：
  * @version:
  */
