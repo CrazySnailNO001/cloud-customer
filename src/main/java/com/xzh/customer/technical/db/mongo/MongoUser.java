@@ -19,7 +19,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("user")
-public class MongoUser implements Serializable {
+class MongoUser implements Serializable {
 
     private static final long serialVersionUID = -3896901585340927241L;
 

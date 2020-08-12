@@ -9,6 +9,7 @@ spring:
   application:
     name: customer-service
 
+
 ############################################################   Redis  start ##########################################################################
   redis:
     port: 6379
@@ -33,11 +34,10 @@ spring:
 ############################################################   Mongodb  start ##########################################################################
   data:
     mongodb:
-#      host: xzhwxx.xyz
       host: aliCloud
-      database: testDb
-#      username: admin
-#      password: 123456
+      database: shiphub_stock
+      username: shiphub_local
+      password: decathlon
       port: 27017
 ############################################################   Mongodb  end ##########################################################################
 
@@ -72,11 +72,14 @@ eureka:
 #在feign中使用hystrix断路器
 feign:
   hystrix:
-    enabled: false
+    enabled: true
   client:
     provide:
       name: provider-service
       path: /provider
+    feign-hystrix:
+      name: feign-hystrix
+      path: /feign-hystrix
     config:
       provider-service:
         connectTimeout: 5000
@@ -200,8 +203,28 @@ httpClient:
     connectTimeout: 15000
     connectionRequestTimeout: 5000
     keepAlive: 30000
-  proxy:
-    https:
-      hostname: proxy-internet-aws-china-production.subsidia.org
-      port: 3128
-      schema: https
+#  proxy:
+#    https:
+#      hostname: proxy-internet-aws-china-production.subsidia.org
+#      port: 3128
+#      schema: https
+
+############################################################   springboot actuator  start ##########################################################################
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'   #加载所有的端点/默认只加载了 info、health
+      base-path: /actuator
+
+# http://localhost:8764/customer/actuator/info 可以访问到
+info:
+  author: "xzh"
+  version: "V1.0.1"
+  blog-url: "https://blog.csdn.net/weixin_40910372"
+
+############################################################   springboot actuator  end ##########################################################################

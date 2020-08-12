@@ -115,10 +115,10 @@ public class RestTemplateConfig {
     private int connectionRequestTimeout;
     @Value("${httpClient.pool.keepAlive}")
     private int keepAlive;
-    @Value("${httpClient.proxy.https.hostname}")
-    private String httpsProxyHostName;
-    @Value("${httpClient.proxy.https.port}")
-    private int httpsProxyPort;
-    @Value("${httpClient.proxy.https.schema}")
-    private String httpsProxySchema;
+//    @Value("${httpClient.proxy.https.hostname}")
+//    private String httpsProxyHostName;
+//    @Value("${httpClient.proxy.https.port}")
+//    private int httpsProxyPort;
+//    @Value("${httpClient.proxy.https.schema}")
+//    private String httpsProxySchema;
 }

@@ -2,13 +2,15 @@ package com.xzh.customer.technical.cloud.hystrix;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.xzh.customer.config.TestHystrixCommand;
+import com.xzh.customer.common.ApiResponseDto;
 import com.xzh.customer.technical.cloud.feign.HystrixServiceFeign;
 import com.xzh.customer.utils.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -37,6 +39,8 @@ public class HystrixController {
     private HystrixServiceFeign hystrixServiceFeign;
     @Resource
     private TestHystrixCommand hystrixCommand;
+    @Resource
+    private FeignHystrixService feignHystrixService;
 
     /**
      * Hystrix 线程池 测试API
@@ -70,8 +74,34 @@ public class HystrixController {
         return result;
     }
 
+    /**
+     * Hystrix command 测试API
+     */
     @GetMapping(value = "/command_test", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
     public String commandTest(){
         return hystrixCommand.execute();
+    }
+
+    /**
+     * Hystrix command 测试API
+     */
+    @GetMapping(value = "/feign_hystrix_test", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+    public ResponseEntity<ApiResponseDto> feignHystrixTest(@RequestParam(required = false)String name){
+        String result = feignHystrixService.hello02(name);
+        log.info(result);
+        return ResponseEntity.ok(ApiResponseDto.success(result));
+    }
+
+    /**
+     * Feign Hystrix timeOut 测试API
+     */
+    @GetMapping(value = "/feign_hystrix_time_out_test", produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
+    public ResponseEntity<ApiResponseDto> feignHystrixTimeOutTest(@RequestParam(required = false)String name){
+        int randomTime = RandomUtils.getInstance().generateValue(500, 900);
+
+        log.info("ThreadPoolTest API ready to send request to provider time: {}", randomTime);
+        String result = feignHystrixService.hystrixTimeOut02(randomTime);
+        log.info("ThreadPoolTest API get response from provider [ {} ]", result);
+        return ResponseEntity.ok(ApiResponseDto.success(randomTime));
     }
 }

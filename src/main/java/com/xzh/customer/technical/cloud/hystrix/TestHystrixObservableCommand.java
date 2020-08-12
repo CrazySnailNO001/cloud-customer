@@ -1,4 +1,4 @@
-package com.xzh.customer.config;
+package com.xzh.customer.technical.cloud.hystrix;
 
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixObservableCommand;

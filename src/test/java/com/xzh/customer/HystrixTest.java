@@ -1,6 +1,6 @@
 package com.xzh.customer;
 
-import com.xzh.customer.config.TestHystrixCommand;
+import com.xzh.customer.technical.cloud.hystrix.TestHystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

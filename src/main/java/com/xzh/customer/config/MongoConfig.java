@@ -23,6 +23,8 @@ public class MongoConfig {
         DbRefResolver dbRefResolver = new DefaultDbRefResolver(factory);
         MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, context);
         try {
+            //使用CustomConversions报错
+            //org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.springframework.data.mongodb.core.convert.CustomConversions' available
             converter.setCustomConversions(beanFactory.getBean(MongoCustomConversions.class));
         } catch (Exception e) {
             e.printStackTrace();

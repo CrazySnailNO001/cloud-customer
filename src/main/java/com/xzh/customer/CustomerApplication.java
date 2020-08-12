@@ -2,12 +2,14 @@ package com.xzh.customer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringCloudApplication
+@EnableHystrixDashboard
 @EnableFeignClients(basePackages = {"com.xzh.customer.technical.cloud"})
 @EnableTransactionManagement //开启事务
 //@ComponentScan("com.xzh.customer")

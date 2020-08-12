@@ -1,4 +1,4 @@
-package com.xzh.customer.config;
+package com.xzh.customer.technical.cloud.hystrix;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
@@ -50,8 +50,8 @@ public class TestHystrixCommand extends HystrixCommand<String> {
     protected String run() throws Exception {
         log.info("TestHystrixCommand run... , Thread is [ {} ]", Thread.currentThread().getName());
 //        String forObject = restTemplate.getForObject("http://8762/hello?name=testName", String.class);
-        throw new NullPointerException();
-//        return "run method success";
+//        throw new NullPointerException();
+        return "run method success";
 //        return forObject;
     }
 
