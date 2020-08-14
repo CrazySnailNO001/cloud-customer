@@ -35,20 +35,22 @@ spring:
     mine:
       producer:
         bootstrap-servers: xzhwxx.xyz:9092
-        key-serializer: org.apache.kafka.common.serialization.StringSerializer
-        #      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-        value-serializer: org.apache.kafka.common.serialization.StringSerializer
         acks: 1
         client-id: producer_customer
       #      retries: 3
-    consumer:
-      bootstrap-servers: xzhwxx.xyz:9092
-      group-id: customer-comsumer-group
-      #      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      #      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      #      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      enable-auto-commit: true
-      auto-commit-interval: 1
+      consumer:
+        bootstrap-servers: xzhwxx.xyz:9092
+        group-id: customer-comsumer-group
+        enable-auto-commit: true
+        auto-commit-interval: 1
+#    consumer:
+#      bootstrap-servers: xzhwxx.xyz:9092
+#      group-id: customer-comsumer-group
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      enable-auto-commit: true
+#      auto-commit-interval: 1
 
 ############################################################   Kafka  end ##########################################################################
 
