@@ -64,15 +64,14 @@ public class KafkaConfig {
         };
     }
 
-    @Bean
-    public KafkaProducerListener kafkaProducerListener() {
+    private KafkaProducerListener kafkaProducerListener() {
         return new KafkaProducerListener();
     }
 
     static class KafkaProducerListener implements ProducerListener<String, String> {
         @Override
         public void onSuccess(ProducerRecord<String, String> producerRecord, RecordMetadata recordMetadata) {
-            log.error("kafka producer success,topic is [ {} ] message is [ {} ] and offset is {}", producerRecord.topic(), producerRecord.value(), recordMetadata.offset());
+            log.error("kafka producer send message success,topic is [ {} ] message is [ {} ] and offset is {}", producerRecord.topic(), producerRecord.value(), recordMetadata.offset());
         }
 
         @Override
