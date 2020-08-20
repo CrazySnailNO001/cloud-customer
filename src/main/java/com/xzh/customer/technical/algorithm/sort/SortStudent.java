@@ -17,5 +17,5 @@ import lombok.NoArgsConstructor;
 class SortStudent {
     private String name;
     private int age;
-    private String provence;
+    private String province;
 }
