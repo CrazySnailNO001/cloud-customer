@@ -1,7 +1,11 @@
 package com.xzh.customer.technical.algorithm.sort;
 
+import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,14 +13,23 @@ import java.util.stream.Collectors;
 /**
  * @author ：xzh
  * @date ：Created in 2020-08-20 11:12
- * @description：
+ * @description： https://www.cnblogs.com/guoyaohua/p/8600214.html
  * @modified By：
  * @version:
  */
 public class CustomSort {
-    private static final List<String> regulationOrder = Arrays.asList("安徽", "北京", "上海", "深圳", "广州");
+    private static final List<String> regulationOrder = Lists.newArrayList("安徽", "北京", "上海", "深圳", "广州");
 
     public static void main(String[] args) {
+        customSort();
+    }
+
+    /**
+     * create by: xzh
+     * description: 根据指定的规则排序
+     * create time: 2020-08-20 14:25
+     */
+    private static void customSort() {
         List<SortStudent> students = new ArrayList<>();
         SortStudent student1 = new SortStudent("Mike", 5, "上海");
         SortStudent student2 = new SortStudent("Mike", 5, "安徽");
@@ -52,8 +65,17 @@ public class CustomSort {
                 .sorted(Comparator.comparing(SortStudent::getAge).reversed()).collect(Collectors.toList());
 
         for (int i = 0; i < students.size(); i++) {
-            System.out.println(students.get(i).getProvince() + "------" + sortedList.get(i).getProvince());
-            System.out.println(students.get(i).getAge() + "---------" + sortedList.get(i).getAge());
+            System.out.println("省份排序后: " + students.get(i).getProvince() + " - " + students.get(i).getAge()
+                    + "    年龄排序后: " + sortedList.get(i).getProvince() + " - " + sortedList.get(i).getAge());
         }
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    private static class SortStudent {
+        private String name;
+        private int age;
+        private String province;
     }
 }
