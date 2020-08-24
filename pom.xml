@@ -302,6 +302,61 @@
             </plugin>
 <!--     flatten end       -->
         </plugins>
+<!--    可以在bootstrap.yml文件中使用@@    -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--开启过滤，用指定的参数替换directory下的文件中的参数-->
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>pro/*</exclude>
+                    <exclude>dev/*</exclude>
+                    <exclude>test/*</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile.id>dev</build.profile.id>
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+                <profileActive>dev</profileActive>
+                <configLabel>master</configLabel>
+                <configServerId>cloud-config-server</configServerId>
+                <eurekaDefaultZone>http://xzhwxx.xyz:8761/eureka/</eurekaDefaultZone>
+                <configUri>http://localhost:8760</configUri>
+            </properties>
+        </profile>
+        <profile>
+            <id>preprod</id>
+            <properties>
+                <build.profile.id>preprod</build.profile.id>
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+                <profileActive>preprod</profileActive>
+                <configLabel>master</configLabel>
+                <configServerId>cloud-config-server</configServerId>
+                <eurekaDefaultZone>http://xzhwxx.xyz:8761/eureka/</eurekaDefaultZone>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <build.profile.id>production</build.profile.id>
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+                <profileActive>production</profileActive>
+                <configLabel>master</configLabel>
+                <configServerId>cloud-config-server</configServerId>
+                <eurekaDefaultZone>http://xzhwxx.xyz:8761/eureka/</eurekaDefaultZone>
+            </properties>
+        </profile>
+    </profiles>
 </project>

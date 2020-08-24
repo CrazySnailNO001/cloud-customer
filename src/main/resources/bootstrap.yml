@@ -25,7 +25,8 @@ eureka:
     register-with-eureka: true  #将此项目注册到Eureka服务
     service-url:
       #      defaultZone: http://user:123456@localhost:8761/eureka
-      defaultZone: http://${eurekaServer.host}:${eurekaServer.port}/eureka/
+      defaultZone: @eurekaDefaultZone@
+#      defaultZone: http://${eurekaServer.host}:${eurekaServer.port}/eureka/
     fetch-registry: true
   instance:
     hostname: localhost #注册到eureka上的,被调用的地址

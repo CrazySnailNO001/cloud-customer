@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: @profileActive@
 
   #SpringBoot设置默认隔离级别配置：-1：数据库默认隔离级别 1：未提交读 2：读写提交 4：可重复读 8：串行化
   datasource:
