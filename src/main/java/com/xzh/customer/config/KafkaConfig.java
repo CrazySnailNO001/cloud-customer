@@ -1,6 +1,8 @@
 package com.xzh.customer.config;
 
+import com.xzh.customer.technical.mq.kafka.KafkaBaseConsumerProperties;
 import com.xzh.customer.technical.mq.kafka.KafkaConsumerProperties;
+import com.xzh.customer.technical.mq.kafka.KafkaLocalConsumerProperties;
 import com.xzh.customer.technical.mq.kafka.KafkaProducerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -9,9 +11,11 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ConsumerAwareListenerErrorHandler;
@@ -26,14 +30,16 @@ import java.util.Map;
  */
 @Configuration
 @Slf4j
-@EnableConfigurationProperties({KafkaProducerProperties.class, KafkaConsumerProperties.class})
+@EnableConfigurationProperties({KafkaProducerProperties.class, KafkaConsumerProperties.class, KafkaLocalConsumerProperties.class})
 public class KafkaConfig {
     private final KafkaProducerProperties producerProperties;
-    private final KafkaConsumerProperties consumerProperties;
+    private final KafkaConsumerProperties defaultConsumerProperties;
+    private final KafkaLocalConsumerProperties localConsumerProperties;
 
-    public KafkaConfig(KafkaProducerProperties kafkaProperties, KafkaConsumerProperties kafkaConsumerProperties) {
+    public KafkaConfig(KafkaProducerProperties kafkaProperties, KafkaConsumerProperties kafkaConsumerProperties, KafkaLocalConsumerProperties kafkaLocalConsumerProperties) {
         this.producerProperties = kafkaProperties;
-        this.consumerProperties = kafkaConsumerProperties;
+        this.defaultConsumerProperties = kafkaConsumerProperties;
+        this.localConsumerProperties = kafkaLocalConsumerProperties;
     }
 
 //==================================================Producer Config==============================================================================================
@@ -86,26 +92,48 @@ public class KafkaConfig {
         }
     }
 
-//==================================================Consumer Config==============================================================================================
+    //==================================================Consumer Config==============================================================================================
 
-    @Bean
-    public ConsumerFactory<String, String> consumerFactory() {
+    @Bean("defaultConsumerFactory")
+    @Primary
+    public ConsumerFactory<Object, Object> consumerFactory2() {
+        return createFactory(defaultConsumerProperties);
+    }
+
+    @Bean("localConsumerFactory")
+    public ConsumerFactory<Object, Object> consumerFactory() {
+        return createFactory(localConsumerProperties);
+    }
+
+    private DefaultKafkaConsumerFactory<Object, Object> createFactory(KafkaBaseConsumerProperties kafkaConsumerProperties) {
         Map<String, Object> configs = new HashMap<>();
-        configs.put(ConsumerConfig.GROUP_ID_CONFIG, consumerProperties.getGroupId());
-        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, consumerProperties.getBootstrapServers());
-        configs.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, consumerProperties.getAutoCommitInterval());
-        configs.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, consumerProperties.isEnableAutoCommit());
+        configs.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaConsumerProperties.getGroupId());
+        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConsumerProperties.getBootstrapServers());
+        configs.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, kafkaConsumerProperties.getAutoCommitInterval());
+        configs.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaConsumerProperties.isEnableAutoCommit());
         configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configs.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 50);
         return new DefaultKafkaConsumerFactory<>(configs);
     }
 
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+    @Bean("defaultConsumer")
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
+            @Qualifier("defaultConsumerFactory") ConsumerFactory<Object, Object> consumerFactory) {
+
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConcurrency(3);
-        factory.setConsumerFactory(consumerFactory());
+        factory.setConsumerFactory(consumerFactory);
+        return factory;
+    }
+
+    @Bean("localConsumer")
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory2(
+            @Qualifier("localConsumerFactory") ConsumerFactory<Object, Object> consumerFactory) {
+
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConcurrency(3);
+        factory.setConsumerFactory(consumerFactory);
         return factory;
     }
 }

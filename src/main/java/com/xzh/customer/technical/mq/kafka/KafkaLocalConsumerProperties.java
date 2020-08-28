@@ -9,6 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @modified By：
  * @version:
  */
-@ConfigurationProperties(prefix = "spring.kafka.mine.consumer.default")
-public class KafkaConsumerProperties extends KafkaBaseConsumerProperties{
+@ConfigurationProperties(prefix = "spring.kafka.mine.consumer.local")
+public class KafkaLocalConsumerProperties extends KafkaBaseConsumerProperties{
 }

@@ -42,24 +42,31 @@ spring:
         client-id: producer_customer
       #      retries: 3
       consumer:
-        bootstrap-servers: xzhwxx.xyz:9092
-        group-id: customer-comsumer-group
-        enable-auto-commit: true
-        auto-commit-interval: 1
+        default:
+          bootstrap-servers: xzhwxx.xyz:9092
+          group-id: customer-comsumer-group
+          enable-auto-commit: true
+          auto-commit-interval: 1
+        local:
+          bootstrap-servers: localhost:9092
+          group-id: customer-comsumer-group
+          enable-auto-commit: true
+          auto-commit-interval: 1
+
 #    producer:
 #      batch-size: 16384 #每当多个记录被发送到同一分区时，生产者将尝试将记录一起批量处理为更少的请求，这有助于提升客户端和服务器上的性能，此配置控制默认批量大小（以字节为单位），默认值为16384
 #      retries:  #如果该值大于零时，表示启用重试失败的发送次数
 #    listener:
 #      concurrency: 10 #在侦听器容器中运行的线程数
 
-  #    consumer:
-#      bootstrap-servers: xzhwxx.xyz:9092
-#      group-id: customer-comsumer-group
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      enable-auto-commit: true
-#      auto-commit-interval: 1
+#  consumer:
+#    bootstrap-servers: xzhwxx.xyz:9092
+#    group-id: customer-comsumer-group
+#    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+##    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    enable-auto-commit: true
+#    auto-commit-interval: 1
 
 ############################################################   Kafka  end ##########################################################################
 
