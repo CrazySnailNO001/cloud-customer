@@ -97,15 +97,15 @@ public class KafkaConfig {
     @Bean("defaultConsumerFactory")
     @Primary
     public ConsumerFactory<Object, Object> consumerFactory2() {
-        return createFactory(defaultConsumerProperties);
+        return createConsumerFactory(defaultConsumerProperties);
     }
 
     @Bean("localConsumerFactory")
     public ConsumerFactory<Object, Object> consumerFactory() {
-        return createFactory(localConsumerProperties);
+        return createConsumerFactory(localConsumerProperties);
     }
 
-    private DefaultKafkaConsumerFactory<Object, Object> createFactory(KafkaBaseConsumerProperties kafkaConsumerProperties) {
+    private DefaultKafkaConsumerFactory<Object, Object> createConsumerFactory(KafkaBaseConsumerProperties kafkaConsumerProperties) {
         Map<String, Object> configs = new HashMap<>();
         configs.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaConsumerProperties.getGroupId());
         configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConsumerProperties.getBootstrapServers());
@@ -117,20 +117,21 @@ public class KafkaConfig {
         return new DefaultKafkaConsumerFactory<>(configs);
     }
 
+
+
     @Bean("defaultConsumer")
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
             @Qualifier("defaultConsumerFactory") ConsumerFactory<Object, Object> consumerFactory) {
-
-        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConcurrency(3);
-        factory.setConsumerFactory(consumerFactory);
-        return factory;
+        return createListenerContainerFactory(consumerFactory);
     }
 
     @Bean("localConsumer")
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory2(
             @Qualifier("localConsumerFactory") ConsumerFactory<Object, Object> consumerFactory) {
+        return createListenerContainerFactory(consumerFactory);
+    }
 
+    private ConcurrentKafkaListenerContainerFactory<String, String> createListenerContainerFactory(ConsumerFactory<Object, Object> consumerFactory) {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConcurrency(3);
         factory.setConsumerFactory(consumerFactory);

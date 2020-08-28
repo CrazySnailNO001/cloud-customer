@@ -35,38 +35,20 @@ spring:
 #acks=1: 这意味着leader会将记录写入其本地日志，但无需等待所有副本服务器的完全确认即可做出回应，在这种情况下，如果leader在确认记录后立即失败，但在将数据复制到所有的副本服务器之前，则记录将会丢失。
 #acks=all -1:这意味着leader将等待完整的同步副本集以确认记录，这保证了只要至少一个同步副本服务器仍然存活，记录就不会丢失，这是最强有力的保证，这相当于acks = -1的设置。
   kafka:
-    mine:
-      producer:
-        bootstrap-servers: xzhwxx.xyz:9092
-        acks: 1
-        client-id: producer_customer
-      #      retries: 3
-      consumer:
-        default:
-          bootstrap-servers: xzhwxx.xyz:9092
-          group-id: customer-comsumer-group
-          enable-auto-commit: true
-          auto-commit-interval: 1
-        local:
-          bootstrap-servers: localhost:9092
-          group-id: customer-comsumer-group
-          enable-auto-commit: true
-          auto-commit-interval: 1
+    producer:
+      batch-size: 16384 #每当多个记录被发送到同一分区时，生产者将尝试将记录一起批量处理为更少的请求，这有助于提升客户端和服务器上的性能，此配置控制默认批量大小（以字节为单位），默认值为16384
+      retries:  #如果该值大于零时，表示启用重试失败的发送次数
+    listener:
+      concurrency: 10 #在侦听器容器中运行的线程数
 
-#    producer:
-#      batch-size: 16384 #每当多个记录被发送到同一分区时，生产者将尝试将记录一起批量处理为更少的请求，这有助于提升客户端和服务器上的性能，此配置控制默认批量大小（以字节为单位），默认值为16384
-#      retries:  #如果该值大于零时，表示启用重试失败的发送次数
-#    listener:
-#      concurrency: 10 #在侦听器容器中运行的线程数
-
-#  consumer:
-#    bootstrap-servers: xzhwxx.xyz:9092
-#    group-id: customer-comsumer-group
-#    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-##    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-#    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#    enable-auto-commit: true
-#    auto-commit-interval: 1
+  consumer:
+    bootstrap-servers: localhost:9092
+    group-id: customer-comsumer-groupppp
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    enable-auto-commit: true
+    auto-commit-interval: 1
 
 ############################################################   Kafka  end ##########################################################################
 
@@ -271,6 +253,19 @@ info:
 biz:
   data:
     kafka:
-      server: xzh.com
-      ack: 1
-      clientId: test
+      producer:
+        bootstrap-servers: xzhwxx.xyz:9092
+        acks: 1
+        client-id: producer_customer
+      #      retries: 3
+      consumer:
+        default:
+          bootstrap-servers: xzhwxx.xyz:9092
+          group-id: customer-comsumer-group1
+          enable-auto-commit: true
+          auto-commit-interval: 1
+        local:
+          bootstrap-servers: localhost:9092
+          group-id: customer-comsumer-group2
+          enable-auto-commit: true
+          auto-commit-interval: 1
