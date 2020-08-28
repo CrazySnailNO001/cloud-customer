@@ -261,11 +261,11 @@ biz:
       consumer:
         default:
           bootstrap-servers: xzhwxx.xyz:9092
-          group-id: customer-comsumer-group1
+          group-id: default-customer-comsumer-group
           enable-auto-commit: true
           auto-commit-interval: 1
         local:
           bootstrap-servers: localhost:9092
-          group-id: customer-comsumer-group2
+          group-id: local-customer-comsumer-group
           enable-auto-commit: true
           auto-commit-interval: 1

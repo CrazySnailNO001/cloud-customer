@@ -118,10 +118,11 @@ public class KafkaConfig {
     }
 
 
-
-    @Bean("defaultConsumer")
+    //不取这个名字 KafkaAnnotationDrivenConfiguration会实例化一个出来,它实例化的时候没有指定ConsumerFactory,所以上面定义的两个,必须其中一个加了@Primary才行,否则报错
+    @Bean("kafkaListenerContainerFactory")
+    @Primary
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
-            @Qualifier("defaultConsumerFactory") ConsumerFactory<Object, Object> consumerFactory) {
+            ConsumerFactory<Object, Object> consumerFactory) {
         return createListenerContainerFactory(consumerFactory);
     }
 

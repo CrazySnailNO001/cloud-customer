@@ -14,14 +14,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class CustomerKafkaListeners {
-    @KafkaListener(topics = "testTopic",containerFactory = "defaultConsumer")
-    private void consumerTest(String message) {
-        log.info("[CustomerKafkaListeners consumerTest API] get message from kafka : [ {} ]", message);
+    @KafkaListener(topics = "testTopic")
+    private void defaultTest(String message) {
+        log.info("[DefaultKafkaConsumer Test API] get message from kafka : [ {} ]", message);
     }
 
 
-    @KafkaListener(topics = "testTopic",containerFactory = "localConsumer")
-    private void stockTest(String message) {
-        log.info("[CustomerKafkaListeners stockTest API] get message from kafka : [ {} ]", message);
+    @KafkaListener(topics = "testTopic", containerFactory = "localConsumer")
+    private void localTest(String message) {
+        log.info("[LocalKafkaConsumer Test API] get message from kafka : [ {} ]", message);
     }
 }
