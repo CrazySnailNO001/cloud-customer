@@ -118,18 +118,22 @@ public class KafkaConfig {
     }
 
 
-    //不取这个名字 KafkaAnnotationDrivenConfiguration会实例化一个出来,它实例化的时候没有指定ConsumerFactory,所以上面定义的两个,必须其中一个加了@Primary才行,否则报错
+    //不取这个名字 KafkaAnnotationDrivenConfiguration会实例化一个出来,它实例化的时候没有指定ConsumerFactory,但是上面定义了两个,如果两个都不加@Primary会报错
     @Bean("kafkaListenerContainerFactory")
     @Primary
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
             ConsumerFactory<Object, Object> consumerFactory) {
-        return createListenerContainerFactory(consumerFactory);
+        ConcurrentKafkaListenerContainerFactory<String, String> listenerContainerFactory = createListenerContainerFactory(consumerFactory);
+        listenerContainerFactory.setAutoStartup(defaultConsumerProperties.isEnableAutoStartup());
+        return listenerContainerFactory;
     }
 
     @Bean("localConsumer")
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory2(
             @Qualifier("localConsumerFactory") ConsumerFactory<Object, Object> consumerFactory) {
-        return createListenerContainerFactory(consumerFactory);
+        ConcurrentKafkaListenerContainerFactory<String, String> listenerContainerFactory = createListenerContainerFactory(consumerFactory);
+        listenerContainerFactory.setAutoStartup(localConsumerProperties.isEnableAutoStartup());
+        return listenerContainerFactory;
     }
 
     private ConcurrentKafkaListenerContainerFactory<String, String> createListenerContainerFactory(ConsumerFactory<Object, Object> consumerFactory) {

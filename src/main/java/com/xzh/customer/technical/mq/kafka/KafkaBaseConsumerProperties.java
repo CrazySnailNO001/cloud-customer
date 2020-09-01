@@ -17,4 +17,5 @@ public class KafkaBaseConsumerProperties {
     private String groupId;
     private int autoCommitInterval;
     private boolean enableAutoCommit;
+    private boolean enableAutoStartup;
 }
