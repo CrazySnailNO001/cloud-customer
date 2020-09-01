@@ -229,6 +229,14 @@
             <version>3.6.1</version>
         </dependency>
 
+<!--   application.yml 文件中写配置自动补全     -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>2.3.3.RELEASE</version>
+            <optional>true</optional>
+        </dependency>
+
         <!--        <dependency>-->
         <!--            <groupId>org.mongodb</groupId>-->
         <!--            <artifactId>mongo-java-driver</artifactId>-->
