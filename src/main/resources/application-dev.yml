@@ -265,9 +265,11 @@ biz:
           enable-auto-commit: true
           enable-auto-startup: true
           auto-commit-interval: 1
+          concurrency: 3
         local:
           bootstrap-servers: localhost:9092
           group-id: local-customer-comsumer-group
           enable-auto-commit: true
-          enable-auto-startup: false
+          enable-auto-startup: true
           auto-commit-interval: 1
+          concurrency: 3

@@ -18,4 +18,5 @@ public class KafkaBaseConsumerProperties {
     private int autoCommitInterval;
     private boolean enableAutoCommit;
     private boolean enableAutoStartup;
+    private int concurrency;
 }

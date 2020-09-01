@@ -20,7 +20,7 @@ public class CustomerKafkaListeners {
     }
 
 
-    @KafkaListener(topics = "testTopic", containerFactory = "localConsumer")
+    @KafkaListener(topics = "testTopic", containerFactory = "localListenerContainerFactory")
     private void localTest(String message) {
         log.info("[LocalKafkaConsumer Test API] get message from kafka : [ {} ]", message);
     }

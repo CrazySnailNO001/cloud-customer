@@ -94,14 +94,14 @@ public class KafkaConfig {
 
     //==================================================Consumer Config==============================================================================================
 
-    @Bean("defaultConsumerFactory")
+    @Bean
     @Primary
-    public ConsumerFactory<Object, Object> consumerFactory2() {
+    public ConsumerFactory<Object, Object> defaultConsumerFactory() {
         return createConsumerFactory(defaultConsumerProperties);
     }
 
-    @Bean("localConsumerFactory")
-    public ConsumerFactory<Object, Object> consumerFactory() {
+    @Bean
+    public ConsumerFactory<Object, Object> localConsumerFactory() {
         return createConsumerFactory(localConsumerProperties);
     }
 
@@ -119,27 +119,24 @@ public class KafkaConfig {
 
 
     //不取这个名字 KafkaAnnotationDrivenConfiguration会实例化一个出来,它实例化的时候没有指定ConsumerFactory,但是上面定义了两个,如果两个都不加@Primary会报错
-    @Bean("kafkaListenerContainerFactory")
+    @Bean
     @Primary
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
             ConsumerFactory<Object, Object> consumerFactory) {
-        ConcurrentKafkaListenerContainerFactory<String, String> listenerContainerFactory = createListenerContainerFactory(consumerFactory);
-        listenerContainerFactory.setAutoStartup(defaultConsumerProperties.isEnableAutoStartup());
-        return listenerContainerFactory;
+        return createListenerContainerFactory(consumerFactory, defaultConsumerProperties);
     }
 
-    @Bean("localConsumer")
-    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory2(
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, String> localListenerContainerFactory(
             @Qualifier("localConsumerFactory") ConsumerFactory<Object, Object> consumerFactory) {
-        ConcurrentKafkaListenerContainerFactory<String, String> listenerContainerFactory = createListenerContainerFactory(consumerFactory);
-        listenerContainerFactory.setAutoStartup(localConsumerProperties.isEnableAutoStartup());
-        return listenerContainerFactory;
+        return createListenerContainerFactory(consumerFactory, localConsumerProperties);
     }
 
-    private ConcurrentKafkaListenerContainerFactory<String, String> createListenerContainerFactory(ConsumerFactory<Object, Object> consumerFactory) {
+    private ConcurrentKafkaListenerContainerFactory<String, String> createListenerContainerFactory(ConsumerFactory<Object, Object> consumerFactory, KafkaBaseConsumerProperties properties) {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConcurrency(3);
+        factory.setConcurrency(properties.getConcurrency());
         factory.setConsumerFactory(consumerFactory);
+        factory.setAutoStartup(properties.isEnableAutoStartup());
         return factory;
     }
 }
