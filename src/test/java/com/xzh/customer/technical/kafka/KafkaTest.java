@@ -28,7 +28,7 @@ public class KafkaTest {
 
     @Test
     public void kafkaTest() throws ExecutionException, InterruptedException {
-        ListenableFuture<SendResult<String, String>> send = kafkaTemplate.send("testTopic", "我又来啦...");
+        ListenableFuture<SendResult<String, String>> send = kafkaTemplate.send("testTopic", "新的反序列化测试002...");
         log.info(send.get().toString());
     }
 }

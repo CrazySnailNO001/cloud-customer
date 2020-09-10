@@ -19,4 +19,8 @@ public class KafkaBaseConsumerProperties {
     private boolean enableAutoCommit;
     private boolean enableAutoStartup;
     private int concurrency;
+    private String keyDeserializer;
+    private String valueDeserializer;
+    private String autoOffsetReset;
+    private String schemaRegistryUrl;
 }

@@ -4,12 +4,13 @@ import com.xzh.customer.technical.mq.kafka.KafkaBaseConsumerProperties;
 import com.xzh.customer.technical.mq.kafka.KafkaConsumerProperties;
 import com.xzh.customer.technical.mq.kafka.KafkaLocalConsumerProperties;
 import com.xzh.customer.technical.mq.kafka.KafkaProducerProperties;
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -111,8 +112,13 @@ public class KafkaConfig {
         configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConsumerProperties.getBootstrapServers());
         configs.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, kafkaConsumerProperties.getAutoCommitInterval());
         configs.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaConsumerProperties.isEnableAutoCommit());
-        configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        configs.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, kafkaConsumerProperties.getAutoOffsetReset());
+        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, kafkaConsumerProperties.getValueDeserializer());
+        configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, kafkaConsumerProperties.getKeyDeserializer());
+
+        if (!StringUtils.isEmpty(kafkaConsumerProperties.getSchemaRegistryUrl()))
+            configs.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, kafkaConsumerProperties.getSchemaRegistryUrl());
+//        configs.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, "true");
         configs.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 50);
         return new DefaultKafkaConsumerFactory<>(configs);
     }
@@ -139,4 +145,13 @@ public class KafkaConfig {
         factory.setAutoStartup(properties.isEnableAutoStartup());
         return factory;
     }
+
+    //==================================================Config Description==============================================================================================
+
+    /*
+      auto.offset.reset:
+       earliest :(推荐)当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费.设置该参数后 kafka出错后重启，找到未消费的offset可以继续消费.
+       latest   :(默认值)当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据,容易丢失消息，假如kafka出现问题，还有数据往topic中写，这个时候重启kafka，这个设置会从最新的offset开始消费,中间出问题的哪些就不管了。
+       none     :topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常.没有用过，兼容性太差，经常出问题.
+     */
 }

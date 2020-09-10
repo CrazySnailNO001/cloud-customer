@@ -1,9 +1,9 @@
 package com.xzh.customer.technical.decathlon.postConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 /**
  * @author ：xzh
@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
  */
 @Component
 public class PostConstructA {
-    @Autowired
+    @Resource
     private PostConstructB postConstructB;
 
     public PostConstructA() {

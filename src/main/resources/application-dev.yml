@@ -253,8 +253,11 @@ info:
 biz:
   data:
     kafka:
+      stcom:
+        partitions: 3
       producer:
-        bootstrap-servers: xzhwxx.xyz:9092
+        bootstrap-servers: localhost:9092
+#        bootstrap-servers: xzhwxx.xyz:9092
         acks: 1
         client-id: producer_customer
       #      retries: 3
@@ -266,6 +269,9 @@ biz:
           enable-auto-startup: true
           auto-commit-interval: 1
           concurrency: 3
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          auto-offset-reset: latest
         local:
           bootstrap-servers: localhost:9092
           group-id: local-customer-comsumer-group
@@ -273,3 +279,8 @@ biz:
           enable-auto-startup: true
           auto-commit-interval: 1
           concurrency: 3
+          key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+          value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+          auto-offset-reset: earliest
+          schema-registry-url: http://localhost:8081
+

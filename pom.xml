@@ -58,20 +58,20 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>-->
-<!--            <version>1.4.7.RELEASE</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>-->
+        <!--            <version>1.4.7.RELEASE</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
             <version>2.1.1.RELEASE</version>
-<!--            <scope>compile</scope>-->
+            <!--            <scope>compile</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -210,11 +210,11 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.itextpdf</groupId>-->
-<!--            <artifactId>itext-parent</artifactId>-->
-<!--            <version>1.0.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.itextpdf</groupId>-->
+        <!--            <artifactId>itext-parent</artifactId>-->
+        <!--            <version>1.0.0</version>-->
+        <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-asian -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -229,7 +229,7 @@
             <version>3.6.1</version>
         </dependency>
 
-<!--   application.yml 文件中写配置自动补全     -->
+        <!--   application.yml 文件中写配置自动补全     -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -244,15 +244,27 @@
         <!--        </dependency>-->
         <!-- mongodb end-->
 
-<!--        Java对象内存布局-->
-<!--        <dependency>-->
-<!--            <groupId>org.openjdk.jol</groupId>-->
-<!--            <artifactId>jol-core</artifactId>-->
-<!--            <version>0.09</version>-->
-<!--        </dependency>-->
+        <!--        Java对象内存布局-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.openjdk.jol</groupId>-->
+        <!--            <artifactId>jol-core</artifactId>-->
+        <!--            <version>0.09</version>-->
+        <!--        </dependency>-->
 
-
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+            <version>5.3.0</version> <!-- Also tried 2.0-SNAPSHOT  -->
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -280,7 +292,7 @@
                 </configuration>
             </plugin>
 
-<!--  flatten start   加了flatten,可以是使用占位符       -->
+            <!--  flatten start   加了flatten,可以是使用占位符       -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
@@ -308,9 +320,10 @@
                     </execution>
                 </executions>
             </plugin>
-<!--     flatten end       -->
+            <!--     flatten end       -->
         </plugins>
-<!--    可以在bootstrap.yml文件中使用@@    -->
+
+        <!--    可以在bootstrap.yml文件中使用@@    -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
