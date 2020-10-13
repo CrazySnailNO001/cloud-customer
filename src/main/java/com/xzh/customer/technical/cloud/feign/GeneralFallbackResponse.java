@@ -14,7 +14,7 @@ class GeneralFallbackResponse {
         return "请求失败,进入fallback,success";
     }
 
-    public String generalFail(){
+    String generalFail(){
         System.out.println(this.getClass().getSimpleName() + " hello请求失败,进入FeignFallbackImpl.fallback");
         return "请求失败,进入fallback,fail";
     }

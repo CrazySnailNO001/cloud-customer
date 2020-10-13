@@ -13,7 +13,7 @@ spring:
 ############################################################   Redis  start ##########################################################################
   redis:
     port: 6379
-#    host: xzhwxx.xyz
+#    host: aliCloud
     host: aliCloud
 #    host: localhost
     database: 0   #选择redis的db0作为缓存存储位置
@@ -257,29 +257,30 @@ biz:
         partitions: 3
       producer:
         bootstrap-servers: localhost:9092
-#        bootstrap-servers: xzhwxx.xyz:9092
+#        bootstrap-servers: aliCloud:9092
         acks: 1
         client-id: producer_customer
       #      retries: 3
       consumer:
         default:
-          bootstrap-servers: xzhwxx.xyz:9092
+          bootstrap-servers: aliCloud:9092
           group-id: default-customer-comsumer-group
           enable-auto-commit: true
           enable-auto-startup: true
           auto-commit-interval: 1
-          concurrency: 3
+          concurrency: 1
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
           value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-          auto-offset-reset: latest
+          auto-offset-reset: earliest
+#          auto-offset-reset: latest
         local:
           bootstrap-servers: localhost:9092
           group-id: local-customer-comsumer-group
           enable-auto-commit: true
           enable-auto-startup: true
           auto-commit-interval: 1
-          concurrency: 3
-          key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+          concurrency: 1
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
           value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
           auto-offset-reset: earliest
           schema-registry-url: http://localhost:8081

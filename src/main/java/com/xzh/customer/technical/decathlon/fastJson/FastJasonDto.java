@@ -7,9 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import com.xzh.customer.helper.LowerCaseClassNameResolver;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,7 +21,7 @@ import java.util.Date;
  */
 
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @ApiModel
 @Data
 @JsonTypeIdResolver(LowerCaseClassNameResolver.class)
@@ -31,6 +29,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)//解决实体类与json互转的时候 属性值为null的不参与序列化
 @JsonIgnoreProperties(ignoreUnknown = true) //过滤掉未知的属性
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)//json序列化策略 驼峰
+@Builder
 public class FastJasonDto implements Serializable {
 
     private static final long serialVersionUID = -3684100780450249163L;

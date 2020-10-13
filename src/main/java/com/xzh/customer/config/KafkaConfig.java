@@ -12,6 +12,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -119,7 +120,8 @@ public class KafkaConfig {
         if (!StringUtils.isEmpty(kafkaConsumerProperties.getSchemaRegistryUrl()))
             configs.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, kafkaConsumerProperties.getSchemaRegistryUrl());
 //        configs.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, "true");
-        configs.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 50);
+        //一次拉取消息数量
+        configs.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 5);
         return new DefaultKafkaConsumerFactory<>(configs);
     }
 
@@ -138,9 +140,23 @@ public class KafkaConfig {
         return createListenerContainerFactory(consumerFactory, localConsumerProperties);
     }
 
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, String> batchListenerContainerFactory(
+            ConsumerFactory<Object, Object> consumerFactory) {
+        KafkaBaseConsumerProperties batchConsumerProperties = new KafkaBaseConsumerProperties();
+        BeanUtils.copyProperties(defaultConsumerProperties, batchConsumerProperties);
+        batchConsumerProperties.setConcurrency(3);
+        return createListenerContainerFactory(consumerFactory, batchConsumerProperties);
+    }
+
     private ConcurrentKafkaListenerContainerFactory<String, String> createListenerContainerFactory(ConsumerFactory<Object, Object> consumerFactory, KafkaBaseConsumerProperties properties) {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConcurrency(properties.getConcurrency());
+        if (properties.getConcurrency() > 1) {
+            //设置并发量，小于或等于Topic的分区数
+            factory.setConcurrency(properties.getConcurrency());
+            //想要上面的设置生效,必须设置为批量监听
+            factory.setBatchListener(true);
+        }
         factory.setConsumerFactory(consumerFactory);
         factory.setAutoStartup(properties.isEnableAutoStartup());
         return factory;

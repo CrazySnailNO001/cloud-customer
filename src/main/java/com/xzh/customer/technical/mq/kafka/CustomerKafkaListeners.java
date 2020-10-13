@@ -2,9 +2,12 @@ package com.xzh.customer.technical.mq.kafka;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author ：xzh
@@ -26,8 +29,18 @@ public class CustomerKafkaListeners {
         log.info("[DefaultKafkaConsumer Test API] get message from kafka : [ {} ]", message);
     }
 
+//    @KafkaListener(topics = "Topic001",groupId = "ConsumerRecords",containerFactory = "batchListenerContainerFactory")
+    private void defaultTest(List<String> messages) {
+        log.info("[DefaultKafkaConsumer Test API] get message from kafka : [ {} ]", messages);
+    }
 
-    @KafkaListener(topics = "testTopic", containerFactory = "localListenerContainerFactory")
+    //    @KafkaListener(topics = "Topic001",groupId = "ConsumerRecord")
+    private void defaultTest(ConsumerRecord message) {
+        log.info("[DefaultKafkaConsumer Test API] get message from kafka : [ {} ]", message);
+    }
+
+
+    //    @KafkaListener(topics = "testTopic", containerFactory = "localListenerContainerFactory",concurrency = "3",autoStartup = "true")
 //    @KafkaListener(topics = "stockmovements", containerFactory = "localListenerContainerFactory")
     private void localTest(String message) {
         log.info("[LocalKafkaConsumer Test API] get message from kafka : [ {} ]", message);
