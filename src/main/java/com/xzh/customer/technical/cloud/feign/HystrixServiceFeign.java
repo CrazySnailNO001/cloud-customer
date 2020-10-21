@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "${feign.client.provide.name}", path = "${feign.client.provide.path}"
 //        ,fallback = FeignFallbackImpl.class
 //        ,configuration = FeignConfig.class   //只有feign发生异常才进来
+
+        , fallbackFactory = FeignFallbackFactory.class
 )
-//@FeignClient(name= "provider-service",fallbackFactory = FeignFallbackFactory.class)
-//@FeignClient(name= "provider-service")
 //@Component
 public interface HystrixServiceFeign {
     @GetMapping("/time_out/{time}")

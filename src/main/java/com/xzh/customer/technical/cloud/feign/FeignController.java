@@ -1,12 +1,10 @@
 package com.xzh.customer.technical.cloud.feign;
 
 import com.xzh.customer.technical.log.loggingAspect.PerformanceLog;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @author XZHH
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/feign")
 @PerformanceLog("feignController")
 public class FeignController {
-    @Autowired
+    @Resource
     private HystrixServiceFeign hystrixServiceFeign;
 
 //    @RequestMapping("/hello/{name}")
@@ -28,13 +26,12 @@ public class FeignController {
 //    }
 
     @GetMapping(value = "/hello", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
-    public String aa(String name) {
+    public String aa(@RequestParam String name) {
         return hystrixServiceFeign.hello(name);
     }
 
     @GetMapping("feign/time_out/{time}")
     public String findUserTimeOutTest(@PathVariable Long time) {
-        String user = this.hystrixServiceFeign.testTimeOutFeign(time);
-        return user;
+        return this.hystrixServiceFeign.testTimeOutFeign(time);
     }
 }
