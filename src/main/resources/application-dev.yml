@@ -5,20 +5,28 @@ server:
     max-threads: 200
   servlet:
     context-path: /customer
+
+    ############################################################   mybatis  start ##########################################################################
+
 mybatis:
   mapper-locations: classpath:mybatis/mappers/generator/mapper/*.xml
   configLocation: classpath:mybatis/mybatis-config.xml
+  ############################################################   mybatis  end ##########################################################################
 
 spring:
   application:
     name: customer-service
 
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    username: xzh
-    password: xzh100366!
-    url: jdbc:mysql://xzhwxx.xyz:3306/ms_customer
-    name: ms_customer
+  ############################################################   mysql  start ##########################################################################
+#使用了HikariCPConfig,无需再次配置
+#  datasource:
+#    type: com.zaxxer.hikari.HikariDataSource
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username: xzh
+#    password: xzh100366!
+#    url: jdbc:mysql://xzhwxx.xyz:3306/ms_customer
+#    name: ms_customer
+  ############################################################   mysql  end ##########################################################################
 
 ############################################################   Redis  start ##########################################################################
   redis:
@@ -70,6 +78,7 @@ spring:
       username: shiphub_local
       password: decathlon
       port: 27017
+
 ############################################################   Mongodb  end ##########################################################################
 
 ############################################################   springCloud Eureka  start ##########################################################################
@@ -262,6 +271,18 @@ info:
 
 biz:
   data:
+    hikari:
+      datasource:
+        url: jdbc:mysql://xzhwxx.xyz:3306/ms_customer
+        userName: xzh
+        password: xzh100366!
+        driverClassName: com.mysql.jdbc.Driver
+        poolName: CustomerHikariPool
+        maxPoolSize: 50
+        idleTimeout: 10000
+        maxLifetime: 600000
+        minIdle: 5
+
     kafka:
       stcom:
         partitions: 3

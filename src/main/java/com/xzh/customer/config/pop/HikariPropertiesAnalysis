@@ -1,0 +1,51 @@
+/* 可以在运行期通过JMX修改的属性 */
+
+   //从连接池获取连接时最大等待时间, 单位毫秒, 默认值 30秒, 至少 250ms
+   private volatile long connectionTimeout;
+   //检测连接是否有效的超时时间，单位毫秒, 默认 5000ms, 最小 250ms, 不能大于connectionTimeout
+   //
+   private volatile long validationTimeout;
+   //连接可以在池中的最大闲置时间, 单位毫秒, 至少 10s, 默认 10 分钟, 0 表示永不超时, 该配置不能大于maxLifetime
+   private volatile long idleTimeout;
+   //连接泄露检测的最大时间, 默认 0, 最低 2000毫秒; 也就是说, 连接从拿出连接池到还回连接池的总时间, 不能超出这个时间,超出的话就判定为泄露
+   private volatile long leakDetectionThreshold;
+   //连接最大存活时间, 单位毫秒, 最小允许值30000 ms, 默认30分钟, 推荐设置的比数据库的 wait_timeout 小几分钟
+   private volatile long maxLifetime;
+   //连接池中可以保留连接的最大数量, 比如: 100, 则连接池中的连接不能超过 100 个
+   private volatile int maxPoolSize;
+   //最小空闲连接数量, 默认 10 个, 也就是说, 连接池中最多可以保留 10 个空闲的连接, 多的会被关闭
+   private volatile int minIdle;
+
+   /* 在运行期不能修改的属性 */
+
+   //该属性设置一个SQL语句, 从连接池获取连接时, 先执行改 sql, 验证连接是否可用, 例子: select 1
+   //如果是使用了 JDBC 4 那么不建议配置这个选项, 因为JDBC 4 使用 ping 命令, 更加高效
+   private String connectionTestQuery;
+   //数据库驱动的dataSource类名, 与jdbcUrl, 必须二选一, 都配置的话, 优先使用该属性, 例子 : org.postgresql.ds.PGSimpleDataSource
+   private String dataSourceClassName;
+   private String dataSourceJndiName;
+   //数据库驱动类, 与dataSourceClassName不共存, 如果配置了这个属性, 那么jdbcUrl不能为空, 例子: com.mysql.jdbc.Driver
+   private String driverClassName;
+   //与dataSourceClassName, 必须二选一, 都配置的话, 忽略该属性, 例子: jdbc:mysql://localhost:3306/simpsons
+   private String jdbcUrl;
+   //必选, 数据库连接密码
+   private String password;
+   //连接池名称, 默认自动生成, Hikari 将它一般用于记录日志和 JMX 中, 如果有多个 Hikari 连接池, 建议配置一个有意义的名字
+   private String poolName;
+   private String transactionIsolationName;
+   //必选, 数据库连接用户名
+   private String username;
+   //自动提交事务, 默认值true
+   private boolean isAutoCommit;
+   //控制从池中获取的连接是否是只读模式, 需要数据库支持只读模式
+   private boolean isReadOnly;
+   //默认值true,是否快速失败,即在启动期间创建连接来验证关键参数是否有错误,如果不能建立连接,立即抛出错误,方便用户及时发现问题
+   private boolean isInitializationFailFast;
+   //
+   private boolean isIsolateInternalQueries;
+   //是否自动注册 JMX 相关的 bean, 用于运行时可以修改连接池设置
+   private boolean isRegisterMbeans;
+   //是否允许JMX 将连接池挂起
+   private boolean isAllowPoolSuspension;
+   //用户直接指定dataSource实例, 不使用 Hikari 创建的实例
+   private DataSource dataSource;
