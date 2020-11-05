@@ -5,10 +5,20 @@ server:
     max-threads: 200
   servlet:
     context-path: /customer
+mybatis:
+  mapper-locations: classpath:mybatis/mappers/generator/mapper/*.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
+
 spring:
   application:
     name: customer-service
 
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: xzh
+    password: xzh100366!
+    url: jdbc:mysql://xzhwxx.xyz:3306/ms_customer
+    name: ms_customer
 
 ############################################################   Redis  start ##########################################################################
   redis:

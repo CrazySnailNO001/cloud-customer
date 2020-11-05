@@ -4,7 +4,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
 public class CustomerKafkaListeners {
     private Integer partitions;
 
-    @KafkaListener(topics = "testTopic")
+//    @KafkaListener(topics = "testTopic")
     private void defaultTest(String message) {
         System.out.println(partitions);
         log.info("[DefaultKafkaConsumer Test API] get message from kafka : [ {} ]", message);

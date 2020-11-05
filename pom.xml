@@ -110,6 +110,11 @@
             <version>2.1.3.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
@@ -256,6 +261,13 @@
             <artifactId>kafka-avro-serializer</artifactId>
             <version>5.5.1</version> <!-- Also tried 2.0-SNAPSHOT  -->
         </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -321,6 +333,28 @@
                 </executions>
             </plugin>
             <!--     flatten end       -->
+
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <!-- mybatis-generator用于自动生成代码的配置文件 -->
+                    <configurationFile>src/main/resources/mybatis/generatorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <!-- 允许覆盖同名的文件 -->
+                    <overwrite>true</overwrite>
+                </configuration>
+                <!-- 配置JDBC驱动 -->
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.20</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
 
         <!--    可以在bootstrap.yml文件中使用@@    -->

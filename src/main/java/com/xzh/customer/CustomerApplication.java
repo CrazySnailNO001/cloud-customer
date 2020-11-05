@@ -1,5 +1,6 @@
 package com.xzh.customer;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAsync    //开启异步线程
 @EnableAspectJAutoProxy(exposeProxy = true)       //开启动态代理
 //@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
+@MapperScan("com.xzh.customer.technical.mybatis.dao")
 public class CustomerApplication {
 
 	public static void main(String[] args) {
