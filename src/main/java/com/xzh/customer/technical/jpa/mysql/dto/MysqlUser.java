@@ -2,6 +2,7 @@ package com.xzh.customer.technical.jpa.mysql.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.xzh.customer.technical.jpa.AuditModel;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 @Entity(name = "MysqlUser")
 @Table(name = "mysql_user")
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class MysqlUser implements Serializable {
+public class MysqlUser extends AuditModel implements Serializable {
     private static final long serialVersionUID = 2897562220313951500L;
 
     @Id
@@ -42,7 +43,4 @@ public class MysqlUser implements Serializable {
 
     @Column(name = "is_delete")
     private Integer isDelete;
-
-    @Column(name = "update_time")
-    private String updateTime;
 }

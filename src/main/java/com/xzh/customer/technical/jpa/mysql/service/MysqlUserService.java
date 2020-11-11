@@ -3,6 +3,7 @@ package com.xzh.customer.technical.jpa.mysql.service;
 import com.xzh.customer.technical.jpa.mysql.dto.MysqlUser;
 import com.xzh.customer.technical.jpa.mysql.repostory.MysqlUserRepository;
 import com.xzh.customer.utils.DefaultUtils;
+import com.xzh.customer.utils.ObjectUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -28,7 +29,9 @@ public class MysqlUserService {
     private MysqlUserRepository repository;
 
     public MysqlUser save(MysqlUser user) {
-        return repository.save(user);
+        MysqlUser toSave = new MysqlUser();
+        ObjectUtils.populateIgnoreNullField(user,toSave);
+        return repository.save(toSave);
     }
 
     public List<MysqlUser> findByCondition(Long id, String name, Integer age, String className, Integer pageNUm, Integer pageSize) {
