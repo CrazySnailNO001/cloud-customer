@@ -21,7 +21,7 @@ import java.lang.reflect.Modifier;
  * @version:
  */
 @Slf4j
-public class Dto2EntityUtils {
+public class ObjectUtils {
     /**
      * create by: xzh
      * description: Dto 转 Entity , Dto中为空的属性不填充

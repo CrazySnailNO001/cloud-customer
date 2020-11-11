@@ -73,7 +73,7 @@ spring:
 ############################################################   Mongodb  start ##########################################################################
   data:
     mongodb:
-      host: aliCloud
+      host: 101.132.135.14
       database: shiphub_stock
       username: shiphub_local
       password: decathlon

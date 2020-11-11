@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.db.mongo;
+package com.xzh.customer.technical.jpa.mongo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

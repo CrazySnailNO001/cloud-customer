@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.db.mongo;
+package com.xzh.customer.technical.jpa.mongo.user;
 
 
 import org.junit.Test;
