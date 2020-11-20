@@ -315,4 +315,6 @@ biz:
           value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
           auto-offset-reset: earliest
           schema-registry-url: http://localhost:8081
-
+    autoConfig:
+      property:
+        classF: hello

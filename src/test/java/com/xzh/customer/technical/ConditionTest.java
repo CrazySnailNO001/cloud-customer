@@ -1,7 +1,7 @@
 package com.xzh.customer.technical;
 
 import com.xzh.customer.CustomerApplication;
-import com.xzh.customer.technical.springboot.MyConditionBeanConfig;
+import com.xzh.customer.technical.springboot.conditional.MyConditionBeanConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +32,10 @@ public class ConditionTest {
     private MyConditionBeanConfig.ClassD classD;
     @Autowired(required = false)
     private MyConditionBeanConfig.ClassE classE;
+    @Autowired(required = false)
+    private MyConditionBeanConfig.ClassF classF;
+    @Autowired(required = false)
+    private MyConditionBeanConfig.ClassG classG;
 
     @Test
     public void test() {
@@ -40,5 +44,7 @@ public class ConditionTest {
         log.info("classC: {}", classC);
         log.info("classD: {}", classD);
         log.info("classE: {}", classE);
+        log.info("classE: {}", classF);
+        log.info("classE: {}", classG);
     }
 }
