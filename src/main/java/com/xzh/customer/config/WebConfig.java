@@ -1,7 +1,7 @@
 package com.xzh.customer.config;
 
-import com.xzh.customer.technical.decathlon.authInterceptor.AuthInterceptor;
-import com.xzh.customer.technical.decathlon.currentLimiting.redisLimiter.AccessLimitInterceptor;
+import com.xzh.customer.technical.spring.authInterceptor.AuthInterceptor;
+import com.xzh.customer.technical.juc.currentLimiting.redisLimiter.AccessLimitInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

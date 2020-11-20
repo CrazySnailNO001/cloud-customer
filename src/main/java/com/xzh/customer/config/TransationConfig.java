@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TransationConfig {
-//    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.xzh.customer.technical.decathlon.async..*.*(..))";
+//    private static final String AOP_POINTCUT_EXPRESSION = "execution (* com.xzh.customer.technical.juc.async..*.*(..))";
 //
 //    @Autowired
 //    private PlatformTransactionManager platformTransactionManager;

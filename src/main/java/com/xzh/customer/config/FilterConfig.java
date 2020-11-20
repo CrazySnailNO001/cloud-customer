@@ -1,7 +1,7 @@
 package com.xzh.customer.config;
 
-import com.xzh.customer.technical.decathlon.filter.MyTestFilter;
-import com.xzh.customer.technical.decathlon.filter.MyTestFilter02;
+import com.xzh.customer.technical.spring.filter.MyTestFilter;
+import com.xzh.customer.technical.spring.filter.MyTestFilter02;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

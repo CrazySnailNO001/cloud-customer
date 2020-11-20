@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringCloudApplication
 @EnableHystrixDashboard
-@EnableFeignClients(basePackages = {"com.xzh.customer.technical.cloud"})
+@EnableFeignClients(basePackages = {"com.xzh.customer.technical.springcloud"})
 @EnableTransactionManagement //开启事务
 @ComponentScan("com.xzh.customer") //包扫描
 @EnableAsync    //开启异步线程

@@ -21,12 +21,12 @@ public class MysqlUserController {
     @Resource
     private MysqlUserService mysqlUserService;
 
-    @PostMapping("/user")
+    @PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public MysqlUser save(@RequestBody MysqlUser user) {
         return mysqlUserService.save(user);
     }
 
-    @GetMapping(value = "user_condition",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "user_condition", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MysqlUser> findByCondition(
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "name", required = false) String name,
@@ -35,6 +35,6 @@ public class MysqlUserController {
             @RequestParam(name = "page_num", required = false) Integer pageNum,
             @RequestParam(name = "page_size", required = false) Integer pageSize) {
 
-        return mysqlUserService.findByCondition(id,name,age,className,pageNum,pageSize);
+        return mysqlUserService.findByCondition(id, name, age, className, pageNum, pageSize);
     }
 }
