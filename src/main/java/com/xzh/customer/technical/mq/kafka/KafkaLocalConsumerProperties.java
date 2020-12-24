@@ -9,6 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @modified By：
  * @version:
  */
-@ConfigurationProperties(prefix = "biz.data.kafka.consumer.local")
+@ConfigurationProperties(prefix = "sys.data.kafka.consumer.local")
 public class KafkaLocalConsumerProperties extends KafkaBaseConsumerProperties{
 }

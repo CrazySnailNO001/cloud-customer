@@ -50,7 +50,7 @@ public class MyConditionBeanConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "biz.data.autoConfig.property",name = "classF",havingValue = "hello")
+    @ConditionalOnProperty(prefix = "sys.data.autoConfig.property",name = "classF",havingValue = "hello")
     public ClassF classF(){
         return new ClassF();
     }

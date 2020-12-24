@@ -269,11 +269,11 @@ info:
 
 ############################################################   springboot actuator  end ##########################################################################
 
-biz:
+sys:
   data:
     hikari:
       datasource:
-        url: jdbc:mysql://xzhwxx.xyz:3306/ms_customer
+        url: jdbc:mysql://aliCloud:3306/ms_customer
         userName: xzh
         password: xzh100366!
         driverClassName: com.mysql.jdbc.Driver

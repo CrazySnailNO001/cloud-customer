@@ -86,7 +86,7 @@ public class LogAspect {
      */
     //@Pointcut("execution(* com.xzh.customer.service.impl..*(..))")
     //public void serviceImplPointcut() {}
-    @Pointcut("execution(* com.xzh.customer.congig.aopLog.*.*(..))")
+    @Pointcut("execution(* com.xzh.customer.technical.log.*.*(..))")
     public void daoImplPointcut() {
     }
 

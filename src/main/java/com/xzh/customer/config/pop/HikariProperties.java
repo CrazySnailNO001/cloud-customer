@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @modified By：xzh
  * @version: V1.0.0
  */
-@ConfigurationProperties(prefix = "biz.data.hikari.datasource")
+@ConfigurationProperties(prefix = "sys.data.hikari.datasource")
 @Data
 public class HikariProperties {
     private String url;

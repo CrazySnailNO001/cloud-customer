@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-@ConfigurationProperties(prefix = "biz.data.kafka.stcom")
+@ConfigurationProperties(prefix = "sys.data.kafka.stcom")
 @Setter
 public class CustomerKafkaListeners {
     private Integer partitions;

@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @modified By：
  * @version:
  */
-@ConfigurationProperties(prefix = "biz.data.kafka.producer")
+@ConfigurationProperties(prefix = "sys.data.kafka.producer")
 @Data
 public class KafkaProducerProperties {
     private String bootstrapServers;
