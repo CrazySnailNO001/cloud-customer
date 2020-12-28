@@ -2,7 +2,6 @@ package com.xzh.customer.technical.jpa.mysql.controller;
 
 import com.xzh.customer.technical.jpa.mysql.dto.MysqlUser;
 import com.xzh.customer.technical.jpa.mysql.service.MysqlUserService;
-import com.xzh.customer.technical.redis.DistributedLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,6 @@ public class MysqlUserController {
         return mysqlUserService.save(user);
     }
 
-    @DistributedLock(value = "mysql_user_lock")
     @GetMapping(value = "user_condition", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MysqlUser> findByCondition(
             @RequestParam(name = "id", required = false) Long id,

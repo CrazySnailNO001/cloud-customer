@@ -2,6 +2,7 @@ package com.xzh.customer.technical.jpa.mysql.service;
 
 import com.xzh.customer.technical.jpa.mysql.dto.MysqlUser;
 import com.xzh.customer.technical.jpa.mysql.repostory.MysqlUserRepository;
+import com.xzh.customer.technical.redis.DistributedLock;
 import com.xzh.customer.utils.DefaultUtils;
 import com.xzh.customer.utils.ObjectUtils;
 import org.springframework.data.domain.PageRequest;
@@ -31,13 +32,14 @@ public class MysqlUserService {
     @Resource
     private MysqlUserRepository repository;
 
-    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public MysqlUser save(MysqlUser user) {
         MysqlUser toSave = new MysqlUser();
-        ObjectUtils.populateIgnoreNullField(user,toSave);
+        ObjectUtils.populateIgnoreNullField(user, toSave);
         return repository.save(toSave);
     }
 
+    @DistributedLock(value = "mysql_user_lock")
     public List<MysqlUser> findByCondition(Long id, String name, Integer age, String className, Integer pageNUm, Integer pageSize) {
         Specification<MysqlUser> specification = getSpecification(id, name, age, className);
         Pageable pageable = PageRequest.of(DefaultUtils.valuationForNull(pageNUm, 0), DefaultUtils.valuationForNull(pageSize, 0));

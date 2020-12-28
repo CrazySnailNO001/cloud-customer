@@ -1,6 +1,6 @@
 package com.xzh.customer.config;
 
-import com.xzh.customer.config.pop.HikariProperties;
+import com.xzh.customer.config.pop.threadPool.HikariProperties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

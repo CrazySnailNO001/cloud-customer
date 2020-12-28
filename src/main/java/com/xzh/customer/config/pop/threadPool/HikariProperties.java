@@ -1,4 +1,4 @@
-package com.xzh.customer.config.pop;
+package com.xzh.customer.config.pop.threadPool;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

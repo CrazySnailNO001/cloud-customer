@@ -1,10 +1,10 @@
 package com.xzh.customer.technical.redis;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  **/
 @Component
 public class RedisUtils {
-    @Autowired
+    @Resource
     private RedisTemplate<String, String> redisTemplate;
 
     public static final Integer DEFAULT_TIMEOUT_MINUTES = 60;
@@ -37,7 +37,7 @@ public class RedisUtils {
                 sb.append(SPLIT);
             }
         }
-        sb = sb.deleteCharAt(sb.lastIndexOf(SPLIT));
+        sb.deleteCharAt(sb.lastIndexOf(SPLIT));
 
         return sb.toString();
     }

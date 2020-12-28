@@ -6,12 +6,13 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ：xzh
@@ -24,6 +25,8 @@ import java.lang.reflect.Method;
 @Configuration
 @Slf4j
 public class LockAop {
+    @Resource
+    private RedissonClient singleRedisSon;
 
     @Pointcut("@annotation(com.xzh.customer.technical.redis.DistributedLock)")
     public void distributedAop() {
@@ -34,18 +37,16 @@ public class LockAop {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         DistributedLock annotation = method.getAnnotation(DistributedLock.class);
-        String value = annotation.value();
-        RedissonClient client = Redisson.create();
-        RLock lock = client.getLock(value);
-        lock.lock();
-        log.info("[LockAop aroundApi] {} 上锁啦...", lock);
-
+        RLock lock = singleRedisSon.getLock(annotation.value());
+        lock.tryLock(annotation.time(), TimeUnit.SECONDS);
+        log.info("[LockAop aroundApi] {} 上锁啦...", lock.getName());
         try {
             return joinPoint.proceed();
         } finally {
             lock.unlock();
-            log.info("[LockAop aroundApi] {} 解锁啦...", lock);
+            log.info("[LockAop aroundApi] {} 解锁啦...", lock.getName());
+            //new 出来的client才需要shutdown,注入的如果shutdown会报错:RedissonShutdownException: Redisson is shutdown
+//            singleRedisSon.shutdown();
         }
     }
-
 }

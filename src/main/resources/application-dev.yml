@@ -271,6 +271,7 @@ info:
 
 sys:
   data:
+
     hikari:
       datasource:
         url: jdbc:mysql://aliCloud:3306/ms_customer
@@ -282,6 +283,12 @@ sys:
         idleTimeout: 10000
         maxLifetime: 600000
         minIdle: 5
+
+    redisson:
+      module: single
+      #地址
+      address: "redis://aliCloud:6379"
+
 
     kafka:
       stcom:
@@ -315,6 +322,7 @@ sys:
           value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
           auto-offset-reset: earliest
           schema-registry-url: http://localhost:8081
+
     autoConfig:
       property:
         classF: hello

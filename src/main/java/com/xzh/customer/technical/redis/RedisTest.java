@@ -2,7 +2,6 @@ package com.xzh.customer.technical.redis;
 
 import com.xzh.customer.technical.object.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/redis")
 @Slf4j
 public class RedisTest {
-    @Autowired
+    @Resource
     private RedisUtils redisUtils;
     @Resource
     private RedisTemplate<String, String> redisTemplate;
