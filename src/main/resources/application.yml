@@ -13,4 +13,10 @@ logging:
     org:
       springframework:
         boot:
-          autoconfigure: ERROR
+          autoconfigure: error
+    com:
+      xzh:
+        customer:
+          technical:
+            springboot:
+              importAnno: info

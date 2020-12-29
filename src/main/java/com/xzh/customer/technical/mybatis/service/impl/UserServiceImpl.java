@@ -1,5 +1,7 @@
 package com.xzh.customer.technical.mybatis.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xzh.customer.technical.mybatis.dao.generator.UserMapper;
 import com.xzh.customer.technical.mybatis.dto.User;
 import com.xzh.customer.technical.mybatis.service.IUserService;
@@ -21,8 +23,16 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> findAllUser() {
-        return userMapper.findAll();
+    public int add(User user) {
+        return userMapper.insert(user);
+    }
+
+    @Override
+    public PageInfo findAllUser(Integer pageNum, Integer pageSize) {
+        //自动的对PageHelper.startPage 方法下的第一个sql 查询进行分页
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> list = userMapper.findAll();
+        return new PageInfo<>(list);
     }
 
     @Override

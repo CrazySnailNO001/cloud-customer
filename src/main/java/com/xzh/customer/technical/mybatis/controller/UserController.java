@@ -1,15 +1,13 @@
 package com.xzh.customer.technical.mybatis.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.xzh.customer.common.ApiResponseDto;
 import com.xzh.customer.technical.mybatis.dto.User;
 import com.xzh.customer.technical.mybatis.service.IUserService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author ：xzh
@@ -19,18 +17,24 @@ import java.util.List;
  * @version: V1.0.0
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/mybatis")
 public class UserController {
     @Resource
     private IUserService userService;
 
     @GetMapping(value = "/all_user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<User> findAllUsers() {
-        return userService.findAllUser();
+    public PageInfo findAllUsers(@RequestParam(name = "page_num", required = false) Integer pageNum,
+                                 @RequestParam(name = "page_size", required = false) Integer pageSize) {
+        return userService.findAllUser(pageNum, pageSize);
     }
 
     @GetMapping(value = "/id", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User findById(@RequestParam int id) {
         return userService.findById(id);
+    }
+
+    @PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ApiResponseDto insert(@RequestBody User user) {
+        return ApiResponseDto.success(userService.add(user));
     }
 }
