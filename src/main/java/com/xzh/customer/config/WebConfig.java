@@ -27,13 +27,13 @@ public class WebConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
 
-        /**
+        /*
          * 实现权限管理
          */
         registry.addInterceptor(authInterceptor).addPathPatterns("/auth/**")
                 .excludePathPatterns("/auth/test002");
 
-        /**
+        /*
          * 实现限流功能
          */
         registry.addInterceptor(accessLimitInterceptor).addPathPatterns("/accessLimit/*");

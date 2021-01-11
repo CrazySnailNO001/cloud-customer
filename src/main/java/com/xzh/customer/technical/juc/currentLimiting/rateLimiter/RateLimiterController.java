@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.stream.IntStream;
@@ -24,17 +25,15 @@ import java.util.stream.IntStream;
 @Slf4j
 public class RateLimiterController {
 
-    @Autowired
+    @Resource
     private GuavaRateLimiterService rateLimiterService;
 
-    @ResponseBody
-    @RateLimitAnnotation(1)
+    @RateLimitAnnotation
     @RequestMapping("/test001")
     public String test() {
         return "success";
     }
 
-    @ResponseBody
     @RequestMapping("/test002")
     public String testRateLimiter() {
         if (rateLimiterService.tryAcquire())
@@ -49,7 +48,6 @@ public class RateLimiterController {
      * 所以最后10个任务的消耗时间为9s左右。
      * create time: 2020-01-05 15:22
      */
-    @ResponseBody
     @RequestMapping("/test003")
     public void test003() {
 

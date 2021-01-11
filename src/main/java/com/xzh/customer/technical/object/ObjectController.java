@@ -34,9 +34,7 @@ public class ObjectController {
 //        hashEqualsTest();
         try {
             testGeneric();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
@@ -81,7 +79,7 @@ public class ObjectController {
     }
 
 
-    public static void testGeneric() throws InvocationTargetException, IllegalAccessException {
+    private static void testGeneric() throws InvocationTargetException, IllegalAccessException {
 
         List<Integer> list = new ArrayList<>();
 
