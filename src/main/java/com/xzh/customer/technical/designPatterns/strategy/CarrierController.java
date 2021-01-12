@@ -1,6 +1,6 @@
-package com.xzh.customer.technical.decathlon.strategy;
+package com.xzh.customer.technical.designPatterns.strategy;
 
-import com.xzh.customer.technical.decathlon.strategy.constants.CarrierEnum;
+import com.xzh.customer.technical.designPatterns.strategy.constants.CarrierEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

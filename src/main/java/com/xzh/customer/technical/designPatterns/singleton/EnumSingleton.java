@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.decathlon.singleton;
+package com.xzh.customer.technical.designPatterns.singleton;
 
 public enum EnumSingleton {
     INSTANCE;

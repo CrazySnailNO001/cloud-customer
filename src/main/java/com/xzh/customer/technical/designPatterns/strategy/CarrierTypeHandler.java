@@ -1,6 +1,6 @@
-package com.xzh.customer.technical.decathlon.strategy;
+package com.xzh.customer.technical.designPatterns.strategy;
 
-import com.xzh.customer.technical.decathlon.strategy.constants.CarrierEnum;
+import com.xzh.customer.technical.designPatterns.strategy.constants.CarrierEnum;
 
 import java.lang.annotation.*;
 
