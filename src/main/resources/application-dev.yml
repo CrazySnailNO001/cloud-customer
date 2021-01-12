@@ -31,7 +31,6 @@ spring:
 ############################################################   Redis  start ##########################################################################
   redis:
     port: 6379
-#    host: aliCloud
     host: aliCloud
 #    host: localhost
     database: 0   #选择redis的db0作为缓存存储位置

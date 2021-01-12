@@ -19,7 +19,7 @@ singleServerConfig:
   #客户端名称
   clientName: customer
   #地址
-  address: "redis://localhost:6379"
+  address: "redis://aliCloud:6379"
   #数据库编号
   database: 0
   #密码

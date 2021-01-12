@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
+
+
+    <springProfile name="local">
+        <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>INFO</level>
+            </filter>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>
+                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
+                </pattern>
+            </layout>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="consoleLog"/>
+        </root>
+
+        <!-- 不同包，设置不同的日志级别 -->
+
+    </springProfile>
+
+
+
     <springProfile name="dev">
         <!--  appender: 是用来定义一个写日志记录的组件，常用的appender类有ConsoleAppender和RollingFileAppender，前者个是用来在控制台上打印日志，后者是将日志输出到文件中     -->
         <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
@@ -74,96 +98,44 @@
         </appender>
 
 
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="ConsoleAppender"/>
             <!--            <appender-ref ref="RollingFileAppender"/>-->
         </root>
     </springProfile>
 
-    <springProfile name="local">
-        <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
-            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-                <level>INFO</level>
-            </filter>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
-                </pattern>
-            </layout>
-        </appender>
+<!--    <springProfile name="production">-->
+<!--        <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+<!--                <level>INFO</level>-->
+<!--            </filter>-->
+<!--            <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--                <pattern>-->
+<!--                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n-->
+<!--                </pattern>-->
+<!--            </layout>-->
+<!--        </appender>-->
 
-        <root level="DEBUG">
-            <appender-ref ref="consoleLog"/>
-        </root>
-    </springProfile>
+<!--        <appender name="kafkaAppender" class="com.decathlon.shiphub.shipping.controller.helper.KafkaLogbackAppender">-->
+<!--            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+<!--                <level>INFO</level>-->
+<!--            </filter>-->
+<!--            <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--                <pattern>-->
+<!--                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n-->
+<!--                </pattern>-->
+<!--            </layout>-->
+<!--            <servers>de-kafka.dktapp.cloud:9092</servers>-->
+<!--            <topic>technique-logs</topic>-->
+<!--            <acks>0</acks>-->
+<!--            <lingerMs>1000</lingerMs>-->
+<!--            <maxBlockMs>0</maxBlockMs>-->
+<!--            <clientId>technique</clientId>-->
+<!--        </appender>-->
 
-    <springProfile name="preprod">
-        <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
-            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-                <level>INFO</level>
-            </filter>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
-                </pattern>
-            </layout>
-        </appender>
-
-        <appender name="kafkaAppender" class="com.decathlon.shiphub.shipping.controller.helper.KafkaLogbackAppender">
-            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-                <level>INFO</level>
-            </filter>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
-                </pattern>
-            </layout>
-            <servers>de-kafka.pp.dktapp.cloud:9092</servers>
-            <topic>technique-logs</topic>
-            <acks>0</acks>
-            <lingerMs>1000</lingerMs>
-            <maxBlockMs>0</maxBlockMs>
-            <clientId>technique</clientId>
-        </appender>
-
-        <root level="DEBUG">
-            <appender-ref ref="consoleLog"/>
-            <appender-ref ref="kafkaAppender"/>
-        </root>
-    </springProfile>
-
-    <springProfile name="production">
-        <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
-            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-                <level>INFO</level>
-            </filter>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
-                </pattern>
-            </layout>
-        </appender>
-
-        <appender name="kafkaAppender" class="com.decathlon.shiphub.shipping.controller.helper.KafkaLogbackAppender">
-            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-                <level>INFO</level>
-            </filter>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>
-                    [technique] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%-31t] [%-54logger{0}] %marker%m%ex{full} - %logger - %F:%L%n
-                </pattern>
-            </layout>
-            <servers>de-kafka.dktapp.cloud:9092</servers>
-            <topic>technique-logs</topic>
-            <acks>0</acks>
-            <lingerMs>1000</lingerMs>
-            <maxBlockMs>0</maxBlockMs>
-            <clientId>technique</clientId>
-        </appender>
-
-        <root level="INFO">
-            <appender-ref ref="consoleLog"/>
-            <appender-ref ref="kafkaAppender"/>
-        </root>
-    </springProfile>
+<!--        <root level="INFO">-->
+<!--            <appender-ref ref="consoleLog"/>-->
+<!--            <appender-ref ref="kafkaAppender"/>-->
+<!--        </root>-->
+<!--    </springProfile>-->
 </configuration>
