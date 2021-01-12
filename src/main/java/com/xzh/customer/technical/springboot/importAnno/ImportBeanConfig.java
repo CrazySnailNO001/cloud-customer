@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Import;
  * @version: V1.0.0
  */
 @Configuration
-@Import({ImportBeanDemo.class, UserServiceBeanDefinitionRegistrar.class})
+@Import({ImportBeanDemo.class, UserServiceBeanDefinitionRegistrar.class, MyImportSelector.class})
 public class ImportBeanConfig {
 }

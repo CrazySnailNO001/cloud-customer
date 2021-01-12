@@ -4,14 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author ：xzh
- * @date ：Created in 2020-11-20 17:11
+ * @date ：Created in 2021-01-12 17:01
  * @description：
  * @modified By：xzh
  * @version: V1.0.0
  */
 @Slf4j
-public class ImportBeanService {
-    public ImportBeanService() {
-        log.info("{} is init...", ImportBeanService.class);
+public class ImportBeanSelector {
+    public ImportBeanSelector() {
+        log.info("{} is init...", ImportBeanSelector.class);
     }
 }

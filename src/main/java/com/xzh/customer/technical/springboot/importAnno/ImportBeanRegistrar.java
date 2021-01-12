@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
  * @version: V1.0.0
  */
 @Slf4j
-public class ImportBeanDemo {
-    public ImportBeanDemo() {
-        log.info("{} is init...",ImportBeanDemo.class);
+public class ImportBeanRegistrar {
+    public ImportBeanRegistrar() {
+        log.info("{} is init...", ImportBeanRegistrar.class);
     }
 }

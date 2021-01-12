@@ -15,7 +15,7 @@ import org.springframework.core.type.AnnotationMetadata;
 public class UserServiceBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        BeanDefinitionBuilder userService = BeanDefinitionBuilder.rootBeanDefinition(ImportBeanService.class);
-        beanDefinitionRegistry.registerBeanDefinition("importBeanService", userService.getBeanDefinition());
+        BeanDefinitionBuilder userService = BeanDefinitionBuilder.rootBeanDefinition(ImportBeanRegistrar.class);
+        beanDefinitionRegistry.registerBeanDefinition("importBeanRegistrar", userService.getBeanDefinition());
     }
 }
