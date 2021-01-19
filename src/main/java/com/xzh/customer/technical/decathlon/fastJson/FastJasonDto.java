@@ -26,7 +26,7 @@ import java.util.Date;
 @Data
 @JsonTypeIdResolver(LowerCaseClassNameResolver.class)
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY) //任何级别的字段都可以自动识别
-@JsonInclude(JsonInclude.Include.NON_NULL)//解决实体类与json互转的时候 属性值为null的不参与序列化
+@JsonInclude(JsonInclude.Include.NON_NULL)//实体类与json互转的时候 属性值为null的不参与序列化
 @JsonIgnoreProperties(ignoreUnknown = true) //过滤掉未知的属性
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)//json序列化策略 驼峰
 @Builder

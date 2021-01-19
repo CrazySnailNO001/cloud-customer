@@ -13,9 +13,17 @@ import org.springframework.core.type.AnnotationMetadata;
  * @version: V1.0.0
  */
 public class UserServiceBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
+    /**
+     * create by: xzh
+     * description:
+     * create time: 2021-01-12 17:16
+     * @Param: annotationMetadata:通过这个参数可以拿到类的元数据信息
+     * @Param: beanDefinitionRegistry:通过这个参数可以操作IOC容器
+     * @return void
+     */
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        BeanDefinitionBuilder userService = BeanDefinitionBuilder.rootBeanDefinition(ImportBeanRegistrar.class);
-        beanDefinitionRegistry.registerBeanDefinition("importBeanRegistrar", userService.getBeanDefinition());
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(ImportBeanRegistrar.class);
+        beanDefinitionRegistry.registerBeanDefinition("importBeanRegistrar", builder.getBeanDefinition());
     }
 }
