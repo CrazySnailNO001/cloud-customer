@@ -1,5 +1,8 @@
 package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
 
+import com.xzh.customer.technical.designPatterns.proxyPattern.ProxyCustomer;
+import com.xzh.customer.technical.designPatterns.proxyPattern.ProxyCustomerImpl;
+
 /**
  * @author ：xzh
  * @date ：Created in 2021-01-19 15:44
@@ -9,7 +12,7 @@ package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
  */
 public class StaticProxyTest {
     public static void main(String[] args) {
-        StaticCustomer customer = new StaticProxyImpl();
+        ProxyCustomer customer = new ProxyCustomerImpl();
         customer.buyHouse();
         System.out.println("=======");
         StaticCustomerProxy customerProxy = new StaticCustomerProxy(customer);

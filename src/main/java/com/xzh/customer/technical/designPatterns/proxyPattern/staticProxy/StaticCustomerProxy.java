@@ -1,5 +1,7 @@
 package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
 
+import com.xzh.customer.technical.designPatterns.proxyPattern.ProxyCustomer;
+
 /**
  * @author ：xzh
  * @date ：Created in 2021-01-19 15:40
@@ -7,10 +9,10 @@ package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
  * @modified By：xzh
  * @version: V1.0.0
  */
-public class StaticCustomerProxy implements StaticCustomer {
-    private final StaticCustomer customer;
+public class StaticCustomerProxy implements ProxyCustomer {
+    private final ProxyCustomer customer;
 
-    public StaticCustomerProxy(StaticCustomer customer) {
+    StaticCustomerProxy(ProxyCustomer customer) {
         this.customer = customer;
     }
 

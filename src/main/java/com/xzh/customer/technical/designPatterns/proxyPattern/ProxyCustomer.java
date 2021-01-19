@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
+package com.xzh.customer.technical.designPatterns.proxyPattern;
 
 /**
  * @author ：xzh
@@ -7,6 +7,6 @@ package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
  * @modified By：xzh
  * @version: V1.0.0
  */
-public interface StaticCustomer {
+public interface ProxyCustomer {
     void buyHouse();
 }

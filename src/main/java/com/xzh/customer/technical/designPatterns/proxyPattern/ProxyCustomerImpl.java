@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
+package com.xzh.customer.technical.designPatterns.proxyPattern;
 
 /**
  * @author ：xzh
@@ -7,7 +7,7 @@ package com.xzh.customer.technical.designPatterns.proxyPattern.staticProxy;
  * @modified By：xzh
  * @version: V1.0.0
  */
-public class StaticProxyImpl implements StaticCustomer {
+public class ProxyCustomerImpl implements ProxyCustomer {
     @Override
     public void buyHouse() {
         System.out.println("我想买个房子.");
