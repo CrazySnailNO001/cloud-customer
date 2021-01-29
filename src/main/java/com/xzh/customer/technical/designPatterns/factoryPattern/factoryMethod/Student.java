@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.designPatterns.factoryPattern.abstractFactory;
+package com.xzh.customer.technical.designPatterns.factoryPattern.factoryMethod;
 
 /**
  * @author ：xzh
@@ -7,9 +7,9 @@ package com.xzh.customer.technical.designPatterns.factoryPattern.abstractFactory
  * @modified By：xzh
  * @version: V1.0.0
  */
-public class Teacher implements People {
+public class Student implements People {
     @Override
     public void work() {
-        System.out.println("教学...");
+        System.out.println("学习...");
     }
 }

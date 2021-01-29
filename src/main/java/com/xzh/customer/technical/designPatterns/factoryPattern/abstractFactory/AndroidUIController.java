@@ -2,14 +2,14 @@ package com.xzh.customer.technical.designPatterns.factoryPattern.abstractFactory
 
 /**
  * @author ：xzh
- * @date ：Created in 2021-01-27 17:03
+ * @date ：Created in 2021-01-29 11:02
  * @description：
  * @modified By：xzh
  * @version: V1.0.0
  */
-public class Student implements People {
+public class AndroidUIController implements UIController {
     @Override
-    public void work() {
-        System.out.println("学习...");
+    public void display() {
+        System.out.println("AndroidInterfaceController");
     }
 }

@@ -1,4 +1,4 @@
-package com.xzh.customer.technical.designPatterns.factoryPattern.abstractFactory;
+package com.xzh.customer.technical.designPatterns.factoryPattern.factoryMethod;
 
 /**
  * @author ：xzh
@@ -7,9 +7,9 @@ package com.xzh.customer.technical.designPatterns.factoryPattern.abstractFactory
  * @modified By：xzh
  * @version: V1.0.0
  */
-public class AbstractStudentFactory implements AbstractFactory {
+public class MethodTeacherFactory implements MethodFactory {
     @Override
     public People produce() {
-        return new Student();
+        return new Teacher();
     }
 }
