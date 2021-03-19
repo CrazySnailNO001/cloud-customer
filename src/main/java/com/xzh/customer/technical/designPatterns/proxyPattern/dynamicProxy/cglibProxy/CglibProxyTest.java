@@ -11,6 +11,7 @@ import com.xzh.customer.technical.designPatterns.proxyPattern.ProxyCustomerImpl;
  */
 public class CglibProxyTest {
     public static void main(String[] args) {
+
         //目标对象
         CglibCustomer customer = new CglibCustomer();
         //代理对象
