@@ -293,7 +293,7 @@ sys:
       stcom:
         partitions: 3
       producer:
-        bootstrap-servers: localhost:9092
+        bootstrap-servers: aliCloud:9092
 #        bootstrap-servers: aliCloud:9092
         acks: 1
         client-id: producer_customer

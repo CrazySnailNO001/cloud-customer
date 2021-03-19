@@ -8,10 +8,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @Configuration
 public class ThreadPoolConfig {
@@ -54,6 +51,11 @@ public class ThreadPoolConfig {
                 new ArrayBlockingQueue(64), namedThreadFactory, new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
-    public static final long THREAD_DEFAULT_TIMEOUT_MILLISECONDS = 8000;
+    @Bean
+    public ScheduledExecutorService scheduledExecutorService(){
+        return Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setNameFormat("Customer-scheduled-%d").build());
+    }
+
+    private static final long THREAD_DEFAULT_TIMEOUT_MILLISECONDS = 8000;
 
 }

@@ -5,12 +5,14 @@ import com.xzh.customer.technical.mq.kafka.KafkaConsumerProperties;
 import com.xzh.customer.technical.mq.kafka.KafkaLocalConsumerProperties;
 import com.xzh.customer.technical.mq.kafka.KafkaProducerProperties;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.errors.RetriableException;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,8 +25,11 @@ import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ConsumerAwareListenerErrorHandler;
 import org.springframework.kafka.support.ProducerListener;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: Zhonghui
@@ -76,22 +81,49 @@ public class KafkaConfig {
         return new KafkaProducerListener();
     }
 
-    static class KafkaProducerListener implements ProducerListener<String, String> {
+    @Resource
+    private KafkaTemplate<String, String> kafkaTemplate;
+    @Resource
+    private ScheduledExecutorService scheduledExecutorService;
+
+    class KafkaProducerListener implements ProducerListener<String, String> {
         @Override
         public void onSuccess(ProducerRecord<String, String> producerRecord, RecordMetadata recordMetadata) {
             log.error("kafka producer send message success,topic is [ {} ] message is [ {} ] and offset is {}", producerRecord.topic(), producerRecord.value(), recordMetadata.offset());
         }
 
+//        @SneakyThrows
+//        @Override
+//        public void onError(ProducerRecord producerRecord, Exception exception) {
+//            int retryTime = producerRecord.key() == null ? 0 : Integer.parseInt(producerRecord.key().toString());
+//            log.error("kafka retry,kafka producer error,topic is [ {} ] retryTime is {} message is [ {} ] and error message is {}", producerRecord.topic(), retryTime, producerRecord.value(), exception.getMessage());
+//            if (exception instanceof RetriableException && retryTime < 3) {
+//                Thread.sleep(2000);
+//                log.info("kafka retry start retry time: {}", retryTime);
+//                threadPoolExecutor.execute(() -> kafkaTemplate.send(producerRecord.topic(), retryTime + 1 + "", producerRecord.value().toString()));
+//                log.info("kafka retry end");
+//            }
+//        }
+
+        @SneakyThrows
         @Override
         public void onError(ProducerRecord producerRecord, Exception exception) {
-            log.error("kafka producer error,topic is [ {} ] message is [ {} ] and error message is {}", producerRecord.topic(), producerRecord.value(), exception.getMessage());
+            int retryTime = producerRecord.key() == null ? 0 : Integer.parseInt(producerRecord.key().toString());
+            log.error("[kafka retry API] kafka producer error,topic is [ {} ] retryTime is {} message is [ {} ] and error message is {}", producerRecord.topic(), retryTime, producerRecord.value(), exception.getMessage());
+            if (exception instanceof RetriableException && retryTime < 2) {
+                log.info("[kafka retry API] retry start retry time: {}", retryTime);
+                scheduledExecutorService.schedule(() -> {
+                    kafkaTemplate.send(producerRecord.topic(), retryTime + 1 + "", producerRecord.value().toString());
+                    log.info("[kafka retry API] retry end");
+                }, 5, TimeUnit.SECONDS);
+            }
         }
 
-        @Override
-        public void onError(String topic, Integer partition, String key, String value, Exception exception) {
-            log.error("kafka producer error, topic is {}, partition is {}, key is {}, value is {}, error mess is {}",
-                    topic, partition, key, value, exception.getMessage());
-        }
+//        @Override
+//        public void onError(String topic, Integer partition, String key, String value, Exception exception) {
+//            log.error("kafka producer error, topic is {}, partition is {}, key is {}, value is {}, error mess is {}",
+//                    topic, partition, key, value, exception.getMessage());
+//        }
     }
 
     //==================================================Consumer Config==============================================================================================
