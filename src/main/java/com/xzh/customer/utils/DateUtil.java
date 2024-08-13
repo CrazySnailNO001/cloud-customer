@@ -1,16 +1,17 @@
 package com.xzh.customer.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author ：xzh
@@ -126,7 +127,7 @@ public class DateUtil {
     }
 
     public static long getOverSeconds(String time) {
-        return getOverTime(time).toSeconds();
+        return getOverTime(time).getSeconds();
     }
 
     public static long getOverMinutes(String time) {
@@ -138,7 +139,7 @@ public class DateUtil {
     }
 
     public static long getOverSeconds(ZonedDateTime time) {
-        return getOverTime(time).toSeconds();
+        return getOverTime(time).getSeconds();
     }
 
     public static long getOverMinutes(ZonedDateTime time) {
